@@ -1,0 +1,284 @@
+---
+title: "Collecting and Parsing Tweets, Part I"
+date: 2019-05-29
+slug: collecting-and-parsing-tweets-part1
+categories: ['python', 'webscraping', 'pizza-to-the-polls']
+excerpt: "A three-part series explaining how I collected tweets from Twitter API and extracted polling addresses from parsed tweets. Part I will walk through how to use Twitter API Full Archive."
+math: true
+comment: true
+type: "post"
+bibliography: references.bib
+output:
+        blogdown::html_page:
+                toc: true
+                number_sections: true
+---
+
+
+<div id="TOC">
+<ul>
+<li><a href="#open-a-twitter-developer-account"><span class="toc-section-number">1</span> Open a Twitter developer account</a></li>
+<li><a href="#oauth2-authentication"><span class="toc-section-number">2</span> OAuth2 authentication</a></li>
+<li><a href="#count-the-number-of-requests-to-make"><span class="toc-section-number">3</span> Count the number of requests to make</a></li>
+<li><a href="#retrieve-tweets-for-every-hour"><span class="toc-section-number">4</span> Retrieve tweets for every hour</a><ul>
+<li><a href="#make-search-request"><span class="toc-section-number">4.1</span> Make search request</a></li>
+<li><a href="#scrape-the-response-json"><span class="toc-section-number">4.2</span> Scrape the response JSON</a></li>
+<li><a href="#pull-the-next-page-token"><span class="toc-section-number">4.3</span> Pull the next page token</a></li>
+</ul></li>
+<li><a href="#if-__name__-__main__"><span class="toc-section-number">5</span> <code>if __name__ == &quot;__main__&quot;</code></a></li>
+</ul>
+</div>
+
+<p>This is the first installment of a multi-part series waking through how I used Twitter API to collect, parse, and extract data for my project, <a href="https://github.com/amikami102/pizza_to_the_polls">“Locates long polling lines with Twitter data.”</a> Part I will go through how to make <a href="(https://developer.twitter.com/en/docs/tweets/search/api-reference/premium-search)">a search request to the API</a> and then scrape the relevant fields of attribute from the API response object.</p>
+<p>The following packages will be used:</p>
+<pre class="python"><code>import json
+import os
+import sys
+import base64
+import requests
+import logging</code></pre>
+<p><em>n.b.</em>: I purchased the premier tier API subscription because the sandbox/basic tier does not give you access to tweets older than 7 days. Even with premier subscription, the number of requests allowed each month can vary from 100 to 2,500 depending on what you’re paying. If you are interested in gathering a large number of old tweets, I highly recommend testing your code on tweets you can still access with the free, sandbox subscription before upgrading your subscription and deploying your code with a premier account.</p>
+<div id="open-a-twitter-developer-account" class="section level1">
+<h1><span class="header-section-number">1</span> Open a Twitter developer account</h1>
+<p>Before we begin, we need a Twitter account and [sign up for an individual developer account] (<a href="https://developer.twitter.com/en/apply-for-access.html" class="uri">https://developer.twitter.com/en/apply-for-access.html</a>). It may take some time for the application to be accepted depending on your purpose; in my case, I had to answer an email inquiry before my application was fully accepted. Once you have a developer account, execute the first two steps on the <a href="https://developer.twitter.com/en/account/get-started">“Get started” page</a>.</p>
+{{% figure src="/post/2019-05-29-webscraping-twitter-part-i_files/twitter_developer_get-started.png" caption="This is the page you should see when you successfully open a developer account." label="get-started-screenshot" %}}
+<p>Once your app is created, you will have API keys and tokens.
+{{% figure src="/post/2019-05-29-webscraping-twitter-part-i_files/twitter_dev-keys-and-tokens.png" caption="You should get a set of keys and tokens associated with your app." label="keys-and-tokens-screenshot" %}}</p>
+<p>These API keys and tokens should be saved separately from the rest of the code script either in a text file, in an OS environment as a variable, in your <em>.bash_profile</em>, etc. I followed this <a href="http://jonathansoma.com/lede/foundations-2019/classes/apis/keeping-api-keys-secret/">tutorial</a> and saved my credentials in a <code>.env</code> file.</p>
+</div>
+<div id="oauth2-authentication" class="section level1">
+<h1><span class="header-section-number">2</span> OAuth2 authentication</h1>
+<p>In this step, we will build an authorization request to Twitter API. According to the <a href="https://developer.twitter.com/en/docs/basics/authentication/overview/application-only">official documentation</a>, we only need the API consumer keys to make GET requests.</p>
+<pre class="python"><code># Load my credentials 
+from dotenv import load_dotenv
+load_dotenv()
+client_key = os.getenv(&#39;twitter_api_key&#39;)
+client_secret = os.getenv(&#39;twitter_api_secret&#39;)
+
+
+# Encode my keys in base64 per instructed on 
+# https://developer.twitter.com/en/docs/basics/authentication/overview/application-only
+key_secret = &#39;{}:{}&#39;.format(client_key, client_secret).encode(&#39;ascii&#39;)
+b64_encoded_key = base64.b64encode(key_secret).decode(&#39;ascii&#39;)
+
+# Build authorization request 
+auth_url = &#39;https://api.twitter.com/oauth2/token&#39;
+auth_headers = {
+    &#39;Authorization&#39;: &#39;Basic {}&#39;.format(b64_encoded_key),
+    &#39;Content-Type&#39;: &#39;application/x-www-form-urlencoded;charset=UTF-8&#39;}
+auth_data = {&#39;grant_type&#39;: &#39;client_credentials&#39;}
+auth_resp = requests.post(auth_url, headers = auth_headers, data = auth_data)</code></pre>
+<p>Before proceeding any further, I check for the status code. If the status code is “200”, go ahead and store that bearer access token returned by Twitter.</p>
+<pre class="python"><code># Check status code is 200, meaning &quot;okay&quot;
+if auth_resp.status_code != 200:
+    log.error(&quot;Authorization status code: {}&quot;.format(auth_resp.status_code))
+else:
+    log.info(&quot;Authorization request successful&quot;)
+
+# Store access token
+access_token = auth_resp.json()[&#39;access_token&#39;]</code></pre>
+</div>
+<div id="count-the-number-of-requests-to-make" class="section level1">
+<h1><span class="header-section-number">3</span> Count the number of requests to make</h1>
+<p>For my project, I needed to collect tweets posted by @PizzaToThePolls on 2018 Midterm Election Day. Let’s <a href="https://developer.twitter.com/en/docs/tweets/search/api-reference/premium-search.html">count</a> the number of tweets were posted every hour by @PizzaToThePolls on November 6th, 2018. Since I am accessing tweets that are older than 30-days, I am using the full-archive search endpoint. Initially I casted the net wide by setting <code>fromDate</code> to <code>201811060000</code> (6AM on November 6th). Upon inspection, I noticed that the account didn’t show much activity in the morning, so I pushed the timestamp to <code>201811061100</code>.</p>
+<p><strong>NB</strong>: The sandbox subscription does not include counts request in its package, so this portion is not applicable until you upgrade to premium. And even though the timeframe for both subscription tiers says “full history” like shown below, in actuality you cannot access tweets older than the last 7 days without upgrading to the premier tier.</p>
+{{% figure src="/post/2019-05-29-webscraping-twitter-part-i_files/twitter_dev-package-desc.png" caption="Be careful of the misleading package description." %}}
+<pre class="python"><code>base_url = &#39;https://api.twitter.com/1.1/tweets/search/&#39;
+search_headers = {&#39;Authorization&#39;: &#39;Bearer {}&#39;.format(access_token)}
+count_params = {&#39;query&#39;: &#39;@PizzaToThePolls&#39;,
+                &#39;fromDate&#39;: &#39;201811061100&#39;, 
+                &#39;toDate&#39;: &#39;201811062359&#39;,
+                &#39;bucket&#39;: &#39;hour&#39;}
+product = &quot;fullarchive&quot; # because the target tweets are older than 30days
+dev_name = &quot;research&quot; # the dev environment name you gave
+
+# make count request
+count_url = base_url + &#39;{}/{}/counts.json&#39;.format(product, dev_name)
+count_resp = requests.get(count_url, headers = search_headers, 
+                          params = count_params)
+                          
+# Check status code is 200
+if count_resp.status_code != 200:
+    log.error(&quot;Count request status code: {}&quot;.format(count_resp.status_code))
+else:
+    log.info(&quot;Count data request successful&quot;)
+
+# Save to file
+with open(os.path.join(&quot;data&quot;, &quot;counts.json&quot;), &quot;w&quot;) as j:
+    json.dump(count_resp.json(), j)</code></pre>
+<p>This is the API response of the code above.</p>
+<pre><code>{&#39;results&#39;: [{&#39;timePeriod&#39;: &#39;201811061100&#39;, &#39;count&#39;: 69},
+  {&#39;timePeriod&#39;: &#39;201811061200&#39;, &#39;count&#39;: 278},
+  {&#39;timePeriod&#39;: &#39;201811061300&#39;, &#39;count&#39;: 655},
+  {&#39;timePeriod&#39;: &#39;201811061400&#39;, &#39;count&#39;: 605},
+  {&#39;timePeriod&#39;: &#39;201811061500&#39;, &#39;count&#39;: 687},
+  {&#39;timePeriod&#39;: &#39;201811061600&#39;, &#39;count&#39;: 966},
+  {&#39;timePeriod&#39;: &#39;201811061700&#39;, &#39;count&#39;: 2022},
+  {&#39;timePeriod&#39;: &#39;201811061800&#39;, &#39;count&#39;: 2287},
+  {&#39;timePeriod&#39;: &#39;201811061900&#39;, &#39;count&#39;: 2915},
+  {&#39;timePeriod&#39;: &#39;201811062000&#39;, &#39;count&#39;: 3211},
+  {&#39;timePeriod&#39;: &#39;201811062100&#39;, &#39;count&#39;: 5393},
+  {&#39;timePeriod&#39;: &#39;201811062200&#39;, &#39;count&#39;: 5224},
+  {&#39;timePeriod&#39;: &#39;201811062300&#39;, &#39;count&#39;: 4015}],
+ &#39;totalCount&#39;: 28327,
+ &#39;requestParameters&#39;: {&#39;bucket&#39;: &#39;hour&#39;,
+  &#39;fromDate&#39;: &#39;201811061100&#39;,
+  &#39;toDate&#39;: &#39;201811062359&#39;}}</code></pre>
+<p>The total count is <span class="math inline">\(28,327\)</span>. With a premium subscription that allows for 100 requests per month and with the maximum number of tweets returned per request being 500, I can retrieve a maximum total of 50,000 tweets per month, which is more than enough to get my target tweets.</p>
+</div>
+<div id="retrieve-tweets-for-every-hour" class="section level1">
+<h1><span class="header-section-number">4</span> Retrieve tweets for every hour</h1>
+<p>We will now send a search request for tweets posted every hour from 11:00 of November 6th to 00:00:00 of November 7th. The whole code for my custom function <code>request_search</code> is shown below. I will break down the code and explain what each part is doing.</p>
+<pre class="python"><code>def request_search(fromHour, toHour, next_, pgcount):
+    &quot;&quot;&quot;
+    This function collects tweets posted by @PizzaToThePolls on
+    2018 Election Day during the hour &#39;fromDate&#39; to &#39;toDate&#39;.
+    Some hours are busier than others and will require multiple responses to 
+    cover all the data pages.
+    ======================
+    fromDate = &#39;YYYYMMDDHHMM&#39;
+    toDate = &#39;YYYYMMDDHHMM&#39;
+    pgcount = (int, page counter)
+    next_ = (str token for the next page of search result)
+    &quot;&quot;&quot;
+
+    
+    # set the search parameters
+    search_params = {&#39;query&#39;: &#39;@PizzaToThePolls&#39;,
+                     &#39;fromDate&#39;: fromDate, &#39;toDate&#39;: toDate,
+                     &#39;maxResults&#39;: 500, 
+                     &#39;next&#39;: next_}
+    if next_ == 0:
+        del search_params[&#39;next&#39;]
+        
+        
+    # Make search request
+    search_url = &#39;{}fullarchive/research.json&#39;.format(base_url)
+    search_resp = requests.get(search_url, headers = search_headers, 
+                               params = search_params)
+    
+    
+    # Check status code is 200
+    if search_resp.status_code != 200:
+        log.error(&quot;Request status code: {}&quot;.format(search_resp.status_code))
+    else:
+        log.info(&quot;Request successful&quot;)
+        
+    search_data = search_resp.json()
+    
+      # Save to file
+    filename = fromDate + &quot;-&quot; + toDate + &quot;-&quot; + str(pgcount) 
+    with open(os.path.join(&#39;data/raw&#39;, &quot;search_resp&quot; + filename + &quot;.json&quot;), &quot;w&quot;) as j:
+        json.dump(search_data, j)
+    
+    # Scrape the date created, text, and id of each tweet 
+    # in the search response. Add the dictionary to output list.
+    request_out = []
+    for res in search_data[&#39;results&#39;]:
+        t = {&#39;created_at&#39;: res[&#39;created_at&#39;], 
+             &#39;text&#39;: res[&#39;text&#39;], 
+             &#39;id&#39;: res[&#39;id&#39;]}
+        request_out.append(t)
+    
+    # Save to file
+    with open(os.path.join(&#39;data/01_scraped&#39;, &quot;scraped&quot; + filename +&quot;.json&quot;), &quot;w&quot;) as j:
+        json.dump(request_out, j)
+    
+    # Get &#39;next&#39; token for the next page if exists, else stop.
+    if &#39;next&#39; not in search_data:
+        log.info(&quot;We&#39;ve reached the last page&quot;)
+        return(0)
+    else:
+        return(search_data[&#39;next&#39;])</code></pre>
+<div id="make-search-request" class="section level2">
+<h2><span class="header-section-number">4.1</span> Make search request</h2>
+<p>All the arguments except for <code>pgcount</code> are fed into <code>search_params</code> to build a search query. The first time we make a request for tweets between <code>fromHour</code> to <code>toHour</code>, the argument <code>next_</code> is set to the default value of 0. Depending on how many tweets were posted in the hour interval, there may be multiple pages of results. If there is a next page, the JSON response will have a field called <code>next</code>, which will be the new value for <code>next_</code>. The raw JSON response is saved as JSON files in a subfolder, <code>data/raw</code>.</p>
+<pre class="python"><code>    search_params = {&#39;query&#39;: &#39;@PizzaToThePolls&#39;,
+                     &#39;fromDate&#39;: fromHour, 
+                     &#39;toDate&#39;: toHour,
+                     &#39;maxResults&#39;: 500}
+    if next_ != 0:
+        search_params[&#39;next&#39;] = next_
+    
+    # make search request
+    base_url = &#39;https://api.twitter.com/1.1/tweets/search/&#39;
+    product = &quot;fullarchive&quot;
+    dev_name = &quot;research&quot; # the dev environment name 
+    search_url = base_url + &#39;{}/{}.json&#39;.format(product, dev_name)
+    search_resp = requests.get(search_url, headers = search_headers, 
+                               params = search_params)
+    # Check status code is 200
+    if search_resp.status_code != 200:
+        log.error(&quot;Request status code: {}&quot;.format(search_resp.status_code))
+    else:
+        log.info(&quot;Request successful&quot;)
+        
+    search_data = search_resp.json()
+    
+    # Save to file
+    filename = fromHour + &quot;-&quot; + toDate + &quot;-&quot; + str(pgcount) 
+    with open(os.path.join(&quot;data/raw&quot;, &quot;search_resp&quot; + filename + &quot;.json&quot;), &quot;w&quot;) as j:
+        json.dump(search_data, j)</code></pre>
+</div>
+<div id="scrape-the-response-json" class="section level2">
+<h2><span class="header-section-number">4.2</span> Scrape the response JSON</h2>
+<p>Most of the elements in the raw response is superfluous, so it is better to scrape the relevant fields—the time at which the tweet was written, the text, and the ID— into a dictionary object and append it to an output list, which is saved as a json file. These json files are saved to a subfolder, You can view a sample of response JSON in the official documentation: <a href="https://developer.twitter.com/en/docs/tweets/search/api-reference/get-search-tweets" class="uri">https://developer.twitter.com/en/docs/tweets/search/api-reference/get-search-tweets</a>.&quot;)</p>
+<pre class="python"><code>    request_out = [] 
+    for res in search_data[&#39;results&#39;]:
+        t = {&#39;created_at&#39;: res[&#39;created_at&#39;], 
+             &#39;text&#39;: res[&#39;text&#39;], 
+             &#39;id&#39;: res[&#39;id&#39;]}
+        request_out.append(t)
+        
+    # Save to file
+    with open(os.path.join(&quot;data/01_scraped&quot; + filename +&quot;.json&quot;), &quot;w&quot;) as j:
+        json.dump(request_out, j)</code></pre>
+</div>
+<div id="pull-the-next-page-token" class="section level2">
+<h2><span class="header-section-number">4.3</span> Pull the next page token</h2>
+<p>At the end of the function, we check whether the JSON response contains a ‘next’ token. If there is, the function returns the <code>next</code> token; otherwise, it returns <code>0</code>.</p>
+<pre class="python"><code>    # Get &#39;next&#39; token for the next page if exists, else stop.
+    if &#39;next&#39; not in search_data:
+        log.info(&quot;We&#39;ve reached the last page&quot;)
+        return(0)
+    else:
+        return(search_data[&#39;next&#39;])</code></pre>
+</div>
+</div>
+<div id="if-__name__-__main__" class="section level1">
+<h1><span class="header-section-number">5</span> <code>if __name__ == &quot;__main__&quot;</code></h1>
+<p>Finally, we will run the whole module as a script. Here is where <code>pgcount</code> comes into play. <code>pgcount</code> marks which page of results we are currently on. See the section ‘Pagination’ in the API documentation: <a href="https://developer.twitter.com/en/docs/tweets/search/api-reference/premium-search.html" class="uri">https://developer.twitter.com/en/docs/tweets/search/api-reference/premium-search.html</a>.&quot;) The counter starts at <code>0</code> and is updated every time there is a next page.</p>
+<pre class="python"><code>if __name__ == &quot;__main__&quot;:
+    
+    with open(os.path.join(&quot;data&quot;, &quot;counts.json&quot;), &quot;r&quot;) as j:
+       counts = json.load(j)[&#39;results&#39;]
+    for count in counts:
+       fromHour = count[&#39;timePeriod&#39;]
+       toHour = str(int(fromHour) + 100)
+       c = 0
+       to_next = request_search(fromHour, toHour, pgcount = c, next_ = 0)
+       while(to_next != 0):
+           c += 1
+           to_next = request_search(fromHour, toHour, pgcount = c, next_ = to_next)
+    sys.exit()</code></pre>
+<p>Here is a glimpse of what <em>scraped201811061100-201811061200-0.json</em> looks like. The JSON file contains the first page of the API response results for tweets posted between 11am and 12pm.</p>
+<pre class="python"><code>with open(&quot;data/scraped/scraped201811061100-201811061200-0.json&quot;, &quot;r&quot;) as j:
+    res = json.load(j)[:5]</code></pre>
+<pre><code>[{&#39;created_at&#39;: &#39;Tue Nov 06 11:59:40 +0000 2018&#39;,
+  &#39;text&#39;: &#39;RT @CarolineAFish: Helpful information via @tinaLillet for voting in New York City TODAY. Most importantly, @PizzaToThePolls 😉🍕🍕#GetOutTheV…&#39;,
+  &#39;id&#39;: 1059777331026448384},
+ {&#39;created_at&#39;: &#39;Tue Nov 06 11:59:03 +0000 2018&#39;,
+  &#39;text&#39;: &#39;RT @wserrino: Pizza to the Polls  -- If People are waiting in long lines - help them stay happy and stay to vote by contacting @pizzatothep…&#39;,
+  &#39;id&#39;: 1059777175656783877},
+ {&#39;created_at&#39;: &#39;Tue Nov 06 11:57:02 +0000 2018&#39;,
+  &#39;text&#39;: &#39;RT @PizzaToThePolls: @AnnaSekiguchi 16 pizzas from dominos should be on the way!&#39;,
+  &#39;id&#39;: 1059776669307813888},
+ {&#39;created_at&#39;: &#39;Tue Nov 06 11:56:24 +0000 2018&#39;,
+  &#39;text&#39;: &#39;RT @PizzaToThePolls: Happy voting everyone!! Here’s hoping your voting journey is quick and easy today but if you get stuck in line, we’re…&#39;,
+  &#39;id&#39;: 1059776509693448192},
+ {&#39;created_at&#39;: &#39;Tue Nov 06 11:55:05 +0000 2018&#39;,
+  &#39;text&#39;: &quot;It&#39;s election day.   If you are in line when the polls close, stay in line.   You still get to vote.   If the lines… https://t.co/TGpGjLCIIu&quot;,
+  &#39;id&#39;: 1059776179366965248}]</code></pre>
+<hr>
+<p>Next in Part II, we will be extracting polling addresses from these tweets!:round_pushpin:</p>
+</div>

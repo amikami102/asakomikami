@@ -1,0 +1,44 @@
+---
+date: 2019-04-02
+title: "Introducing a replication project of Warren (2019)"
+slug: introduce-replicate-warren
+excerpt: "A replication project of a sociology study investigating the career path of recent PhD graduates until they land their junior faculty positions at top U.S. sociology departments."
+categories: ['replicate warren', 'webscraping', 'python', 'R']
+comment: true
+bibliography: references.bib
+output: 
+        blogdown::html_page:
+                toc: false
+                number_sections: false
+---
+
+I have a project called `replicate_warren` (a private Github repository), where I am trying to replicate a sociology study, @warren2019. To put it succinctly, @warren2019 collected data from résumés of sociology PhD graduates and measured how over-achieving recent PhD graduates had to be to land a junior faculty jobs at top sociology departments in the United States. I want to replicate the study in the political science field. Due to a similar market structure, I expect to see the same trends in hiring---i.e., higher hurdles for publication numbers and longer post-doc years---but I am also interested in looking at how the trends differ among the four subfields in political science, namely American politics, comparative politics, political theory, and international relations. For instance, of the four subfields, political theory majors have the most dismal job prospects. It would be valuable to visualize the differences among subfields with data. 
+
+# Method of data collection
+
+Warren selected top 21 sociology departments by triangulating multiple PhD program rankings. For these 21 departments, he identified new assistant professors and newly promoted associate professors. Next, Warren had undergraduate research assistants look up the junior faculty members' CVs, their web pages, and Google Scholar pages to identify the type and number of published work. For the new assistant professors, he was interested in their career path during the gap years between completing their degree and starting their faculty appointment. 
+
+Besides having research assistants, Warren was able to streamline this process significantly by using American Sociological Association's annual guidebook called [*Guide to Graduate Departments of Sociology*](http://www.asanet.org/news-events/asa-news/2018-guide-graduate-departments-sociology-now-available), which lists sociology departments that offer graduate-level degrees along with the faculty roster. Unfortunately, the American Political Science Association does not have a similar publication, so I will be scraping political science department websites to obtain a similar list of junior-level faculty. Once I have these rosters, I will look up résumés and personal websites to collect the following features for each new assistant professors and newly promoted associate professors: 
+
+- `position`: (factor) assistant or associate;
+- `yr_graduated`: (int) PhD graduation year;
+- `school_graduated`: (factor) school that he/she received PhD;
+- `gender`: (factor) male or female;
+- `subfield`: (factor) American, comparative, international, or theory;
+- `n_publication`: (int) number of publications until landing in assistant position or until promotion to associate position;
+- `n_gap_year`: (factor) the number of gap years.
+
+For each publication counted in `n_publication`, I would collect the following attributes:
+
+- `type`: (factor) peer-reviewed article, book chapter, book;
+- `journal`: (str) if peer-reveiwed article, the title of the journal;
+- `method`: (factor) qualitative, quantitative, or mixed.
+
+<hr>
+
+The project is available publicly at my Github project respository. 
+
+<div class="github-card" data-github="amikami102/replicate_warren" data-width="400" data-height="" data-theme="default"></div>
+<script src="//cdn.jsdelivr.net/github-cards/latest/widget.js"></script>
+
+# References

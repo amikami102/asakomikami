@@ -1,0 +1,75 @@
+---
+title: 'Geometric and triangle inequalities'
+date: '2019-05-03'
+slug: geometric-and-triangle-inequality
+excerpt: "Addendum to 'Correlation as standardized covariance' post."
+categories: ['math']
+math: true
+meta: true
+output:
+        blogdown::html_page:
+                toc: true
+---
+
+The last post, "Correlation as standardized covariance", mentions geometric and triangle inequalities, i.e.
+
+- *geometric inequality*: $\left| ab \right| \leq \dfrac{a^2 + b^2}{2}$ for all $a, b \in \mathbb{R}$
+- *triangle inequality for expectations*: $\left| \E [X] \right| \leq \E [ \left| X \right|]$ for a discrete or continuous random variable $X$.
+
+They look deceptively simple and intuitive, but I was surprised by how frequently they can be used in proofs. As I expect to refer to them again in some other blog posts, I want to write them down here. 
+
+*n.b.*: I draw the material from Professor Daniel Weiner's course, *Mathematics of Statistics*, taught at BU. All the credit goes to him while all mistakes are mine. 💁 
+
+
+
+## Geometric inequality
+
+![geometric inequality](/post/2019-05-03-geometric-and-triangle-inequality_files/tikz-diagram.png){width=600px}
+
+The diagram above demonstrates one way of expressing the geometric inequality. Let $a, b \in \mathbb{R}$.  
+        $$
+        \begin{align*}
+        0 \leq (a + b)^2  &= a^2 + 2ab + b^2 \\
+         - 2ab &\leq a^2 + b^2 \\
+         |ab| &\leq \dfrac{a^2 + b^2 }{2} \qquad \heartsuit.
+        \end{align*}
+        $$
+In other words, the size of the product is dominated by the average of the sum of squares. 
+*n.b.*: The inequality still holds if we started from $0 \leq (a-b)^2$. 
+
+
+
+## Triangle inequality
+
+The geometric inequality looks at the size of the product; the triangle inequality is a statement about the size of the sum: for all $a, b \in \mathbb{R}$,
+        $$ \left| a + b \right| \leq \left| a \right| + \left| b \right|.$$
+Since the expectation of a random variable is also a summation, we can apply the triangle inequality to random variables to claim that
+        $$ \left| \E [X] \right| \leq \E \big[ \left| X \right| \big].$$
+Assume that $X$ is a discrete random variable with pmf $p(x)$ and a finite first moment, i.e. $\E[X] \leq \infty$.
+$$
+\begin{align*}
+        \left| \E [X] \right| & = \left| \sum_x x p(x) \right| \\
+        & \leq \sum_x \left|x  p(x) \right| \qquad \text{by triangle inequality for $\mathbb{R}$} \\
+        & = \sum_x \left| x \right| p(x) \qquad \text{because $p(x)$ is non-negative} \\
+        & = \E \big[ \left| X \right| \big] \qquad \heartsuit.
+\end{align*}
+$$
+An integral is the limit of summation, so intuitively the continuous case should hold and proceed similarly. Assume that $X$ is a continuous random variable with pdf $f(x)$ and a finite first moment.
+       $$
+       \begin{align*}
+       \left|\E[ X] \right| &= \left| \int_{-\infty}^\infty x f(x) \, dx \right| \\
+       & =  \left| \int_{-\infty}^0 x f(x) \, dx+ \int_{0}^\infty x f(x) \, dx \right|\\
+       & \leq \left| \int_{-\infty}^0 x f(x) \, dx \right| + \left| \int_{0}^\infty x f(x) \, dx \right| \qquad \text{by triangle inequality} \\
+       & = \int_{-\infty}^0 \left|x \right| f(x) \, dx + \int_{0}^\infty \left|x \right| f(x) \, dx \qquad \text{because $f(x)$ is non-negative} \\
+       & = \int_{-\infty}^{\infty} \left|x\right| f(x) \, dx \\
+       & = \E \big[  \left| X \right| \big] \qquad \heartsuit.
+       \end{align*}
+       $$
+**NB**: I'm sure there are analytical scaffoldings that should be made explicit, but that is beyond my capability. 
+
+---
+
+Both of these inequalities were used [in the proof](https://asakomikami.com/2019/05/01/correlation-is-just-standardized-covariance/) of $\left| \rho(X, Y) \right| \leq 1$ for any vector of random variables, $(X, Y)$. 
+
+
+       

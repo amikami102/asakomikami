@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>`rnoaa` on Asako Mikami</title>
+    <link>/categories/rnoaa/</link>
+    <description>Recent content in `rnoaa` on Asako Mikami</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Wed, 10 Apr 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/categories/rnoaa/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Collecting historical weather data, Part I</title>
+      <link>/2019/04/10/weather-data-part1/</link>
+      <pubDate>Wed, 10 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/2019/04/10/weather-data-part1/</guid>
+      <description>1 Obtain NOAA API key token 2 Obtain weather data with rnoaa::ncdc() 2.1 Code breakdown  3 Obtain weather station data with rnoaa::ncdc_stations() 4 Join dataframes 5 Create spatial point dataframes 6 (Optional) Plot the data   As part of a coauthored project investigating whether rain deters voters from going to the polls in US elections, I had to collect past weather data. This series walks you through how to gather data on the daily total precipitation level from November 1st to November 7th, 2006, where the last day is the 2006 midterm election.</description>
+    </item>
+    
+  </channel>
+</rss>

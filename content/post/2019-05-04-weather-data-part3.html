@@ -1,0 +1,197 @@
+---
+title: "Collecting historical weather data, Part III"
+date: '2019-05-04'
+slug: weather-data-part3
+draft: false
+categories: ['weather data', 'GIS', 'R']
+excerpt: "We're going to end this series with a blast and create an animated map."
+math: true
+meta: true
+comment: true
+bibliography: references.bib
+output:
+        blogdown::html_page:
+                toc: true
+                number_sections: true
+---
+
+
+<div id="TOC">
+<ul>
+<li><a href="#cleaning-the-data"><span class="toc-section-number">1</span> Cleaning the data</a></li>
+<li><a href="#visualizing-the-data"><span class="toc-section-number">2</span> Visualizing the data</a></li>
+<li><a href="#references">References</a></li>
+</ul>
+</div>
+
+<p>To recount, <a href="{{% ref "/post/2019-04-18-weather-data-part2" %}}">Part II</a> interpolated the precipitation data we obtained in Part I in order to get county-level precipitation values. Part III (this post) will clean the data further in preparation for the visualization stage and then create a gif animation of chloreoploth maps plotting precipitation level in inches over the seven days leading up to the 2006 midterm election.</p>
+<p><em>n.b.</em>: I am back to using R as I did in <a href="{{% ref "/post/2019-04-10-weather-data-part1" %}}">Part I</a>. I could not and still cannot install <code>geopandas</code>, a python package for GIS data analysis and visualization, on my MacOS. What I glossed from reading the discussions <a href="https://stackoverflow.com/questions/34427788/how-to-successfully-install-pyproj-and-geopandas">here</a>, <a href="https://github.com/geopandas/geopandas/issues/237">here</a>, and <a href="https://www.youtube.com/watch?v=UA8Zp7tdmjs">here</a> is that <code>geopandas</code> depends on older version of existing packages and switching to older versions causes complications.</p>
+<div id="cleaning-the-data" class="section level1">
+<h1><span class="header-section-number">1</span> Cleaning the data</h1>
+<p>There are three things I need to do to clean the data:</p>
+<ol style="list-style-type: decimal">
+<li>recode negative precipitation values to 0;</li>
+<li>convert units from tenths of millimeter to inches;</li>
+<li>attach 5-digit FIPS code label to each county.</li>
+</ol>
+<p>The goal is to produce seven dataframe objects, each with the following attributes.</p>
+<pre><code>GEO_ID (string, unique id for each county)
+rainfall (numeric, average precipitation level)
+fips_code (factor, 5-digit FIPS code)</code></pre>
+<p>During <a href="{{% ref "/post/2019-04-18-weather-data-part2" %}}">the interpolation process</a>, some of the counties received negative values because <code>arcpy.UniversalKriging()</code> did not allow us to set a lower bound at 0. This is one reason why I wonder if universal Kriging may be too complex for precipitation data.</p>
+<p>I will be recoding any negative values to zero. According to the <a href="https://www1.ncdc.noaa.gov/pub/data/ghcn/daily/readme.txt">README documentation for GHCN Daily Ver 3.24</a>, the precipitation level is recorded in tenths of mm. I will be converting the unit to inches by dividing the values by 254.</p>
+<p>First, load the libraries.</p>
+<pre class="r"><code>library(rio)
+library(tidyverse)</code></pre>
+<p>Second, I also create a dataframe called <code>counties10</code>, which is basically the attribute data portion of the spatial polygon dataframe contained in <a href="https://www.census.gov/geographies/mapping-files/time-series/geo/carto-boundary-file.2010.html"><code>gz_2010_us_050_00_500k.shp</code></a>, the 2010 cartographic boundary file for US counties published by the US Census Bureau. Note that this is the same cartographic boundary file I used in <a href="https://asakomikami.com/2019/04/18/weather-data-part2">Part II</a>.</p>
+<pre class="r"><code>## download and extract zip file from 2010 Census
+base_url &lt;- &quot;http://www2.census.gov/geo/tiger/GENZ2010/&quot;
+zipname &lt;- &quot;gz_2010_us_050_00_500k&quot;
+
+zipname %&gt;% map(~ {
+        zipfile_url &lt;- paste0(base_url, zipname, &quot;.zip&quot;)
+        temp &lt;- tempfile()
+        download.file(zipfile_url, temp)
+        unzip(temp, exdir = zipname)
+        unlink(temp)
+})
+counties10 &lt;- readOGR(zipname, &quot;gz_2010_us_050_00_500k&quot;)@data %&gt;%
+        select(GEO_ID, NAME, STATE, COUNTY)</code></pre>
+<p>Here, <code>GEO_ID</code> is the unique identifier for each county; <code>STATE</code> and <code>COUNTY</code> give the FIPS code for the state and county respectively.</p>
+<pre><code>&gt; head(counties10)
+          GEO_ID      NAME STATE COUNTY
+0 0500000US01029  Cleburne    01    029
+1 0500000US01031    Coffee    01    031
+2 0500000US01037     Coosa    01    037
+3 0500000US01039 Covington    01    039
+4 0500000US01041  Crenshaw    01    041
+5 0500000US01045      Dale    01    045</code></pre>
+<p>I will be using <em>county-rainfall&lt;date&gt;.dbf</em> files produced in [Part II](({{% ref "/post/2019-04-18-weather-data-part2" %}}). Recall that these dbf files contain the statistics of precipitation data for each county, but I am only going to use the mean statistic. Here are the first several rows of <em>county-rainfall2006-11-01.dbf</em>.</p>
+<pre><code>&gt; head(import(&#39;county-rainfall2006-11-01.dbf&#39;))
+          GEO_ID ZONE_CODE COUNT      AREA
+1 0500000US01029         1  1447 1.447e+09
+2 0500000US01031         2  1762 1.762e+09
+3 0500000US01037         3  1728 1.728e+09
+4 0500000US01039         4  2702 2.702e+09
+5 0500000US01041         5  1580 1.580e+09
+6 0500000US01045         6  1458 1.458e+09
+          MIN        MAX      RANGE         MEAN
+1  9.80359554 36.2611084 26.4575129 17.396314212
+2  0.00000000  0.2362743  0.2362743  0.018611072
+3 -0.02778177 33.7240906 33.7518723 11.776352534
+4 -0.01088683  0.2124358  0.2233227  0.004046564
+5  0.00000000  2.7885394  2.7885394  0.606575074
+6  0.00000000  0.2863130  0.2863130  0.093945961
+         STD         SUM
+1 7.04554499 25172.46666
+2 0.04843627    32.79271
+3 8.81281628 20349.53718
+4 0.02082290    10.93382
+5 0.75927404   958.38862
+6 0.09835679   136.97321</code></pre>
+<p>The following function will create <em>county-rainfall&lt;date&gt;.rds</em>.</p>
+<pre class="r"><code>clean_rainfall &lt;- function(dbf_file){
+        #-----------------------------
+        # Load .dbf file and clean the data by
+        # 1.) recoding negative rainfall values to 0,
+        # 2.) convert the unit to inches, and
+        # 3.) add FIPS code label to each county. 
+        #-----------------------------
+        # dbf_file (str, name of the dbf file)
+        #-----------------------------
+        
+        df &lt;- dbf_file %&gt;% import() %&gt;%
+                # adjust the levels of GEO_ID to match that of the counties10
+                mutate(GEO_ID = factor(GEO_ID, 
+                                levels(counties10$GEO_ID)), 
+                       # recode to 0 if rainfall level is negative
+                       MEAN = ifelse(MEAN &lt; 0, 0, MEAN),
+                       # convert unit to inches 
+                       rainfall = MEAN/254) %&gt;%
+                select(GEO_ID, MEAN, rainfall) %&gt;%
+                left_join(counties10,
+                            by = &quot;GEO_ID&quot;) %&gt;%
+                # create a column called &quot;fips_code&quot;
+                mutate(fips_code = paste0(as.character(STATE),
+                                         as.character(COUNTY)) %&gt;% 
+                               as.character()) %&gt;%
+                select()
+        
+        # save to file 
+        rds_name &lt;- dbf_file %&gt;% 
+                str_replace(pattern = dirname(.), 
+                            replacement = &quot;&quot;) %&gt;%
+                str_replace(pattern = &quot;.dbf&quot;, replacement = &quot;.rds&quot;)
+        export(df, file = rds_name)
+}</code></pre>
+<pre class="r"><code>list.files(&quot;zonal_stat&quot;,
+           pattern = &quot;^county-rainfall\\d{4}-\\d{2}-\\d{2}.dbf$&quot;,
+           full.names = TRUE) %&gt;% 
+        map(~ clean_rainfall(.x))</code></pre>
+<p>Here is what the first few rows of <em>county-rainfall2006-11-01.rds</em> look like.</p>
+<pre><code>&gt; head(import(&#39;county-rainfall2006-11-01.rds&#39;))
+          GEO_ID     rainfall fips_code
+1 0500000US01029 6.848943e-02     01029
+2 0500000US01031 7.327194e-05     01031
+3 0500000US01037 4.636359e-02     01037
+4 0500000US01039 1.593135e-05     01039
+5 0500000US01041 2.388091e-03     01041
+6 0500000US01045 3.698660e-04     01045</code></pre>
+</div>
+<div id="visualizing-the-data" class="section level1">
+<h1><span class="header-section-number">2</span> Visualizing the data</h1>
+<p>I am going to create a gif animation showing the precipitation level from November 1st to November 7th, 2006.</p>
+<pre class="r"><code>library(rio)
+library(tmap)
+library(magrittr)
+library(tidyverse)
+library(sf)</code></pre>
+<p>In the next chunk, I am going to combine the seven rds files we created in the previous sections to one dataframe object called <code>full</code> while adding a date column. This combined dataframe will be joined to <code>us_counties</code> by the <code>GEO_ID</code> attribute.</p>
+<p><em>NB</em>: Notice that whereas in the previous section I read <code>gz_2010_us_050_00_500k</code> as spatial polygons dataframe using the <code>rgdal</code> package, here I am reading the same shapefiles as simple features object using the <code>sf</code> package. For more on geospatial data management, I would recommend reading Section 2 <a href="https://geocompr.robinlovelace.net/spatial-class.html">“Geopgraphic Data in R”</a> in <span class="citation">Lovelace, Nowosad, and Muenchow (2019)</span> and <a href="https://r-spatial.github.io/sf/index.html">the <code>sf</code> package vignettes</a>.</p>
+<p>The beauty of reading geospatial data as simple features object as opposed to SpatialPolygonsDataFrame is that I can access the geometry attribute as another column instead of another dataframe separate from that of non-geometric attributes. In creating the gif animation, I will be essentially grouping the combined data by the <code>date</code> attribute. And because the geometry feature is a polygon (i.e. more complex than points), it is necessary that I make my maps out of one dataframe object.</p>
+<pre class="r"><code># read gz_2010_us_050_00_500k shapefiles as sf object
+us_counties &lt;- st_read(&quot;data/gz_2010_us_050_00_500k&quot;, &quot;gz_2010_us_050_00_500k&quot;)
+
+# combine county-rainfall&lt;date&gt;.rds files into one dataframe 
+full &lt;- list.files(full.names = TRUE,
+           pattern = &quot;^county-rainfall2006-\\d{2}-\\d{2}.rds$&quot;) %&gt;%
+        map_df(~{
+                .x %&gt;% import() %&gt;% 
+                        mutate(date = str_extract(.x, &quot;2006-[0-9]{2}-[0-9]{2}&quot;)) 
+                }) 
+
+# join `full` to `us_counties`
+us_counties %&lt;&gt;% left_join(full, by = &quot;GEO_ID&quot;)</code></pre>
+<p>The final chunk is all <code>tmap</code>.</p>
+<p>First, I draw a boundary box that captures the coterminous US territory (<code>usa_main</code>). Next, I create an animated map using <code>tm_facets</code>, which splits and groups the dataframe <code>us_counties</code> by date. <code>tmap</code> uses ImageMagick to convert the faceted maps into a gif animation, and this might take some time and computer memory. The gif file can be played with <code>magick::image_read()</code>.</p>
+<pre class="r"><code># set a boundary box
+usa_main &lt;- matrix(c(-125, 25, -66, 50), nrow = 2, byrow = FALSE)
+
+# tmap animation
+tmap_mode(&#39;plot&#39;)
+facet_anim &lt;- tm_basemap(server = &quot;OpenStreetMap&quot;)  + 
+        tm_shape(us_counties, bbox = usa_main) + 
+        tm_fill(&quot;rainfall&quot;, colorNA = NULL) +
+        tm_facets(along = &quot;date&quot;, ncol = 1, nrow = 1, drop.NA.facets = TRUE,
+                  drop.empty.facets = TRUE, showNA = FALSE) + 
+        tm_layout(legend.position = c(&quot;right&quot;, &quot;bottom&quot;))
+tmap_animation(tm = facet_anim, 
+               filename = &quot;fig/rainfall2006.gif&quot;, 
+               delay = 50)
+magick::image_read(&quot;fig/rainfall2006.gif&quot;)</code></pre>
+<p><img src="/post/2019-05-04-collecting-historical-weather-data-part-iii_files/rainfall2006.gif" /></p>
+<p>Upon inspection, it turns out that I am missing one county in Vermont and one county in Washington for all seven days. It’s possible that in 2006, these missing counties used to be part of an adjacent county but then branched off to become their own counties in 2010. I am not too concerned about this missing data because they are both remote parts of the United States.</p>
+<hr>
+<p>This completes the series on collecting historical weather data. There are so many tutorials on GIS data analysis and visualization, but this series, “Collecting historical weather data,” begins from retrieving raw data from the NOAA server and performing interpolation on it, which I thought were rarely covered. I even had to rely heavily on <span class="citation">Cooperman (2017)</span>’s supplementary material to the second part. I hope that this series will help others doing similar work.</p>
+</div>
+<div id="references" class="section level1 unnumbered">
+<h1>References</h1>
+<div id="refs" class="references">
+<div id="ref-cooperman">
+<p>Cooperman, Alicia Dailey. 2017. “Randomization Inference with Rainfall Data: Using Historical Weather Patterns for Variance Estimation.” <em>Political Analysis</em> 25 (3). <a href="https://doi-org.ezproxy.bu.edu/10.1017/pan.2017.17">https://doi-org.ezproxy.bu.edu/10.1017/pan.2017.17</a>.</p>
+</div>
+<div id="ref-lovelace2019geocomputation">
+<p>Lovelace, Robin, Jakub Nowosad, and Jannes Muenchow. 2019. <em>Geocomputation with R</em>. CRC Press. <a href="https://geocompr.robinlovelace.net/">https://geocompr.robinlovelace.net/</a>.</p>
+</div>
+</div>
+</div>

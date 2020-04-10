@@ -1,0 +1,225 @@
+---
+title: "Collecting historical weather data, Part II"
+type: "post"
+date: '2019-04-18'
+slug: weather-data-part2
+categories: ['weather data', 'GIS', 'python']
+excerpt: "Part II performs Kriging interpolation on weather station data to get precipitation measures for each county."
+comment: true
+math: true
+bibliography: "references.bib"
+output: 
+  blogdown::html_page:
+    toc: true
+    number_sections: true
+---
+
+`prcp_data` we created in [Part I](`r blogdown::shortcode('ref', '/post/2019-04-10-weather-data-part1')`) is not useful in and of itself because it only shows precipitation values recorded by weather stations. Ultimately, I want to be able to say that county $i$ for $i = 1, \ldots, n$ on day $t$ for $t = 1, \ldots, T$ had $x_{it}$ level of precipitation. This post will cover how to achieve this using `arcpy` python package from ArcGIS. 
+
+[`arcpy`](https://pro.arcgis.com/en/pro-app/arcpy/get-started/what-is-arcpy-.htm) only comes with ArcGIS Desktop, which is a paid software for processing and analyzing GIS data. Besides being a paid service, there are many problems with ArcGIS:
+
+- ArcGIS Desktop runs on Windows but not on MacOS. 
+- The documentation is unclear about what the function arguments mean and the kind of output files the function produces.
+- It is a pain in the butt to import `arcpy` module into Anaconda's Spyder.
+- Things tend to go wrong when you write modular code with `arcpy` functions. 
+
+
+
+
+I am going to follow the steps documented in Section 2.3 "Kriging Interpolation" of @cooperman's [supplementary material](https://doi-org.ezproxy.bu.edu/10.1017/pan.2017.17). There are other interpolation methods such as inverse distance weighing (IDW); see @walter; @noori_etal.
+
+I will be using the following python modules and setup:
+
+```{python, eval = FALSE}
+import arcpy
+from arcpy import env
+from arcpy.sa import *
+import os
+import re
+import requests, zipfile, io
+import shutil
+from dbfread import DBF
+from pandas import DataFrame
+
+# arcpy set up
+arcpy.CheckoutExtension("Spatial") # Spatial Analyst license comes with ArcGIS Pro
+env.parallelProcessingFactor = "100%"
+env.overwriteOutput = True
+
+# directories 
+pt_dir = # directory storing your input shapefiles
+step1_dir = # directory storing outputs from step 1
+step2_dir = # directory storing outputs from step 2
+step3_dir = # directory storing outputs from step 3
+step4_dir = # directory storing outputs from step 4
+```
+
+
+
+# Reproject shapefile {#step1}
+
+Section 2.3 "Kriging Interpolation" in @cooperman begins as follows:
+
+> I used python code for ArcMap to interpolate county values in the following way. I projected the weather station points to the USA Contiguous Equidistant Conic projection with units of meters, which preserves distances and is appropriate for the Kriging process.
+
+Since my shapefiles, *rainfall<date>.shp*, were projected to NAD 1983 projection in the final step of Part I, I need to reproject the station points to USA Contiguous Equidistant Conic projection. The functions I use are 
+- [`arcpy.SpatialReference()`](https://pro.arcgis.com/en/pro-app/arcpy/classes/spatialreference.htm), which creates a spatial reference object with the specified projection, and
+-  [`arcpy.Project_management()`](https://pro.arcgis.com/en/pro-app/tool-reference/data-management/project.htm) which creates a shapefile with the new projection. 
+
+
+At the end, I do a sanity check by printing out the unit name of the new shapefile. 
+```{python, eval = FALSE}
+pattern = re.compile("^rainfall(?P<date>[0-9]{4}\-[0-9]{2}\-[0-9]{2})\.shp$")
+shp_files = [file for file in os.listdir(pt_dir)]
+
+for file in shp_files:
+    date = pattern.search(file).group("date")
+        
+    # reproject the rainfall shapefile
+    input = os.path.join(pt_dir, file)
+    proj = arcpy.SpatialReference("USA Contiguous Equidistant Conic")
+    output = "rainfall" + date + "_reproj"
+    arcpy.Project_management(input, os.path.join(step1_dir, output), proj) 
+    
+    # check that the reprojected shapefile now has meter units 
+    pr = arcpy.Describe(os.path.join(step1_dir, output)).spatialReference
+    print("Rainfall shapefile for {} has units {}".format(date, pr.linearUnitName))
+
+```
+
+# Perform Kriging interpolation {#step2}
+ 
+Next, @cooperman describes how she performed the Kriging interpolation: 
+
+> I ran the Kriging procedure using Universal linear drift with cell size of 4,000 meters squared ... The default and preferred specification is to create a cell value based on the 12 nearest data points, since not all counties have weather stations in them.
+
+Following this description, I created a Kriging model with [`arcpy.KrigingModelUniversal()`](https://pro.arcgis.com/en/pro-app/arcpy/spatial-analyst/krigingmodeluniversal-class.htm).
+
+```{python, eval = FALSE}
+cellsize = 4000 # "cell size of 4000 meters squared"
+field = "value" # column name storing precipitation data
+kradius = RadiusVariable(12)
+kModel = KrigingModelUniversal("LINEARDRIFT")
+```
+
+The input of `Kriging()` is the reprojected point shapefile from [Step 1](#step1), and the output is a raster layer consisting of three files: *krigouput\<date\>.tif*, *krigoutput\<date\>.aux.xml*, *krigoutput\<date\>.tfw*. At the end, I do a sanity check by inspecting the average rainfall level. 
+
+```{python, eval = FALSE}
+pattern = re.compile("^rainfall(?P<date>[0-9]{4}\-[0-9]{2}\-[0-9]{2})\_reproj\.shp$")
+reproj_files = [file for file in os.listdir(step1_dir) if pattern.search(file) != None]
+for file in reproj_files:
+    date = pattern.search(file).group("date")
+    
+    # run Kriging and save output as "krigoutput<date>.tif"
+    input_data = os.path.join(shpdir, file)
+    outKrig = Kriging(input_data, field, kModel, cellsize, kradius)
+    tifname = os.path.join(step2_dir, "krigoutput" + date + ".tif")
+    outKrig.save(tifname)
+    
+    # print the average rainfall across all cells of the raster
+    print("Average rainfall for {}: {}".format(date,                 arcpy.GetRasterProperties_management(tifname, "MEAN")))
+```
+
+# Reproject raster layer {#step3}
+
+@cooperman continues:
+
+
+> The raster values from the Kriging analysis were Projected to USA Contiguous Albers Equal Area Conic, to preserve area in order to take spatial averages across county areas. The raster was resampled to cell sizes of 1000 meters squared ... .
+
+So, now we need to reproject the raster layer from [Step 2](#step2) to USA Contiguous Albers Equal Area Conic. Like Step 1, I created the spatial reference object with `arcpy.SpatialReference()`. Raster layers are reprojected with `arcpy.ProjectRaster_management()`. Note that this function also takes care of resampling by feeding the argument, `cell_size`.
+
+```{python, eval = FALSE}
+pattern = re.compile("^krigoutput(?P<date>[0-9]{4}\-[0-9]{2}\-[0-9]{2}).tif$")
+krig_files = [file for file in os.listdir(krigout_dir) if pattern.search(file) != None]
+env.workspace = step3_dir
+for file in krig_files: 
+    inRas = os.path.join(krigout_dir, file)
+    date = pattern.search(file).group("date")
+    
+    # Reproject Kriging output raster and resample. Save output to "krigoutput<date>_reproj.tif"
+    outProj = arcpy.SpatialReference("USA Contiguous Albers Equal Area Conic")
+    outRas = os.path.join(step3_dir, "temp.tif")
+    cellsize = "1000" # "resample to cell sizes of 1000 meters squared"
+    arcpy.ProjectRaster_management(inRas, outRas, outProj, "BILINEAR", cell_size = cellsize)
+    
+    # print the average rainfall across all cells of the raster
+    print("Average rainfall for {}: {}".format(date, arcpy.GetRasterProperties_management(outRas, "MEAN")))
+    
+    # rename "temp" files as "krigoutput<date>_reproj"
+    temps = [t for t in os.listdir(step3_dir) if t.startswith("temp")]
+    for temp in temps:
+        filename, file_ext = os.path.splitext(temp)
+        filename = "krigoutput" + date + "_reproj"
+        shutil.move(os.path.join(step3_dir, temp), os.path.join(step3_dir, filename + file_ext))
+        
+# write a function that removes any file named "temp" from a directory
+def remove_temp(dirname):
+    """
+    dirname (str)
+    """
+    for temp in os.listdir(dirname):
+        if temp.startswith("temp"):
+            os.remove(temp)
+
+# remove any temp files
+remove_temp(env.workspace)
+```
+
+The unexpectedly hard part about this step was setting the desired file name. Originally, when I set a specific filename in the line `outRas = ...`, I get an error message ["000354: The name contains invalid characters"](https://pro.arcgis.com/en/pro-app/tool-reference/tool-errors-and-warnings/001001-010000/tool-errors-and-warnings-00351-00375-000354.htm). My solution was to name the output as *temp.tif* temporarily and then rename the output files after running `arcpy.ProjectRaster_managemenet()`. At the end, I end up with a raster layer consisting of 4 files: *krigoutput\<date\>\_reproj.tif*, *krigoutput\<date\>\_reproj.xml*, *krigoutput\<date\>\_reproj.ovr*, *krigoutput\<date\>\_reproj.tfw*. 
+
+
+# Obtain average total rainfall for each county
+
+We're almost there! From Cooperman (2017):
+
+> Zonal Statistics as Table was used on the resampled, projected kriging values to export a .dbf file with an average rainfall value for each county-date.
+
+
+The key function is [`arcpy.gp.ZonalStatisticsAsTable_sa()`](https://pro.arcgis.com/en/pro-app/tool-reference/spatial-analyst/zonal-statistics-as-table.htm). To prepare for this final step, we need the 2010 US county cartographic boundary shapefiles from [the US Census Bureau](https://www.census.gov/geographies/mapping-files/time-series/geo/carto-boundary-file.2010.html). I downloaded *gz\_2010\_us\_050\_00\_500k.zip* into my root directory and unzipped it there. 
+
+
+*n.b.*: Navigating the US Census Bureau's website can be difficult. To access boundary shapefiles, look for the word, "Geography Mapping Files" in the navigation tabs. I also recommend reading [the documentation](https://www.census.gov/programs-surveys/geography/technical-documentation/naming-convention/cartographic-boundary-file.html) to understand the file name structure. 
+
+
+Like in [Step 3](#step3), I give the output file of `arcpy.gp.ZonalStatisticsAsTable_sa()` a temporary file name, *temp.dbf* because giving a specific file name within this function raises the error code 000354. I do a sanity check by printing out the first five rows of *temp.dbf* before renaming the output files. At the end, I am left with three files: *county-rainfall\<date\>.dbf*, *county-rainfall\<date\>.xml*, and *county-rainfall\<date\>.cpg*. 
+
+```{python, eval = FALSE}
+# layer name of US county cartographic boundary .shp file from the 2010 Census
+layer_name = "gz_2010_us_050_00_500k"
+
+pattern = re.compile("^krigoutput(?P<date>[0-9]{4}\-[0-9]{2}\-[0-9]{2})\_reproj.tif$")
+krig_reproj_files = [file for file in os.listdir(step3_dir) if pattern.search(file)!= None]
+for file in krig_reproj_files:
+    date = pattern.search(file).group("date")
+    
+    # Get zonal statistics as table 
+    counties = os.path.join("data", layer_name, layer_name + ".shp") # each county is a zone for which we compute the mean
+    zone_id = "GEO_ID" # this is the unique id for each county in gz_2010_us_050_00_500k.shp
+    temp = "temp.dbf"
+    arcpy.gp.ZonalStatisticsAsTable_sa(counties, zone_id, file, temp, "NODATA", "ALL")
+    
+    ## print out the first 5 rows(counties) of the dbf
+    frame = DataFrame(iter(DBF(os.path.join(step4_dir, temp))))
+    print("First five rows of {}: \n {}".format(date, frame.head(5))
+    
+    
+    ## rename the temporary file to "county-rainfall<date>"
+    temps = [t for t in os.listdir(step3_dir) if t.startswith("temp")]
+    for temp in temps:
+        filename, file_ext = os.path.splitext(temp)
+        filename = "county-rainfall" + date
+        shutil.move(os.path.join(step3_dir, temp), os.path.join(step4_dir, filename + file_ext))
+
+# remove temporary files
+remove_temp(step3_dir)
+```
+
+
+<hr>
+
+This completes the interpolation of precipitation data. In [Part III](`r blogdown::shortcode('ref', '/post/2019-05-04-weather-data-part3')`), I will be cleaning this data further before producing a visualization. 
+
+*n.b.*: I am not trained in GIS data analysis, so I had to Google and research on my own to figure out what I was doing. If there are suggestions on how to improve this tutorial (e.g. more precise explanation, alternative procedure), I would love to read them in the disqus forum below. :point_down:
+
+# References

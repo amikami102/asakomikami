@@ -1,0 +1,184 @@
+---
+title: "The Central Limit Theorem As I Understand It"
+date: '2019-05-19'
+slug: central-limit-theorem
+categories: ['math']
+excerpt: "The Central Limit Theorem took a long time for me to understand it. What helped me was to take it in little by little."
+meta: false
+draft: false
+comment: true
+bibliography: references.bib
+csl: apa.csl
+output:
+        blogdown::html_page:
+                toc: true
+                number_sections: true
+---
+
+
+<div id="TOC">
+<ul>
+<li><a href="#the-central-limit-theorem-for-iid-samples"><span class="toc-section-number">1</span> The Central Limit Theorem for IID Samples</a><ul>
+<li><a href="#the-fetus"><span class="toc-section-number">1.1</span> The Fetus</a></li>
+<li><a href="#the-baby-clt"><span class="toc-section-number">1.2</span> The Baby CLT</a></li>
+<li><a href="#the-adult-clt-v1.0"><span class="toc-section-number">1.3</span> The Adult CLT, v1.0</a></li>
+<li><a href="#the-adult-clt-v2.0"><span class="toc-section-number">1.4</span> The Adult CLT, v2.0</a></li>
+</ul></li>
+<li><a href="#the-central-limit-theorem-for-non-iid-samples"><span class="toc-section-number">2</span> The Central Limit Theorem for Non-IID Samples</a><ul>
+<li><a href="#are-agricultural-crop-yields-normally-distributed"><span class="toc-section-number">2.1</span> Are Agricultural Crop Yields Normally Distributed?</a></li>
+</ul></li>
+<li><a href="#references">References</a></li>
+</ul>
+</div>
+
+<p>According to <span class="citation">Salsburg (2001)</span>, the Central Limit Theorem (CLT) didn’t have an explicit proof when it was first written down by Abraham de Moivre in the 18th century. For a long time, it was a folk thoerem, a conjecture that even eminent mathematicians like Arnorld Fisher assumed to be true until the early 20th century. That a keystone theorem to the theory of probability and statistics was merely a conjecture for a long time made me feel better about myself: I didn’t understand the CLT when I first learned about it, and it wasn’t until I saw it written in a different form that I finally found it tangible. In this blog post, I want to develop the theorem from its baby versions to its adult versions. Before ending the blog post, I share and summarize some articles that I found while looking up how to apply the CLT on non-iid samples.</p>
+<div id="the-central-limit-theorem-for-iid-samples" class="section level1">
+<h1><span class="header-section-number">1</span> The Central Limit Theorem for IID Samples</h1>
+<div id="the-fetus" class="section level2">
+<h2><span class="header-section-number">1.1</span> The Fetus</h2>
+<p>I call this the ‘fetus’ version because I consider it too underdeveloped to properly be considered a ‘baby’ version of the CLT. Nonetheless, I find it worth being written down, for it gave me the grounds to believe in the more mature form of the theorem.</p>
+<blockquote>
+<p><em>Let there be two independent random variables, <span class="math inline">\(X_1\)</span> and <span class="math inline">\(X_2\)</span>, where <span class="math inline">\(X_i \sim N(\mu_i, \sigma^2_i)\)</span> for <span class="math inline">\(i = 1, 2\)</span>. The distribution of the sum is also normal: <span class="math display">\[X_1 + X_2 \sim N(\mu_1 + \mu_2, \sigma^2_1 + \sigma_2^2).\]</span></em></p>
+</blockquote>
+<p>There are different ways to prove the statement, but I find the one using moment generating functions (mgf) to be the easiest.</p>
+<p><strong>Proof</strong>: Recall that for <span class="math inline">\(X \sim N(\mu, \sigma^2)\)</span>, the mgf is <span class="math inline">\(M_X(t) = \exp\big\{ t\mu + \dfrac{1}{2}\sigma^2 t^2\big\}\)</span>. We will use the property of mgf, which says that the mgf of independent sums of random variables is the product of their mgf’s.
+<span class="math display">\[
+        \begin{align*}
+        M_{X_1 + X_2}(t) &amp; = M_{X_1}(t)M_{X_2}(t) \quad \text{by said property of mgf} \\
+        &amp; = \exp\Big\{ \mu_1 t + \dfrac{1}{2}\sigma_1^2 t^2 \Big\}\exp\Big\{ \mu_2 t + \dfrac{1}{2}\sigma_2^2 t^2 \Big\} \\
+        &amp; = \exp\Big\{ t(\mu_1 + \mu_2) + \dfrac{1}{2}(\sigma_1^2 + \sigma_2^2)t^2 \Big\} \\
+        &amp; = M_W(t) \qquad \forall t \in \mathbb{R}
+        \end{align*}
+\]</span>
+where <span class="math inline">\(W \sim N(\mu_1 + \mu_2, \sigma^2_1 + \sigma^2_2)\)</span>. Thus, the sum of two independent normal r.v. is normally distributed. <span class="math inline">\(\heartsuit\)</span></p>
+<p>I specifically stated the sum of <em>two</em> independent random variables, but note that the result holds for a sum of any <span class="math inline">\(n \in \mathbb{N}\)</span> independent normal r.v.’s as</p>
+</div>
+<div id="the-baby-clt" class="section level2">
+<h2><span class="header-section-number">1.2</span> The Baby CLT</h2>
+<p>The baby version extends the fetus version by considering the standardized sample mean of <span class="math inline">\(n \in \mathbb{N}\)</span> independent normal r.v.’s.</p>
+<blockquote>
+<p><em>Let <span class="math inline">\(X_1, X_2, \ldots \overset{\rm{iid}}{\sim} N(\mu, \sigma^2) \; \forall n \in \mathbb{N}\)</span>. Let <span class="math inline">\(\bar{X}_n = \dfrac{1}{n}\sum_{i=1}^n X_i\)</span> be the sample mean of <span class="math inline">\(\{X_i\}_{i\leq n}\)</span>. Then standardizing <span class="math inline">\(\bar{X}_n\)</span> gives <span class="math display">\[\bar{X}^{\rm{st}}_n = \dfrac{\bar{X}_n - \mu}{\sigma\sqrt{n}} \sim N(0, 1)\]</span> for all <span class="math inline">\(n \in \mathbb{N}\)</span>.</em></p>
+</blockquote>
+<p><strong>Proof</strong>: Let’s manipulate <span class="math inline">\(\bar{X}_n^{\rm{st}}\)</span> and see where it leads to.</p>
+<p><span class="math display">\[
+        \begin{align*}
+        \bar{X}_n^{\rm{st}} &amp; = \dfrac{\bar{X}_n - \mu}{\sqrt{\sigma^2/n}} \\
+        &amp; = \dfrac{\sqrt{n}}{\sigma}(\bar{X}_n - \mu) \\
+        &amp; = \dfrac{\sqrt{n}}{\sigma}\Big[ \Big( \dfrac{1}{n}\sum_{i=1}^n X_i \Big) - \mu \Big] \\
+        &amp; = \dfrac{\sqrt{n}}{\sigma}\Big[\Big( \dfrac{1}{n}\sum_{i=1}^n X_i \Big) - \dfrac{n\mu}{n} \Big] \\
+        &amp; = \dfrac{1}{\sigma \sqrt{n}}\Big[ \sum_{i=1}^n (X_i - \mu) \Big] \\
+        &amp; = \dfrac{1}{\sqrt{n}} \sum_{i=1}^n \dfrac{X_i - \mu}{\sigma} \\
+        &amp; = \dfrac{1}{\sqrt{n}} \sum_{i=1}^n Z_i
+        \end{align*}
+\]</span>
+Note that <span class="math inline">\(Z_i = \dfrac{X_i - \mu}{\sigma} \overset{\rm{iid}}{\sim} N(0, 1)\)</span>; according to <a href="#fetus">fetus CLT</a> summing these standard normal r.v.’s gives <span class="math inline">\(S = \sum_{i=1}^n Z_i \overset{\rm{iid}}{\sim} N(0, n)\)</span>. Let’s find the mean and variance of <span class="math inline">\(\dfrac{S}{\sqrt{n}}\)</span>.
+<span class="math display">\[
+        \begin{align*}
+        E \bigg[ \dfrac{1}{\sqrt{n}}S \bigg] &amp; = \dfrac{1}{\sqrt{n}}E[S] = 0 \\
+        \rm{Var} \bigg(\dfrac{1}{\sqrt{n}}S \bigg) &amp; = \dfrac{1}{n}\rm{Var}(S) = \dfrac{n}{n} = 1
+        \end{align*}
+\]</span>
+We’re getting closer to the finish line: the next important part of the proof is to show that <span class="math inline">\(\dfrac{1}{\sqrt{n}}S\)</span> follows a normal distribution. I can show this using mgf uniqueness.</p>
+<p><em>n.b.</em>: It is not necessarily true that <span class="math inline">\(cX\)</span> for some constant <span class="math inline">\(c \in \mathbb{R}\)</span> follows the same distribution as <span class="math inline">\(X\)</span>.</p>
+<p><span class="math display">\[
+        \begin{align*}
+        M_{\frac{S}{\sqrt{n}}}(t) &amp; = E \bigg[\exp\bigg\{ \dfrac{S}{\sqrt{n}} t \bigg\} \bigg] \\
+        &amp; = E \bigg[ \exp\bigg\{S \Big(\dfrac{t}{\sqrt{n}}\Big)  \bigg\} \bigg] \\
+        &amp; = \exp \bigg\{ \dfrac{t}{\sqrt{n}}(0) + \dfrac{1}{2}\Big( \dfrac{t}{\sqrt{n}} \Big)^2 n \bigg\} \quad \text{because $S \sim N(0, n)$}\\
+        &amp; = \exp \Big\{ \dfrac{t^2}{2} \Big\} \\
+        &amp; = M_Z(t) \quad \text{where $Z \sim N(0,1)$}
+        \end{align*}
+\]</span>
+Therefore, by mgf uniqueness, <span class="math inline">\(\bar{X}_n^{\rm{st}} = \dfrac{S}{\sqrt{n}} \sim N(0, 1)\)</span>. <span class="math inline">\(\heartsuit\)</span></p>
+</div>
+<div id="the-adult-clt-v1.0" class="section level2">
+<h2><span class="header-section-number">1.3</span> The Adult CLT, v1.0</h2>
+<p>The baby CLT assumed that <span class="math inline">\(X_1, X_2, \ldots \overset{\rm{iid}}{\sim} N(\mu, \sigma^2)\)</span>. The classical (i.e. adult) form of CLT assumes only that <span class="math inline">\(X_1, X_2, \ldots\)</span> be independent and identically distributed and that <span class="math inline">\(n\)</span> be large enough.</p>
+<blockquote>
+<p><em>Let <span class="math inline">\(X_1, X_2, \ldots \sim F_X\)</span> where <span class="math inline">\(E[X] = \mu\)</span> and <span class="math inline">\(0 &lt; \rm{Var}(X) = \sigma^2 &lt; \infty\)</span>. Let <span class="math inline">\(\bar{X}_n = \dfrac{1}{n}\sum_{i=1}^n X_i\)</span>. Then, <span class="math display">\[\bar{X}_n^{\rm{st}} = \dfrac{\bar{X}_n - \mu}{\sigma/\sqrt{n}} \xrightarrow{\mathcal{D}} N(0, 1).\]</span></em></p>
+</blockquote>
+<p><strong>Proof</strong>: The main tool for this proof is the mgf convergence theorem (aka Lévy continuity theorem). Suppose there exists <span class="math inline">\(\delta\)</span> such that <span class="math inline">\(\forall t \in (-\delta, \delta)\)</span>, <span class="math display">\[\lim_{n \to \infty} M_{X_n}(t) = M_X(t).\]</span> Then the mgf convergence theorem says that <span class="math inline">\(X_n \xrightarrow{\mathcal{D}} X\)</span>.</p>
+<p>:thought_bubble: Proving the mgf convergence is beyond my expertise as it involves real analysis. I hope I can get there some day though.</p>
+<p>The first half of the proof is the same as <a href="#baby">baby CLT</a>, i.e. we do the same algebraic manipulation to get <span class="math display">\[\bar{X}_n^{\rm{st}} = \dfrac{1}{\sqrt{n}} \sum_{i=1}^n Z_i\]</span> where <span class="math inline">\(Z_i = \dfrac{X_i - \mu}{\sigma} \sim N(0, 1)\)</span>. Now let’s look at the mgf of <span class="math inline">\(\bar{X}_n^{\rm{st}}\)</span>.
+<span class="math display">\[
+        \begin{align*}
+        M_{\bar{X}_n^{\rm{st}}}(t) &amp; = E \Big[\exp\Big\{\bar{X}_n^{\rm{st}}t \Big\} \Big]\\
+        &amp; = E \Big[ \exp \Big\{ \dfrac{t}{\sqrt{n}}\sum_{i=1}^n Z_i \Big\} \Big] \\
+        &amp; = M_{\sum_i Z_i}\Big( \dfrac{t}{\sqrt{n}} \Big) \\
+        &amp; = \bigg[ M_{Z_i} \Big( \dfrac{t}{\sqrt{n}} \Big) \bigg]^n \\
+        &amp; = \bigg[ g\Big( \dfrac{t}{\sqrt{n}} \Big) \bigg]^n \quad \text{where $g(t) = M_{Z}(t)$} \\
+        &amp;= \clubsuit
+        \end{align*}
+\]</span></p>
+<p>The mgf convergence theorem tells us to take the last expression to infinity, but notice what happens to the last expression as <span class="math inline">\(n \rightarrow \infty\)</span>. Since <span class="math inline">\(\dfrac{t}{\sqrt{n}} \rightarrow 0\)</span>,
+<span class="math display">\[ \lim_{n \to \infty} g\bigg(\dfrac{t}{\sqrt{n}}\bigg)  = g(0) = a\]</span> for some constant <span class="math inline">\(a\)</span>. But <span class="math inline">\(a^n \rightarrow \infty\)</span> as <span class="math inline">\(n \rightarrow \infty\)</span>.</p>
+<p>Here, I will use Taylor series expansion on <span class="math inline">\(g\)</span>. Recall that by <a href="{{% ref "/post/2019-05-08-taylor-series" %}}">Taylor series expansion</a>, the Taylor series expansion of <span class="math inline">\(g(s)\)</span> at <span class="math inline">\(s=0\)</span> is
+<span class="math display">\[
+        \begin{align*}
+        g(s) &amp; = g^0(0) + g^\prime(0)(s) + \dfrac{g^{\prime\prime}(0)}{2!}(s^2) + \cdots \\
+        &amp; \approx  1 + g^\prime(0)(s) + g^{\prime\prime}(0)\dfrac{s^2}{2} \quad \text{when $s$ is close to 0} \\
+        &amp; \approx 1 + 0(s) + (1)\dfrac{s^2}{2} \quad \text{b/c $g$ is mgf of standard normal} \\
+        &amp; = 1 + \dfrac{s^2}{2}
+        \end{align*}
+\]</span>
+The assumption that <span class="math inline">\(g(\cdot)\)</span> will be evaluated close to 0 is already known because we know that <span class="math inline">\(\dfrac{t}{\sqrt{n}} \rightarrow 0\)</span> as <span class="math inline">\(n \rightarrow \infty\)</span>. Let’s use this approximation of <span class="math inline">\(g(s)\)</span> and continue the derivation after <span class="math inline">\(\clubsuit\)</span>:
+<span class="math display">\[
+        \begin{align*}
+        M_{\bar{X}_n^{\rm{st}}}(t) &amp; = \clubsuit \\
+        &amp; = \bigg[ 1 + \dfrac{(t/\sqrt{n})^2}{2} \bigg]^n  \\
+        &amp; = \bigg[ 1 + \dfrac{t^2/2}{n} \bigg]^n 
+        \end{align*}
+\]</span>
+Note that this resembles a common limit: <span class="math inline">\(\underset{n \to \infty}{\lim} \Big(1 + \dfrac{c_n}{n} \Big) = e^c\)</span> assuming that <span class="math inline">\(c_n \rightarrow n\)</span> as <span class="math inline">\(n \to \infty\)</span>. I can take the limit of this mgf to see that it converges to the mgf of standard normal distribution, <span class="math inline">\(Z \sim N(0, 1)\)</span>.
+<span class="math display">\[
+        \begin{align*}
+        \lim_{n \to \infty}M_{\bar{X}_n^{\rm{st}}}(t) = \lim_{n \to \infty}\bigg[ 1 + \dfrac{t^2/2}{n} \bigg]^n  = \exp\Big\{ \dfrac{t^2}{2} \Big\} = M_Z(t) 
+        \end{align*}
+\]</span></p>
+<p>Thus, for all <span class="math inline">\(t \in \mathbb{R}\)</span>, <span class="math inline">\(M_{\bar{X}_n^{\rm{st}}} \xrightarrow{\mathcal{D}} M_Z(t).\)</span> By mgf convergence, we conclude that <span class="math display">\[ \bar{X}_n^{\rm{st}} \underset{n \to \infty}{\rightarrow} Z \sim N(0, 1). \, \heartsuit\]</span></p>
+</div>
+<div id="the-adult-clt-v2.0" class="section level2">
+<h2><span class="header-section-number">1.4</span> The Adult CLT, v2.0</h2>
+<p>Even at this point I felt fuzzy about the CLT. Specifically, I wasn’t sure how to use the theorem … until I saw it recast in a different form.</p>
+<p>Recall that the CLT says <span class="math display">\[\dfrac{\bar{X}_n^{\rm{st}} - \mu}{\sigma/\sqrt{n}} \; \overset{\mathcal{D}}{\rightarrow} \; N(0, 1)\]</span> where <span class="math inline">\(\mu = E[X]\)</span> and <span class="math inline">\(0 &lt; \sigma^2 = \rm{Var}(X) &lt; \infty\)</span>. In other words, when <span class="math inline">\(n\)</span> is large enough,
+<span class="math display">\[
+        \begin{align*}
+        \dfrac{\bar{X}_n^{\rm{st}} - \mu}{\sigma/\sqrt{n}} &amp;\approx Z \\
+        \sqrt{n}\big(\bar{X}_n^{\rm{st}} - \mu \big) &amp;\approx Z \sigma \\
+        \sqrt{n}\big(\bar{X}_n^{\rm{st}} - \mu \big) \;  &amp;\overset{\mathcal{D}}{\rightarrow} \; N(0, \sigma^2) \quad \text{b/c $\rm{Var}(\sigma Z) = \sigma^2 (1) = \sigma^2$}
+        \end{align*}
+\]</span>
+Therefore, the CLT can be recast as
+<span class="math display">\[\sqrt{n}\big( \bar{X}_n^{\rm{st}} - E[X] \big) \; \overset{\mathcal{D}}{\rightarrow} \; N\big(0, \rm{Var}(X) \big),\]</span>
+which says that when you average a sample of iid random variables, standardize it, take its difference from the population mean, and magnify the difference by <span class="math inline">\(\sqrt{n}\)</span>, you get a normal distribution with mean 0 and variance equal to the ppulation variance.</p>
+<p>:thought_balloon: This is my favorite way of writing the CLT because a.) no ugly fractions, and b.) it becomes easier to transition to concepts like reparametrization through the delta method and asymptotic variance. Pedagogically, I was surprised that a theorem I had written down more than once finally clicked with me when it was written differently for the first time.</p>
+</div>
+</div>
+<div id="the-central-limit-theorem-for-non-iid-samples" class="section level1">
+<h1><span class="header-section-number">2</span> The Central Limit Theorem for Non-IID Samples</h1>
+<p>We can deviate from the classical CLT setting either by a.) having independent but heterogeneous sample (e.g. the Lyapunov CLT) or b.) by having a dependent sample. Either way, any generalization of the CLT requires clearly demarcating, in the first case, the boundedness of the moments or, in the second case, the structure of dependence between the units. But if we know we are working with non-iid samples, how would we know that the CLT is applicable? <span class="citation">Just &amp; Weninger (1999)</span> and <span class="citation">Koundouri &amp; Kourogenis (2011)</span> ask this question with respect to the population distribution of agricultural crop yields.</p>
+<div id="are-agricultural-crop-yields-normally-distributed" class="section level2">
+<h2><span class="header-section-number">2.1</span> Are Agricultural Crop Yields Normally Distributed?</h2>
+<p><span class="citation">Just &amp; Weninger (1999)</span> and <span class="citation">Koundouri &amp; Kourogenis (2011)</span>, both published in <em>American Journal of Agricultural Economics</em>, assess whether agricultural crop yields are normally distributed. On the one hand, despite the spatial and temporal correlation between crop yield measurements, <span class="citation">Just &amp; Weninger (1999)</span> speculates that the population distribtuion of agricultural crop yields is ultimately normal because “crop yields at all levels are averages … and [the CLT] implies that averages have asymptotically normal distributions under broad conditions” (301). The paper argues that the existing empirical results claiming otherwise suffer from methodological flaws such as misspecification of the deterministic component of the measurements and erroneous significance tests that fail to adjust for multiple testing.</p>
+<p>On the other hand, <span class="citation">Koundouri &amp; Kourogenis (2011)</span> argues that even after fixing these methodological issues, the limiting distribution of the detrended and demeaned crop yield measures may not be normal afterall. Focusing on the variability of the number of farms assigned to the production of a type of crop in a given year, the authors argue that the problem is better framed as one of finding the limiting distribution of random sums of random variables (7). The authors conduct their empirical analysis in accordance with this interpretation and conclude that year-to-year change in the total number of acreage dedicated to one crop are associated with nonzero skewness and kurtosis.</p>
+<p><em>n.b.</em>: The skewness and kurtosis of a normal distribution are zero.</p>
+<p>:thought_balloon: Personally, I was intrigued by how one would go about assessing normality with real data. I cherry-picked the two articles because they were both published in the same journal, but there are many other articles that tackle the same descriptive question—with <span class="citation">Koundouri &amp; Kourogenis (2011)</span> being the most recent contribution to the discourse—and others that ask related and equally interesting questions. For example, <span class="citation">Liu &amp; Ker (2019)</span> asks whether crop yields measured over the years come from identical distribution and warns against including every historical observation in the sample just to up the sample size. I appreciate articles like these—they ask basic descriptive question about the data at hand, the answers to which have nontrivial implications on how the data is to be used in further statistical inference.</p>
+</div>
+</div>
+<div id="references" class="section level1 unnumbered">
+<h1>References</h1>
+<div id="refs" class="references">
+<div id="ref-just1999crop">
+<p>Just, R. E., &amp; Weninger, Q. (1999). Are crop yields normally distributed? <em>American Journal of Agricultural Economics</em>, <em>81</em>(2), 287–304.</p>
+</div>
+<div id="ref-koundouri2011crop">
+<p>Koundouri, P., &amp; Kourogenis, N. (2011). On the distribution of crop yields: Does the central limit theorem apply? <em>American Journal of Agricultural Economics</em>, <em>93</em>(5), 1341–1357.</p>
+</div>
+<div id="ref-history2019crop">
+<p>Liu, Y., &amp; Ker, A. P. (2019). <em>Is there too much history in historical yield data</em>. (1621-2019-294), 33. Retrieved from <a href="http://ageconsearch.umn.edu/record/283559">http://ageconsearch.umn.edu/record/283559</a></p>
+</div>
+<div id="ref-lady">
+<p>Salsburg, D. (2001). <em>The lady tasting tea: How statistics revolutionized science in the twentieth century</em>. Macmillan.</p>
+</div>
+</div>
+</div>

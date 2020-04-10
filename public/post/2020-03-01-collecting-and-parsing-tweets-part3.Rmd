@@ -1,0 +1,245 @@
+---
+title: Collecting and Parsing Tweets, Part III
+author: ~
+date: 2020-03-01
+slug: collecting-and-parsing-tweets-part3
+categories: ['python', 'webscraping', 'pizza-to-the-polls']
+excerpt: "A three-part series explaining how I used Twitter API to search for tweets and extracted polling addresses from parsed tweets. Part III will parse the street addresses and geocode them through Google's Geocoding API."
+math: true
+comment: true
+draft: false
+type: "post"
+bibliography: references.bib
+output:
+        blogdown::html_page:
+                toc: true
+                number_sections: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, eval = FALSE)
+```
+
+Part II of this tutorial series left us with *cleaned\<fromHour\>-\<toHour\>-\<page-count\>.json* files. Part III will parse the street addresses in those files and geocode them through Google's Geocoding API. 
+
+Here is the directory tree for Part III: 
+```
+|-- data/
+     |-- raw/          # from Part I
+     |-- 01_scraped/   # from Part I
+     |-- 02_cleaned/   # from Part II        
+     |-- 03_parsed/    # output for Part III will go here
+     |-- counts.json   # from Part I
+```
+
+Here are the packages and logger setup:
+```{python}
+import os
+import requests
+from requests.exceptions import HTTPError
+import json
+import sys
+from commonregex import CommonRegex
+import logging
+import re
+import argparse
+import xml.etree.ElementTree as ET
+import time
+
+# set up logging
+log = logging.getLogger(__name__)
+log.setLevel(logging.ERROR)
+if args.verbose:
+    log.setLevel(logging.DEBUG)
+loghandler = logging.StreamHandler(sys.stderr)
+loghandler.setFormatter(logging.Formatter("[%(asctime)s] %(message)s"))
+log.addHandler(loghandler)
+```
+
+
+# Get API key 
+
+Google's Geocoding API allows users to convert addresses to geocoordinates and parses the address. To get the API key,
+
+1. [create an account and a project](https://developers.google.com/maps/gmp-get-started) on Google Maps Platform and enable Geocoding API for your project;
+2. from you Console page, [get the API key](https://developers.google.com/maps/documentation/geocoding/get-api-key).
+
+I use [`.env` file](http://jonathansoma.com/lede/foundations-2019/classes/apis/keeping-api-keys-secret/) to store my API keys as I have done with my Twitter API credentials. 
+
+
+```{python}
+from dotenv import load_dotenv
+load_dotenv()
+google_api_key = os.getenv('google_api_key')
+```
+
+
+
+# Pass address to Google's Geocoding API
+
+The `get_address` function passes the tweet text to Google's Geocoding API and returns the API response. Recall that in Part II we added a dictionary item that indicates whether the tweet text contains an address. If the value for `contain_address` is `True`, the text is passed to Geocoding API. The API response is returned in XML format. 
+
+```{python}
+""" STEP 1: geocode and parse"""
+
+def get_address(tweet):
+    """
+    Pass the tweet text to Google's Geocoding API to get structured 
+    address data in xml format. 
+    """
+    with open("script/credentials/google_credentials.json", "r") as c:
+        api_key = json.load(c)['geocode_api']
+    
+    
+    base_url = "https://maps.googleapis.com/maps/api/geocode/xml?address"
+    if tweet['contain_address'] == True:
+       query = tweet['clean_text']
+       req_url = base_url + "=" + query + '&lang=en&key=' + google_api_key
+       try:
+           resp = requests.get(req_url)
+           # If the response was successful, no Exception will be raised
+           resp.raise_for_status()
+       except HTTPError as http_err:
+           log.info(f'HTTP error occurred: {http_err}') 
+       except Exception as err:
+           log.info(f'Other error occurred: {err}') 
+       else:
+           log.info('Success!')
+    else:
+       resp = None
+       
+    
+    return resp
+```
+
+
+# Parse XML 
+
+The next function `parse_address` takes the XML object returned by `get_address` and parses it using `xml.etree.ElementTree` functions. After studying the API documentation, I decided to specify [the types of address results](https://developers.google.com/maps/documentation/geocoding/intro#Types) because sometimes the text I was sending to the API in `get_address` function was not the full street address but just the city and the state. Defining `type_list` allowed me to filter out results that did not give me an exact polling location. It is not intuitive what address types your addresses belong to. For instance, when I only specified my result type to be `street_address`, I was only able to get 10 or so unique addresses. It was only after I got all the unique address types in my data that I was able to see that most polling location addresses were of other address types. 
+
+
+```{python}
+def parse_address(resp):
+    """
+    Parses the `get_address` response output and constructs a
+    dictionary. 
+    =====================
+    resp (the response xml output of `get_address`)
+    """
+    # set up tree
+    root = ET.fromstring(resp.content)
+    
+    # only parse if google API response is 'ok' and 
+    # address type is in the `type_list`
+    type_list = ['street_address',
+                 'church',
+                 'locality',
+                 'clothing_store',
+                 'subpremise',
+                 'colloquial_area',
+                 'premise',
+                 'establishment',
+                 'bar']
+    
+    if (root.find('status').text.lower() == "ok" and 
+        root.find('./result/type').text in type_list):
+        add_type = root.find('./result/type').text
+        path = "./result/[type='{}']/".format(add_type)
+        try:
+            full = root.find(path + "formatted_address").text
+        except UnboundLocalError:
+            full = None
+        try:
+            st_num = root.find(path + "address_component/[type='street_number']/long_name").text
+        except:
+            st_num = None
+        try:
+            route = root.find(path + "address_component/[type='route']/long_name").text
+        except:
+            route = None
+        try:
+            city = root.find(path + "address_component/[type='locality']/long_name").text
+        except:
+            try:
+                city = root.find(path + "address_component/[type='sublocality']/long_name").text
+            except:
+                city = None
+        try:
+            county = root.find(path + "address_component/[type='administrative_area_level_2']/long_name").text
+        except:
+            county = None
+        try:
+            state = root.find(path + "address_component/[type='administrative_area_level_1']/long_name").text
+            state_abbv = root.find(path + "address_component/[type='administrative_area_level_1']/short_name").text
+        except:
+            state = state_abbv = None
+        try:
+            zipcode = root.find(path + "address_component/[type='postal_code']/short_name").text
+        except:
+            zipcode = None
+        try:
+            lat = root.find(path + "geometry/location/lat").text
+            lng = root.find(path + "geometry/location/lng").text
+        except:
+            lat = lng = None
+    else:
+        full = st_num = route = city = county = state = state_abbv = zipcode = lat = lng = None
+    # construct dictionary 
+    address = {"full": full,
+                "st_num": st_num, 
+               "route": route,
+                "city": city,
+                "county": county,
+                "state": state,
+                "state_abbv": state_abbv,
+                "zipcode": zipcode,
+                "lat": lat,
+                "lng": lng}
+    return address
+```
+
+
+# `if __name__ == "__main__"`
+
+The main function iterates over files in *data/02_cleaned*, and the outputs (a list of updated tweet dictionaries) are saved as json files in *data/03_parsed*. 
+
+```{python}
+if __name__ == "__main__":
+
+    # iterate over files in 'data/02_cleaned'
+    for file in sorted('data/02_cleaned'):
+        with open(os.path.join(path, file), "r") as j:
+            tweets = json.load(j)
+        for tweet in tweets:
+            xml_resp = get_address(tweet) 
+            if xml_resp is not None:
+                address_dict = parse_address(xml_resp)
+                tweet.update(address_dict)
+            else:
+                pass
+        time.sleep(2.5)
+        parsed = file.replace("cleaned", "parsed")
+        with open(os.path.join('data/03_parsed', parsed), "w") as j:
+            json.dump(tweets, j)
+    log.message('Reached last file')
+    sys.exit()
+```
+
+
+This is what *parsed201811061300-201811061400-1.json* looks like:
+
+```
+[{"created_at": "Tue Nov 06 13:08:08 +0000 2018", "text": "@PizzaToThePolls 3120 Washburn ave Minneapolis Mn https://t.co/cFGQINvuwW", "id": 1059794562317729793, "clean_text": "3120 Washburn ave Minneapolis Mn", "contain_address": true, "full": "3120 Washburn Ave N, Minneapolis, MN 55411, USA", "st_num": "3120", "route": "Washburn Avenue North", "city": "Minneapolis", "county": "Hennepin County", "state": "Minnesota", "state_abbv": "MN", "zipcode": "55411", "lat": "45.0128527", "lng": "-93.3169213"}]
+
+```
+
+<hr>
+
+This completes the tutorial series, "Collecting and Parsing Tweets!" I hope it helps you navigate Twitter and Google API's. The series was based on my project, "Locating Long Polling Lines with Twitter Data." The python scripts that each part of the tutorial was based on can be found at [my Github repostiory](https://github.com/amikami102/pizza_to_the_polls):
+
+- **Part I**: [tutorial]({{< ref "/content/collecting-and-parsing-tweets-part1" >}}) / [.py script](https://github.com/amikami102/pizza_to_the_polls/blob/master/script/scrape_tweets/01_scrape_twitter.py)
+- **Part II**: [tutorial]({{< ref "/content/collecting-and-parsing-tweets-part2" >}}) / [.py script](https://github.com/amikami102/pizza_to_the_polls/blob/master/script/scrape_tweets/02_clean_and_find_address.py)
+- **Part III**:  [tutorial]({{< ref "/content/collecting-and-parsing-tweets-part3" >}}) / [.py script](https://github.com/amikami102/pizza_to_the_polls/blob/master/script/scrape_tweets/03_parse_address.py)
+
+
+

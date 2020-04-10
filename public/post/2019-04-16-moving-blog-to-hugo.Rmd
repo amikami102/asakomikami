@@ -1,0 +1,149 @@
+---
+title: "Migrating to Hugo"
+type: "post"
+date: '2019-04-16'
+slug: migrating-to-hugo
+excerpt: "I cover how I customized Nick Strayer's tuftesque theme by adding a navigation bar and syntax highlighting."
+categories: ['R', 'HTML', 'CSS', 'Hugo theme']
+math: false
+comment: true
+output: 
+  blogdown::html_page:
+         toc: true
+         number_sections: true
+---
+
+I moved this blog from Jekyll to Hugo because I felt like I was missing out on `blogdown`. I spent days browsing for that right theme all over https://themes.gohugo.io/, but I finally made up my mind to use Nick Strayer's [tuftesque](https://github.com/nstrayer/tuftesque), which was one of Yihui Xie's honorable mentions for impressive `blogdown` implementation. I may eventually fork the original [Hugo-Tufte](https://github.com/shawnohare/hugo-tufte) to create my own Tuftesque theme, but for now, I am happy to work around [tuftesque](https://github.com/nstrayer/tuftesque). Here, I want to document some of my own customization. 
+
+
+# Installing 'tuftesque' theme
+
+I installed [tuftesque](https://github.com/nstrayer/tuftesque) by `blogdown::install_theme('nstrayer/tuftesque')`. Unlike with Jekyll, the theme repository is placed in the 'themes' folder in your website's repository. In order to cutomize, I moved several folders in the 'themes/tuftesque' to my root directory to leave the original theme untouched.
+
+```{bash, eval = FALSE}
+cp -R themes/tuftesque/layouts layouts
+cp -R themes/tuftesque/static static
+cp -R themes/tuftesque/archetypes archetypes
+```
+
+For the rest of the customization, I will be tankering with files in 'layouts' and 'static'. 
+
+Since the design of tuftesque is blog centric, there were a couple of things that were superfluous for my website such as the banner. This is easy to get rid of by deleting the file *layouts/partials/banner.html* and deleting the line
+```
+{{ partial "banner.html" .}}
+```
+in *layouts/index.html*. The same goes for *layouts/partials/brand.html* and *layouts/partials/author.html*, which I deleted. 
+
+# Setting up a navigation bar
+
+Since I was building a personal website, I wanted a *sticky* navigation bar that stays at the top so that my visitors can navigate the website without having to scroll back up to the top.
+
+
+I figured out how to implement this by studying Bootstrap4's documentation for [navbar](https://getbootstrap.com/docs/4.3/components/navbar/). To use Bootstrap CSS, the documentation says to include the following lines in *layouts/partials/header.includes.html*. 
+
+
+```
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+```
+
+Then, I created *layouts/partials/nav.html* with the following HTML code. I will break down the code into their components. 
+
+```
+<nav class="navbar navbar-expand-lg fixed-top navbar-light bg-light">
+ <a class = "navbar-brand" href="{{ "" | absLangURL }}">
+         <img src="/images/logo.png" height = "40" class="d-inline-block align-top" alt="">
+ </a>
+ <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+ <div class="collapse navbar-collapse text-dark" id="navbarNavDropdown">
+    <ul class="navbar-nav mr-auto">
+            {{ range .Site.Menus.main.ByWeight }}
+                {{ if .HasChildren }}
+                        <li class="nav-item-dropdown">
+                                <a class = "nav-link dropdown-toggle text-dark">{{ .Name }}</a>
+                        <div class = "dropdown-menu" aria-labelledby = "navbarDropdown">
+                                {{ range .Children }}
+                                <a class = "dropdown-item text-dark" href="{{ .URL | relLangURL }}">{{ .Name }}</a>
+                                {{ end }}
+                        </div>
+                        </li>
+                {{ else }}
+            <li class = "nav-item  px-2">
+              <a class = "navlink text-dark" title="{{ .Name }}" href="{{ .URL  | relLangURL }}">{{ .Name }}</a>
+            </li>
+                {{ end }}
+            {{ end }}
+    </ul>
+  </div>
+</nav>
+```
+
+## `nav` element
+
+The most important part to get a navigation bar that sticks and spans the full width of the website is to use `fixed-top` class attribute in your `nav` element. The attribute `navbar-expand-lg` is there to make the navigation bar responsive. 
+
+
+The attributes you might want to tanker with are `navbar-light` and `bg-light`, which adjusts the color scheme of your bnavar.
+
+### `.navbar-brand` class
+
+I created my own logo with [favicon.io](https://favicon.io/) and used it in my `.navbar-brand`.
+
+`r tufte::margin_note("![](/images/logo.png)")`
+
+
+Initially I wrote my website title, "Asako Mikami", as a text, but the font appeared smaller in size and I could not get it to line up with the rest of the elements in the navigation bar. Since this is basically the only place in the whole website where my name appears, it was important for me to get the appearance right, so the solution was to insert a logo.
+
+
+## `button` element
+
+The `<button> ... </button>` block is there to put a toggle button when you have a smaller screen. Again, for responsive purposes.
+
+
+## `.collapse.navbar-collapse` class
+
+This is where all the [[menu.main]] elements in *config.toml* come into play. It basically for-loops through [[menu.main]] elements to create navigation items with links inside `<ul> ... </ul>`. If your [[menu.main]] has a `parent` field, then the parent and children menu items will be organized into a dropdown. The part you might want to change is `text-dark` attribute if you are using a different color scheme. Without it, the text color appears blue, which is inconsistent with the rest of the style of my website. 
+
+
+
+
+## Adding padding to the body
+
+At this point, when I render the site, I notice that the title of the first blog post appearing in the *index.html* was cut off slightly. Since adjusting the size of the navigation bar would involve editing the Bootstrap CSS, I choose the easier fix, which is to add top padding to the body in *layouts/index.html* like this.
+
+```
+body {
+    padding-left: 0 !important;
+    padding-top: 30px; <!--add padding-->
+  }
+```
+
+This completes setting up a navigation bar. :tada:
+
+# Adding syntax highlighting
+
+When I installed 'tuftesque' theme, *layouts/partials/highlight.html* was empty, so there were no colors in my code blocks. To add some colorful syntax highlighting, I followed Amber Thomas's tutorial, ["Adding Syntax Highlighting to Blogdown Posts"](http://amber.rbind.io/blog/2017/11/15/syntax-highlighting/) except that I did not need to implement her third step. This might be because I am using Bootstrap 4 whereas Amber is using Bootstrap 3 in the tutorial. 
+
+
+All I did was followed Amber's instruction for downloading *gitub-gist.css* and *js/highlight.pack.js*, insert the following lines to *layouts/partials/highlight.html*,
+
+```
+<link rel="stylesheet" href="{{"css/github-gist.css" | absURL}}" rel="stylesheet" id="theme-stylesheet">
+<script src="{{ "js/highlight.pack.js" | absURL }}"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+```
+
+and then uncomment this line in *layouts/header.includes.html*.
+
+```
+{{ partial "highlight.html" . }}
+```
+
+---
+
+
+And that's it for now! I'm happy with the way my website looks, and I hope this helps you design your blogdown site. :satisfied:

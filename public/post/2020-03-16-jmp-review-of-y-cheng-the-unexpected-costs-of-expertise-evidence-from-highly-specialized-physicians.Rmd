@@ -1,0 +1,28 @@
+---
+title: 'Y. Cheng "The Unexpected Costs of Expertise: Evidence from Highly
+  Specialized Physicians"'
+date: '2020-03-16'
+slug: jmp-review-of-y-cheng-the-unexpected-costs-of-expertise-evidence-from-highly-specialized-physicians
+categories:
+  - JMP by women in econ
+tags: []
+meta: true
+toc: false
+draft: true 
+---
+
+*This blog post is part of my "JMP by women in econ" series where I summarize and review some of the job market papers written by women PhD candidates. The papers are selected from Jennifer Doleac's [Twitter thread](https://twitter.com/jenniferdoleac/status/1187863251947806720). I think these papers are really awesome and just want to share them with other people.* 
+
+I am reviewing Yi Cheng's job market paper, ["The Unexpected Costs of Expertise: Evidence from Highly Specialized Physicians."](https://asit-prod-web1.cc.columbia.edu/econdept/wp-content/uploads/sites/41/2019/09/YiCheng_JMP_current.pdf) This is a very interesting paper that asks, *"What are the productivity and patient outcome effects of giving intensive care by a highly-skilled physician to a low-risk patient?"* The paper shows that the result is not only wasteful but harmful than if the patient had been assigned to less intesive care by more generically trained physician. 
+
+What I find cool about this paper is that it focuses on something that is often sidelined in the current debate on health care in the United States, which is all about reducing the cost of health insurance. There is a vociferous demand for a more affordable health insurance with the unchecked assumption that we would still be given the appropriate kind and level of medical care. The book that I think about often is Christy Ford Chapin's *Ensuring America's Health*, which traces how the current health insurance system came to be. What Chapin finds is that apart from the pricing mechanism, the ill of the current model is that it doesn't incentivize doctors to give the appropriate care to their patients. I see Cheng's paper as complementing Chapin's work: they respectively examine the macro-level and micro-level mechanism behind the inefficient resource allocation of current American health care system.
+
+## Research question and design
+
+The research question is, "What is the effect of matching intensive care treatment administered by highly-skilled physician to a low-risk patient?", i.e. the treatment is physician-patient mismatch and the outcome is the patient's health as measured by days to discharge, remission rate, and hospital charge. 
+
+If we were gods and were to run RCT experiments, we would match patients and physicians randomly. But in reality, patients and physicians are not matched randomly: highly skilled physicians are assigned to treat high-risk patients that could benefit from the physician's specialty. What Cheng does to solve this identification problem is 
+
+
+
+

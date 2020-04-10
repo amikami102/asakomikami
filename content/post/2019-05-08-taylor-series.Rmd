@@ -1,0 +1,228 @@
+---
+title: "Taylor Series in Probability"
+date: '2019-05-08'
+slug: taylor-series
+excerpt: "My grasp of Taylor series has been tenuous. I write this blog post to strengthen my understanding by laying out some of the ways Taylor series is invoked in probability."
+categories: ['math']
+tags: []
+meta: true
+comment: true
+draft: false
+output:
+        blogdown::html_page:
+                toc: true
+                number_sections: true
+---
+
+
+I first learned about Taylor series in high school, but I didn't quite master series expansion in general, let alone Taylor. Even after several math courses in college, my familiarity with it has barely grown since our first encounter back in high school. I find this state of affairs embarrassing, so I want to understand a little bit more about Taylor series by writing a blog post. This blog post will begin with the definition of Taylor series and its properties and end with some examples of application of Taylor series in probability. 
+
+
+# Definition 
+
+Taylor Series belongs to a type of series expansion of a function $f(x)$ known as power series whose general form is 
+        $$ \sum_{n=0}^\infty a_n (x-c)^n$$
+for some constant $c$ and coefficients $\{a_n\}$ independent of $x$. A Taylor Series of a real (or complex), infinitely differentiable function $f(x)$ at a point $a$ is given by $$ f(x) = f(a) + f^\prime(a)(x - a) + \dfrac{f^{\prime \prime}(a)}{2!}(x-a)^2 + \dfrac{f^{(3)}(a)}{3!}(x-a)^3 + \cdots .$$
+
+For example, let $f(x) = \dfrac{1}{\sqrt{2\pi}}\exp \Big\{ \dfrac{x^2}{2} \Big\}$, the pdf of standard normal distribution. We want to find the Taylor series of $f(x)$ at $x = 0$. For calculation purposes, I am only going to do up to the 5th term.
+$$
+        \begin{align*}
+        f(0) & = \dfrac{1}{\sqrt{2\pi}} \\
+        f^\prime(0) & = \dfrac{1}{\sqrt{2\pi}}\exp \Big\{ \dfrac{x^2}{2} \Big\}x\Big|_{x=0} = 0 \\
+        f^{\prime \prime}(0) & = \dfrac{1}{\sqrt{2\pi}}\exp \Big\{ \dfrac{x^2}{2} \Big\} + \dfrac{1}{\sqrt{2\pi}}\exp \Big\{ \dfrac{x^2}{2} \Big\}x^2 \Big|_{x=0} = \dfrac{1}{\sqrt{2\pi}} \\
+        f^{(3)}(0) & = \dfrac{1}{\sqrt{2\pi}}\exp \Big\{ \dfrac{x^2}{2} \Big\}x + \dfrac{1}{\sqrt{2\pi}}\exp \Big\{ \dfrac{x^2}{2} \Big\} (2x) + \dfrac{1}{\sqrt{2\pi}}\exp\Big\{ \dfrac{x^2}{2} \Big\}x^3 \Big|_{x=0} \\
+        & = \dfrac{3}{\sqrt{2\pi}}\exp \Big\{ \dfrac{x^2}{2} \Big\}x + \dfrac{1}{\sqrt{2\pi}} \exp \Big\{ \dfrac{x^2}{2}\Big\}x^3 \Big|_{x=0} = 0\\
+        f^{(4)}(0) & = \dfrac{3}{\sqrt{2\pi}} \exp \Big\{ \dfrac{x^2}{2} \Big\} + \dfrac{6}{\sqrt{2\pi}}\exp\Big\{ \dfrac{x^2}{2} \Big\}x^2 + \dfrac{1}{\sqrt{2\pi}}\exp\Big\{\dfrac{x^2}{2}\Big\}x^4 \Big|_{x=0} = \dfrac{3}{\sqrt{2\pi}} \\
+        f^{(5)}(0) & = 0
+        \end{align*}
+$$
+Putting it all together, we have the Taylor series for the pdf of standard normal distribution:
+        $$ f(x) = \dfrac{1}{\sqrt{2\pi}} + \dfrac{1}{2! \sqrt{2\pi}}x^2 + \dfrac{3}{4!\sqrt{2\pi}}x^4 + O(x^6)$$
+
+
+For me, Kalid Azad at *Better Explained* gives the best interpretation of Taylor series. In the article, ["Intuition for Taylor Series (DNA Analogy),"](https://betterexplained.com/articles/taylor-series/) Kalid describes a Taylor series of a function as "[a string of DNA] pulled from a single point to rebuild the entire function." In the above example, the coefficients $\dfrac{1}{\sqrt{2\pi}}, 0, \dfrac{1}{2!\sqrt{2\pi}}, 0, \dfrac{3}{4!\sqrt{2\pi}}, \ldots$ are the pieces of DNA strung together with polynomial terms to recreate (i.e. approximate) the pdf of standard normal distribution at $x=0$. 
+
+Note that the coefficients would be different if we chose to center the Taylor series at a different point of $a$. In other words, the Taylor series approximation is local and gets worse as we move away from that $a$ we chose. 
+
+
+## Taylor Series of Common Functions
+
+Here are the Taylor series evaluated at $0$ of some common functions.
+
+$$e^{x} = 1 + x + \dfrac{1}{2!}x^2 + \dfrac{1}{3!}x^3 + \cdots = \sum_{n=0}^\infty \dfrac{x^n}{n!}$$
+As we will see in [Application], this is the most commonly used series expansion.
+
+$$(1+x)^n = 1 + nx + \dfrac{n(n-1)}{2!}x^2 + \dfrac{n(n-1)(n-2)}{3!}x^3 + \cdots = \sum_{k=0}^n \binom{n}{k}x^k$$
+The second one can also be derived as a particular case of binomial theorem $(a+b)^n = \sum_{k=0}^n \binom{n}{k}a^k b^{n-k}$ where $b = 1$. 
+
+
+# Interesting Properties 
+
+
+
+## Taylor Series Uniqueness
+
+> *If for some $r > 0$ a power series $\sum_{n=0}^\infty a_n(x - x_0)^n$ converges to $fxz)$ for all $\left|x - x_0\right| < r$, then this series is the Taylor series for $f$ about the point $z_0$.*
+
+This uniqueness property builds upon the power series uniqueness, which states that if there are two converging power series, $\sum_{n=0}^\infty c_n (x- x_0)^n$ and $\sum_{n=0}^\infty d_n (x- x_0)^n$, such that 
+        $$ \sum_{n=0}^\infty c_n (x- x_0)^n = \sum_{n=0}^\infty d_n (x - x_0)^n$$
+for all open intervals containin $z_0$, then $c_n = d_n$ for all $n \geq 0$. This motivates me to restate the Taylor series uniqueness: 
+
+> *Suppose there exists $r > 0$ such that $f$ can be represented as $$f(x) = x_0 + c_1(x- x_0) + c_2 (x - x_0)^2 + c_3 (x - x_0)^3 + \cdots$$ for all $\left| x - x_0 \right| < r$. Then, $$c_n = \dfrac{f^{(n)}(x_0)}{n!}.$$*
+
+## Taylor's Theorem
+
+The Taylor's theorem is commonly stated in the following form:
+
+> *Let $k \in \mathbb{N}_0$. Suppose $f$ has $k+1$ continuous derivatives on an open interval containing $x_0$. Then for each $z$ in the interval, $$ f(x) = \Big[ \sum_{n=0}^k \dfrac{f^{(k)}(x_0)}{k!}(x-x_0)^k \Big] + R_{k+1}(x)$$ where $R_{k+1}(x) = \int_{x_0}^x \dfrac{f^{(k+1)}(t)}{k!}(x - t)^{k} \, dt.$*
+
+I had a hard time understanding how Taylor's theorem is different from the definition of Taylor's series, but what I understand to be the difference is that Taylor's theorem gives the error term for when we use Taylor series to approximate $f(x)$. In the following proof I will show that if we approximate a $k+1$ times differentiable function $f$ with Taylor series up to the $k$th term, the approximation error is $\int_{x_0}^x \dfrac{f^{(k+1)}(t)}{k!}(x-t)^k \, dt$. 
+
+**Proof**: I will fix $x$ and $x_0$. By the fundamental theorem of calculus,
+        $$ f(x) = f(x_0) + \int_{x_0}^x f^\prime(t) \, dt.$$
+For integration by parts, I set $u = f^\prime(t)$ and $dv = dt$. 
+        $$
+        \begin{align*}
+        u = f^\prime(t) &\quad dv = dt \\
+        du = f^{\prime \prime}(t) \, dt & \quad v = t - x
+        \end{align*}
+        $$
+Then, I get 
+$$
+\begin{align*}
+        f(x) & = f(x_0) + f^\prime(t)(t- x)\bigg|_{t=x_0}^{t=x} - \int_{x_0}^x f^{\prime \prime}(t)(t- x)\, dt \\
+        & = f(x_0) - f^\prime(x_0)(x_0 - x) - \int_{x_0}^x f^{\prime \prime}(t)(t- x)\, dt \\
+        & = f(x_0) + f^\prime(x_0)(x - x_0) - \int_{x_0}^x f^{\prime \prime}(t)(t- x)\, dt 
+\end{align*}
+$$
+
+I repeat integration by parts until the $k$th term.
+$$
+\begin{align*}
+        f(x) & = f(x_0) + f^\prime(x_0)(x - x_0) - \int_{x_0}^x f^{\prime \prime}(t)(t- x_0)\, dt \\ 
+        & = f(x_0) + f^\prime(x_0)(x - x_0) - f^{\prime \prime}(t)\dfrac{(t-x_0)^2}{2}\bigg|_{t = x_0}^{t = x} + \int_{x_0}^x f^{(3)}(t)\dfrac{(t-x)^2}{2}\, dt \\
+        & = f(x_0) + f^\prime(x_0)(x- x_0) + f^{\prime\prime}(x_0)\dfrac{(x-x_0)^2}{2} + f^{(3)}(t)\dfrac{(t-x)^3}{3!}\bigg|_{t=x_0}^{t=x} - \int_{x_0}^x f^{(4)}(t)\dfrac{(t-x)^3}{3!}\, dt \\
+        & = f(x_0) + f^\prime(x_0)(x- x_0) + f^{\prime\prime}(x_0)\dfrac{(x-x_0)^2}{2} + f^{(3)}(x_0)\dfrac{(x-x_0)^3}{3!} + \cdots \\
+        &\qquad + f^{(k)}(x_0)\dfrac{(x-x_0)^k}{k!} + \int_{x_0}^x f^{(k+1)}(t)\dfrac{(t-x)^k}{k!}\, dt  \qquad \heartsuit.
+\end{align*}
+$$
+
+
+
+# Application 
+
+Taylor series comes in hand when proving the Central Limit Theorem and the delta method lemma, but I will reserve these for later posts. Here, I want to share other instances in probability where Taylor series is employed. 
+
+
+## Moment Generating Property
+
+Let $m_k = E[X^k]$ for $k \in \mathbb{N_0}$ be the $k$th moment of random variable $X$. Let $M_X(t) = E[e^{tX}]$ for all $t \in \mathbb{R}$ denote the moment generating function of $X$. The moment generating property says that $m_k = M_{X}^{(k)}(0)$ if the moment generating function $M_X(t)$ is **nice** where a function $g$ is **nice** if $g(t) = \sum_{k=0}^\infty \dfrac{g^{(k)}(0)}{k!}t^k$ for all $k \in \mathbb{N}_0$.
+
+
+**Proof**: Assume that a random variable $X$ has a nice mgf $M_X(t)$. 
+$$
+\begin{align*}
+        M_X(t) & = E[e^{tX}] \qquad \text{by def. of mgf} \\
+        & = E \Big[ \sum_{k=0}^\infty \dfrac{(tX)^k}{k!} \Big] \qquad \text{by Taylor series expansion of $e^x$}\\
+        & = \sum_{k=0}^\infty \dfrac{t^kE[X^k]}{k!} \qquad \text{by linearity of expectation} \\
+        & = \sum_{k=0}^\infty \dfrac{t^k m_k}{k!} \qquad \text{by def. of moments}
+\end{align*}
+$$
+
+Thus, we arrive at $M_X(t) = \sum_{k=0}^\infty \dfrac{t^k m_k}{k!}$. We also know that $M_X(t) = \sum_{k=0}^\infty \dfrac{M_X^{(k)}(0)}{k!}$ from the following expansion:
+$$
+\begin{align*}
+        M_X(t)& = E[e^{tX}] \qquad \text{by def. of mgf} \\
+        & = \int_{-\infty}^\infty e^{tx} f(x) \, dx \\
+        & = \int_{-\infty}^\infty (1 + tx + \dfrac{(tx)^2}{2!} + \cdots)f(x) \, dx \\
+        & = \int_{-\infty}^\infty f(x) \, dx + t\int_{-\infty}^\infty xf(x)\, dx + \dfrac{t^2}{2!}\int_{-\infty}^\infty x^2f(x)\, dx \\ 
+        & = 1 + tM^\prime_X(0) + \dfrac{t^2}{2!}M^{\prime \prime}_X(0) + \cdots \\
+        & = \sum_{k=0}^\infty \dfrac{M^{(k)}_X(0)}{k!}t^k
+\end{align*}
+$$
+By [Taylor series uniqueness], the coefficiencts to the $t^k$ term must be equivalent for all $k \in \mathbb{N}_0$, so 
+$$
+\begin{align*}
+        \dfrac{m_k}{k!} &= \dfrac{M^{(k)}_X(0)}{k!} \\
+        m_k & = M_X^{(k)}(0) \qquad \heartsuit.
+\end{align*}
+$$
+
+## Mgf of Poisson Distribution
+
+Let $X \sim \rm{Poisson}(\lambda)$. I want to derive the mgf of $X$.
+$$
+\begin{align*}
+        M_X(t) & = E[e^{tX}] \qquad \text{by def.} \\
+        & = \sum_{k=0}^\infty e^{tk} \dfrac{e^{-\lambda}\lambda^k}{k!} \qquad \text{by def. of expectation} \\
+        & = e^{-\lambda}\sum_{k=0}^\infty \dfrac{(e^t\lambda)^k}{k!} \\
+        & = e^{-\lambda}e^{e^t \lambda} \qquad \text{by exponential series} \\
+        & = e^{\lambda(e^t-1)} 
+\end{align*}
+$$
+Thus, $M_X(t) = e^{\lambda(e^t - 1)}$ for all $t \in \mathbb{R}$. $\heartsuit$
+
+
+## Moment List of Standard Normal Dist.
+
+Let $Z \sim N(0, 1)$. Recall that the pdf of standard normal distribution is 
+        $$\phi(z) = \dfrac{1}{\sqrt{2\pi}} \exp \Big\{- \dfrac{z^2}{2} \Big\}.$$
+I want to find the moment list of $Z$, $\mathcal{M}_Z = \{ m_0, m_1, m_2, \ldots \} = \{m_k: k \in \mathbb{N}_0 \}$. We already have the first three moments:
+        $$m_0 = 1, \, m_1 = 0, \, m_2 = 1.$$
+We know from [moment generating property] that we can extract $m_k$'s from $M_X^{(k)}(0)$'s. First, let's derive the moment generating function of standard normal distribution, $M_Z(t)$.
+$$
+\begin{align*}
+M_Z(t) & = E[e^{tZ}] \\
+        & = \int_{-\infty}^\infty e^{tz}\phi(z) \, dz \\
+        & = \int_{-\infty}^\infty e^{tz} \dfrac{1}{\sqrt{2\pi}}\exp \Big\{ -\dfrac{z^2}{2} \Big\} \, dz \\
+        & = \int_{-\infty}^\infty \dfrac{1}{\sqrt{2\pi}}\exp \Big\{- \dfrac{1}{2}(z^2 + 2tz + t^2 - t^2) \Big\} \, dz \qquad \text{complete the squares} \\
+        & = \exp\Big\{ \dfrac{t^2}{2} \Big\} \int_{-\infty}^\infty \dfrac{1}{\sqrt{2\pi}}\exp \Big\{- \dfrac{1}{2}(z + t)^2  \Big\} \, dz \\
+        & = \exp\Big\{\dfrac{t^2}{2} \Big\} \int_{-\infty}^\infty \dfrac{1}{\sqrt{2\pi}}\exp\Big\{ - \dfrac{u^2}{2} \Big\} \, du \quad \text{by chain rule} \\
+        & = \exp\Big\{ \dfrac{t^2}{2} \Big\}\int_{-\infty}^\infty \phi(u) \, du \quad \text{where $\phi(u)$ is pdf of $N(0, 1)$} \\
+        & = \exp\Big\{ \dfrac{t^2}{2} \Big\} 
+\end{align*}
+$$
+By exponential series, 
+$$
+M_Z(t) = \exp\Big\{ \dfrac{t^2}{2} \Big\} = \sum_{k=0}^\infty \dfrac{(t^2/2)^k}{k!} = \sum_{k=0}^\infty \dfrac{t^{2k}}{2^k k!} 
+$$
+So, how do we take this to express $\mathcal{M}_Z$? Let's expand the series out. 
+$$
+\begin{align*}
+       M_Z(t) = \sum_{k=0}^\infty \dfrac{t^{2k}}{2^k k!}  & = t^0 + \dfrac{t^2}{2} + \dfrac{t^4}{(2^2)2!} + \dfrac{t^6}{(2^3)3!} + \cdots \\
+       & = t^0 + 0t^1 + c_2t^2 + 0t^3 + c_4t^4 + \cdots
+\end{align*}
+$$
+For any random variable $X$, the moment generating function has the following series expansion:
+        $$M_X(t) = \sum_{n=0}^\infty \dfrac{m_n}{n!}t^n.$$
+So, according to the expansion of $M_Z(t)$, we have the following for the first five moments for $n \in \mathbb{N_0$:
+$$
+        \begin{align*}
+        \dfrac{m_0}{0!} = 1 \qquad \Rightarrow \qquad m_0 = 1 \\
+        \dfrac{m_1}{1!} = 0 \qquad \Rightarrow \qquad m_1 = 0 \\
+        \dfrac{m_2}{2!} = c_2 = \dfrac{1}{2^1 1!} \qquad \Rightarrow \qquad m_2 = 1 \\
+        \dfrac{m_3}{3!} = 0 \qquad \Rightarrow \qquad m_3 = 0 \\ 
+        \dfrac{m_4}{4!} = c_4 = \dfrac{1}{(2^2)2!} \qquad \Rightarrow \qquad m_4 = 3
+        \end{align*}
+$$
+
+It's clear that we have two cases of $n$: when $n$ is odd and when $n$ is even.
+
+- $n$ is odd: $m_n = 0$. 
+- $n$ is even, i.e. $n = 2k$ for some $k \in \mathbb{N}_0$: 
+        $$
+        \begin{align*}
+        \dfrac{m_n}{n!} &= \dfrac{1}{2^k k!} \\
+        \dfrac{m_n}{(2k)!} & = \dfrac{1}{2^k k!} \\
+        m_n & = \dfrac{(2k)!}{2^k k!}
+        \end{align*}
+        $$
+
+Thus, we have derived the moment list of standard normal distribution. $\heartsuit$
+
+<hr>
+
+Taylor series is such an important and useful tool, and I've always felt like I've missed out on appreciating it. Writing one blog post is not enough, but I'm looking forward to encountering it the next time I look through my math notes. :notebook:
+
+
+

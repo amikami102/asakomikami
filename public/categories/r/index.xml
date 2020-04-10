@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>R on Asako Mikami</title>
+    <link>/categories/r/</link>
+    <description>Recent content in R on Asako Mikami</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 04 May 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/categories/r/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Collecting historical weather data, Part III</title>
+      <link>/2019/05/04/weather-data-part3/</link>
+      <pubDate>Sat, 04 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/2019/05/04/weather-data-part3/</guid>
+      <description>1 Cleaning the data 2 Visualizing the data References   To recount, Part II interpolated the precipitation data we obtained in Part I in order to get county-level precipitation values. Part III (this post) will clean the data further in preparation for the visualization stage and then create a gif animation of chloreoploth maps plotting precipitation level in inches over the seven days leading up to the 2006 midterm election.</description>
+    </item>
+    
+    <item>
+      <title>Migrating to Hugo</title>
+      <link>/2019/04/16/migrating-to-hugo/</link>
+      <pubDate>Tue, 16 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/2019/04/16/migrating-to-hugo/</guid>
+      <description>1 Installing ‘tuftesque’ theme 2 Setting up a navigation bar 2.1 nav element 2.1.1 .navbar-brand class  2.2 button element 2.3 .collapse.navbar-collapse class 2.4 Adding padding to the body  3 Adding syntax highlighting   I moved this blog from Jekyll to Hugo because I felt like I was missing out on blogdown. I spent days browsing for that right theme all over https://themes.gohugo.io/, but I finally made up my mind to use Nick Strayer’s tuftesque, which was one of Yihui Xie’s honorable mentions for impressive blogdown implementation.</description>
+    </item>
+    
+    <item>
+      <title>Collecting historical weather data, Part I</title>
+      <link>/2019/04/10/weather-data-part1/</link>
+      <pubDate>Wed, 10 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/2019/04/10/weather-data-part1/</guid>
+      <description>1 Obtain NOAA API key token 2 Obtain weather data with rnoaa::ncdc() 2.1 Code breakdown  3 Obtain weather station data with rnoaa::ncdc_stations() 4 Join dataframes 5 Create spatial point dataframes 6 (Optional) Plot the data   As part of a coauthored project investigating whether rain deters voters from going to the polls in US elections, I had to collect past weather data. This series walks you through how to gather data on the daily total precipitation level from November 1st to November 7th, 2006, where the last day is the 2006 midterm election.</description>
+    </item>
+    
+    <item>
+      <title>Introducing a replication project of Warren (2019)</title>
+      <link>/2019/04/02/introduce-replicate-warren/</link>
+      <pubDate>Tue, 02 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/2019/04/02/introduce-replicate-warren/</guid>
+      <description>I have a project called replicate_warren (a private Github repository), where I am trying to replicate a sociology study, Warren (2019). To put it succinctly, Warren (2019) collected data from résumés of sociology PhD graduates and measured how over-achieving recent PhD graduates had to be to land a junior faculty jobs at top sociology departments in the United States. I want to replicate the study in the political science field.</description>
+    </item>
+    
+  </channel>
+</rss>

@@ -1,0 +1,28 @@
+---
+title: "About"
+comment: false
+---
+
+My name is Asako. I am a PhD student in political science at Boston University. I received my BA from Smith College where I majored in Government and minored in Mathematics. 
+
+I have been studying political science for almost 9 years, but during my PhD training, I have found my calling in data science and am looking to start my career in the field. 
+
+My favorite data science activities are webscraping, cleaning, and building visualization apps from data. My blog showcases my working projects, R/Python tutorials for data collection, and notes on mathematics related to statistics. You can reach me by 
+
+- leaving a disqus comment on one of my blog posts,
+- [tweeting](https://twitter.com/asako_mikami) at me, or
+- [emailing](mailto:asakomikami@gmail.com) me.
+
+## Acknowledgements
+
+Here are some awesome resources that helped me get this website up and running. 
+
+- Dave Robinson's blogpost, ["Advice to aspiring data scientists: start a blog"](http://varianceexplained.org/r/start-blog/) for inspiration
+- Alison Presmane Hill's blogpost, ["Up and running with blogdown"](https://alison.rbind.io/post/up-and-running-with-blogdown/) on how to get quickly started with `blogdown` in R Studio
+- Nick Strayer's [tufesque theme](https://github.com/nstrayer/tuftesque) for Hugo
+- [Bootstrap version 4.3.1](https://getbootstrap.com/) for implementing the horizontal navigation bar 
+- [favicon.io](https://favicon.io/favicon-generator/) for free custom favicon and logo 
+- Brooke Watson's blogost, ["Custom domain hosting with GitHub and Namecheap"](https://blog.brooke.science/posts/custom-domain-hosting-with-github-and-namecheap/) on how to deploy your website with custom domain 
+- Amber Thomas's blogpost, ["Adding Syntax Highlighting to Blogdown Posts"](https://amber.rbind.io/2017/11/15/syntaxhighlighting/) on how to enable syntax highlighting 
+
+

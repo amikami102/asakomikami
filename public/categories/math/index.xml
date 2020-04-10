@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>math on Asako Mikami</title>
+    <link>/categories/math/</link>
+    <description>Recent content in math on Asako Mikami</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 19 May 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/categories/math/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>The Central Limit Theorem As I Understand It</title>
+      <link>/2019/05/19/central-limit-theorem/</link>
+      <pubDate>Sun, 19 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/2019/05/19/central-limit-theorem/</guid>
+      <description>1 The Central Limit Theorem for IID Samples 1.1 The Fetus 1.2 The Baby CLT 1.3 The Adult CLT, v1.0 1.4 The Adult CLT, v2.0  2 The Central Limit Theorem for Non-IID Samples 2.1 Are Agricultural Crop Yields Normally Distributed?  References   According to Salsburg (2001), the Central Limit Theorem (CLT) didn’t have an explicit proof when it was first written down by Abraham de Moivre in the 18th century.</description>
+    </item>
+    
+    <item>
+      <title>Taylor Series in Probability</title>
+      <link>/2019/05/08/taylor-series/</link>
+      <pubDate>Wed, 08 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/2019/05/08/taylor-series/</guid>
+      <description>1 Definition 1.1 Taylor Series of Common Functions  2 Interesting Properties 2.1 Taylor Series Uniqueness 2.2 Taylor’s Theorem  3 Application 3.1 Moment Generating Property 3.2 Mgf of Poisson Distribution 3.3 Moment List of Standard Normal Dist.    I first learned about Taylor series in high school, but I didn’t quite master series expansion in general, let alone Taylor. Even after several math courses in college, my familiarity with it has barely grown since our first encounter back in high school.</description>
+    </item>
+    
+    <item>
+      <title>Geometric and triangle inequalities</title>
+      <link>/2019/05/03/geometric-and-triangle-inequality/</link>
+      <pubDate>Fri, 03 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/2019/05/03/geometric-and-triangle-inequality/</guid>
+      <description>Geometric inequality Triangle inequality   The last post, “Correlation as standardized covariance”, mentions geometric and triangle inequalities, i.e.
+ geometric inequality: \(\left| ab \right| \leq \dfrac{a^2 + b^2}{2}\) for all \(a, b \in \mathbb{R}\) triangle inequality for expectations: \(\left| \E [X] \right| \leq \E [ \left| X \right|]\) for a discrete or continuous random variable \(X\).  They look deceptively simple and intuitive, but I was surprised by how frequently they can be used in proofs.</description>
+    </item>
+    
+    <item>
+      <title>Correlation is just standardized covariance</title>
+      <link>/2019/05/01/correlation-is-just-standardized-covariance/</link>
+      <pubDate>Wed, 01 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/2019/05/01/correlation-is-just-standardized-covariance/</guid>
+      <description>Sometimes, we re-learn a concept in a new way that opens our eyes and feel like we finally get it. This happened to me with correlation: the correlation of two random variables is just standardized covariance!
+n.b.: I learned the material in this article from taking Professor Daniel Weiner’s course, Mathematics of Statistics at BU. All the credit of this post goes to him while all mistakes are mine. 💁</description>
+    </item>
+    
+  </channel>
+</rss>

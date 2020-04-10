@@ -1,0 +1,23 @@
+baseURL = "https://asakomikami.com"
+languageCode = "en-us"
+title = "Asako Mikami"
+relativeURLs = true
+enableEmoji = true
+ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
+
+[[params.menu]]
+  name = "About"
+  url = "/about/"
+  
+[[params.menu]]
+  name = "Recent posts"
+  url = "/post/"
+  
+[[params.menu]]
+  name = "Categories"
+  url = "/categories/"
+  
+
+[permalinks]
+    post = "/:year/:month/:day/:slug/"
+
