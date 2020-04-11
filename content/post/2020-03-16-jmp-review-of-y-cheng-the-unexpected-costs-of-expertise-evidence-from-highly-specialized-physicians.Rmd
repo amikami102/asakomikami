@@ -106,7 +106,7 @@ Finally, let's talk about the main results presented in Tables 3, 4, 5, and 6.[^
 
 ![](/post/2020-03-16-jmp-review-of-y-cheng-the-unexpected-costs-of-expertise-evidence-from-highly-specialized-physicians_files/YiCheng-eq3.png)
 
-Here are Tables 3 and 4. Note that top panel is regression no.2 implemented on entire sample; bottom panels reports regression no.2 implemented on subsamples divided by the NICU congestion level on the day of their admission along with regression no.3 implemented on entire sample. *I'm not entirely sure why she implemented regression 2 on subsamples.:confused:*
+Here are Tables 3 and 4. Note that top panel is regression no.2 implemented on entire sample; bottom panels reports regression no.2 implemented on subsamples divided by the NICU congestion level on the day of their admission along with regression no.3 implemented on entire sample. *I'm not entirely sure why she implemented regression 2 on subsamples.*:confused:
 
 ![](/post/2020-03-16-jmp-review-of-y-cheng-the-unexpected-costs-of-expertise-evidence-from-highly-specialized-physicians_files/YiCheng-table3.png)
 

@@ -5,6 +5,9 @@ relativeURLs = true
 enableEmoji = true
 ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
 
+[params]
+  disableMarginNotes = false
+
 [[params.menu]]
   name = "About"
   url = "/about/"
@@ -16,6 +19,18 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
 [[params.menu]]
   name = "Categories"
   url = "/categories/"
+  
+[[params.topmenu]]
+  name = "About"
+  url = "/about/"
+
+[[params.topmenu]]
+  name = "Recent posts"
+  url = "/post/"
+  
+[[params.topmenu]]
+  name = "Categories"
+  url = "/categories."
   
 
 [permalinks]

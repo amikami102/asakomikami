@@ -1,3 +1,5 @@
+/Users/asako/blog/.gitignore="35988829"
+/Users/asako/blog/CNAME="D73F0C36"
 /Users/asako/blog/archetypes/page.md="A492BDB2"
 /Users/asako/blog/config.toml="5D604C2D"
 /Users/asako/blog/content/about.Rmd="BCB6672B"
@@ -19,6 +21,7 @@
 /Users/asako/blog/layouts/_default/list.html="E2FE8240"
 /Users/asako/blog/layouts/_default/single.html="7BB7BB78"
 /Users/asako/blog/layouts/index.html="4801315E"
+/Users/asako/blog/layouts/partials/feature_image.html="62016627"
 /Users/asako/blog/layouts/partials/head_includes.html="478FD8BF"
 /Users/asako/blog/layouts/partials/meta.html="58E113BC"
 /Users/asako/blog/layouts/partials/right-links.html="6C01F53"

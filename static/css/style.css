@@ -119,11 +119,11 @@ body {
     margin-top: 1em;
     margin-bottom: 1em;
     min-height: 0px;
-    background-color: #fcf5ee;
+    background-color: white;
   }
 
   .look-sheet-bkg {
-    background-color: #fffdf7;
+    background-color: #fcf5ee; 
   }
 }
 
@@ -226,7 +226,7 @@ hr {
 }
 
 body {
-  background-color: #fbe8e7;
+  background-color: white;
 }
 
 figcaption {
