@@ -163,6 +163,7 @@ blockquote {
   background: var(--main-brand-color);  /* fallback for old browsers */
   /* background: -webkit-linear-gradient(135deg, var(--light-pink) 80%, var(--coral) 20%);  /* Chrome 10-25, Safari 5.1-6 
   background: linear-gradient(135deg, var(--light-pink) 80%, var(--coral) 20%); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+  
 }
 
 .nav-bkg-50 {
@@ -174,6 +175,7 @@ blockquote {
 }
 
 .nav-bkg a {
+  font-family: 'EB Garamond', serif;
   text-decoration: underline;
 }
 
