@@ -6,7 +6,7 @@ enableEmoji = true
 ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
 
 [params]
-  disableMarginNotes = false
+  firstname = "Asako"
 
 [[params.menu]]
   name = "About"
@@ -30,7 +30,7 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
   
 [[params.topmenu]]
   name = "Categories"
-  url = "/categories."
+  url = "/categories/"
   
 
 [permalinks]

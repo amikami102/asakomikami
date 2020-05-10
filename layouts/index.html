@@ -10,16 +10,12 @@
 
   <section id="main" class="content-container article-pad-v">
     <div>
-      <h1 id="title" style="margin-bottom: 0.75em">{{.Site.Title}}</h1>
-      <ul id="list" class="list-unstyled list-of-titles">
-        {{ range .Site.Params.Menu }}
-          <li>
-            <a href="{{ .url | relURL }}">
-              <span class="post-title">{{ .name }}</span>
-            </a>
-          </li>
-        {{ end }}
-      </ul>
+      <h1 id="title" style="margin-bottom: 0.75em">
+        Hi, my name is {{ .Site.Params.firstname }}.</h1>
+      <p>I'm an aspiring data scientist with a background in political science. I have a couple of tutorials and ongoing series on this blog.</p>
+      
+      <h2>Tutorials</h2>
+      
     </div>
   </section>
 

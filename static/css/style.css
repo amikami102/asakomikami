@@ -1,11 +1,16 @@
-/* Color pallette from https://www.millionshade.com/color-palette-0086/*/
+
 
 :root {
-  --light-pink: #FED6CD; 
-  --coral: #FA8C74;
-  --dark-red: #A7432E;
-  --moss-brown: #65553C;
-  --dark-brown: #383429;
+  --dark-shades: #222238; /* ebony clay */
+  --dark-accent: #877AB2; /* lavender clay */
+  --main-brand-color: #8541A3; /* royal purple */
+  --light-accent: #DB847B; /* new york pink */
+  --light-shades: #F5F4F1; /* pampas */
+  
+  /* other  */
+  --success: #5d8e69; /* spring leaves */
+  --warning: #da7e31; /* brandy punch */
+  --danger: #f44336; /* pomegrante */
 }
 
 
@@ -55,16 +60,18 @@ code {
 }
 
 h1,h2,h3,h4,h5,h6 {
-  font-family: 'Lora', serif;
+  font-family: 'Merriweather', serif;
+  font-weight: 400; /*regular */
 }
 
 h1#title {
   /*Some UA stylesheets put h1 to 1.5em when in an article, so we reset it back for our title here.*/
   font-size: 2em;
+  color: var(--main-brand-color);
 }
 
 body {
-  font-family: -apple-system,BlinkMacSystemFont,avenir next,avenir,helvetica neue,helvetica,ubuntu,roboto,noto,segoe ui,arial,sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
 }
 
 .content-container {
@@ -81,13 +88,13 @@ body {
 }
 
 .look-sheet-bkg {
-  background-color: white;
+  background-color: var(--light-shades);
 }
 
 @media(min-width: 720px) {
   /* Make everything 10% smaller! */
   html {
-    font-size: 16px; /*changed from 14.4px */
+    font-size: 18px; /*changed from 14.4px */
   }
 
   .content-container {
@@ -115,15 +122,15 @@ body {
 
   .look-sheet {
     border: 1px solid #ccc;
-    box-shadow: 0 5px 5px -5px #777777;
+   /* box-shadow: 0 5px 5px -5px #777777; */
     margin-top: 1em;
     margin-bottom: 1em;
     min-height: 0px;
-    background-color: white;
+    background-color: var(--light-shades);
   }
 
   .look-sheet-bkg {
-    background-color: #fcf5ee; 
+    background-color: var(--light-shades); 
   }
 }
 
@@ -133,7 +140,7 @@ figure.smaller {
 
 .look-sheet-border {
   border: 1px solid #ccc;
-  box-shadow: 0 5px 5px -5px #777777;
+  /* box-shadow: 0 5px 5px -5px #777777; */
   margin-top: 1em;
   margin-bottom: 1em;
   min-height: 0px;
@@ -151,18 +158,18 @@ blockquote {
 }
 
 .nav-bkg {
-  color: #fcf5ee;
-  box-shadow: 0 5px 5px -5px #777777;
-  background: var(--light-pink);  /* fallback for old browsers */
-  background: -webkit-linear-gradient(135deg, var(--light-pink) 80%, var(--coral) 20%);  /* Chrome 10-25, Safari 5.1-6 */
+  color: var(--light-shades);
+ /* box-shadow: 0 5px 5px -5px #777777; */
+  background: var(--main-brand-color);  /* fallback for old browsers */
+  /* background: -webkit-linear-gradient(135deg, var(--light-pink) 80%, var(--coral) 20%);  /* Chrome 10-25, Safari 5.1-6 
   background: linear-gradient(135deg, var(--light-pink) 80%, var(--coral) 20%); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
 .nav-bkg-50 {
-  color: #fcf5ee;
-  box-shadow: 0 5px 5px -5px #777777;
-  background: var(--light-pink);  /* fallback for old browsers */
-  background: -webkit-linear-gradient(135deg, var(--light-pink) 50%, var(--coral) 50%);  /* Chrome 10-25, Safari 5.1-6 */
+  color: var(--light-shades);
+  /* box-shadow: 0 5px 5px -5px #777777; */
+  background: var(--main-brand-color);  /* fallback for old browsers */
+  /* background: -webkit-linear-gradient(135deg, var(--light-pink) 50%, var(--coral) 50%);  /* Chrome 10-25, Safari 5.1-6 
   background: linear-gradient(135deg, var(--light-pink) 50%, var(--coral) 50%); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 
@@ -180,11 +187,11 @@ nav a, nav a:hover, nav a:visited {
 
 .post-date {
   font-size: 0.875em;
-  color: var(--moss-brown);
+  color: var(--light-accent);
 }
 
 .post-tags, .post-tags a, .post-tags a:hover, .post-tags a:visited {
-  color: var(--moss-brown);
+  color: var(--light-accent);
 }
 
 .margin-top-2em {
@@ -198,7 +205,7 @@ nav a, nav a:hover, nav a:visited {
 
 kbd {
   background-color: #333;
-  color: #fff;
+  color: var(--dark-shades);
   padding: 2px 4px;
   border-radius: 4px;
   font-size: 95%;
@@ -225,9 +232,9 @@ hr {
   margin: 2.5em 3em;
 }
 
-body {
+/*body {
   background-color: white;
-}
+} */
 
 figcaption {
   margin-top: 0.75em;
@@ -287,10 +294,12 @@ a.no-underline:hover .re-underline {
 }
 
 .list-of-titles .post-title {
-  color: var(--dark-brown);
+  color: var(--dark-shades);
   font-size: 1.5em;
-  font-family: 'Lora', serif;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 400;
 }
+
 .list-of-titles li a {
   text-decoration: none;
   display: block;

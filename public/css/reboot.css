@@ -6,14 +6,18 @@
  * Forked from Normalize.css, licensed MIT (https://github.com/necolas/normalize.css/blob/master/LICENSE.md)
  */
 
-/* Color pallette from https://www.millionshade.com/color-palette-0086/*/
 
 :root {
-  --light-pink: #FED6CD; 
-  --coral: #FA8C74;
-  --dark-red: #A7432E;
-  --moss-brown: #65553C;
-  --dark-brown: #383429;
+  --dark-shades: #222238; /* ebony clay */
+  --dark-accent: #877AB2; /* lavender clay */
+  --main-brand-color: #8541A3; /* royal purple */
+  --light-accent: #DB847B; /* new york pink */
+  --light-shades: #F5F4F1; /* pampas */
+  
+  /* other  */
+  --success: #5d8e69; /* spring leaves */
+  --warning: #da7e31; /* brandy punch */
+  --danger: #f44336; /* pomegrante */
 }
 
 *,
@@ -24,7 +28,7 @@
 
 html {
   font-family: sans-serif;
-  line-height: 1.15;
+  line-height: 1.3;
   -webkit-text-size-adjust: 100%;
   -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
 }
@@ -38,10 +42,10 @@ body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
   font-size: 1rem;
   font-weight: 400;
-  line-height: 1.5;
-  color: var(--dark-brown);
+  line-height: 1.6;
+  color: var(--dark-shades);
   text-align: left;
-  background-color: #fff;
+  background-color: var(--light-shades);
 }
 
 [tabindex="-1"]:focus:not(:focus-visible) {
@@ -134,13 +138,13 @@ sup {
 }
 
 a {
-  color: var(--dark-red);
+  color: var(--dark-accent);
   text-decoration: none;
   background-color: transparent;
 }
 
 a:hover {
-  color:  var(--dark-red);
+  color:  var(--dark-accent);
   text-decoration: underline;
 }
 
@@ -189,7 +193,7 @@ table {
 caption {
   padding-top: 0.75rem;
   padding-bottom: 0.75rem;
-  color: #6c757d;
+  color: var(--light-shades);
   text-align: left;
   caption-side: bottom;
 }

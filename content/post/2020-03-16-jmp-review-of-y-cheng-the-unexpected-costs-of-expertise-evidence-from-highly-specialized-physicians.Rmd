@@ -1,5 +1,5 @@
 ---
-title: 'Yi Cheng "The Unexpected Costs of Expertise: Evidence from Highly
+title: 'Yi Cheng, "The Unexpected Costs of Expertise: Evidence from Highly
   Specialized Physicians"'
 date: '2020-04-10'
 slug: jmp-review-yi-cheng
@@ -7,26 +7,25 @@ categories:
   - JMP by women in econ
 meta: true
 toc: false
-draft: false 
 ---
 
-*This blog post is part of my "JMP by women in econ" series where I summarize and review some of the job market papers written by women PhD candidates. The papers are selected from Jennifer Doleac's [Twitter thread](https://twitter.com/jenniferdoleac/status/1187863251947806720). I am not reading this from the perspective of an economist, let alone of a job committee member: I just like reading observational studies that tackle challenging research problems.:bowtie:* 
+*This blog post is part of my "JMP by Women in Econ" series where I summarize and review some of the job market papers written by women PhD candidates. The papers are selected from Jennifer Doleac's [Twitter thread](https://twitter.com/jenniferdoleac/status/1187863251947806720). I am not reading this from the perspective of an economist, let alone of a job committee member: I just like reading observational studies that tackle challenging research problems.*:bowtie: 
 
-I am reviewing Yi Cheng's job market paper, ["The Unexpected Costs of Expertise: Evidence from Highly Specialized Physicians."](https://asit-prod-web1.cc.columbia.edu/econdept/wp-content/uploads/sites/41/2019/09/YiCheng_JMP_current.pdf) Here is an excerpt from the abstract:
+For my first post of this series, I am reviewing Yi Cheng's job market paper, ["The Unexpected Costs of Expertise: Evidence from Highly Specialized Physicians"](https://asit-prod-web1.cc.columbia.edu/econdept/wp-content/uploads/sites/41/2019/09/YiCheng_JMP_current.pdf)(November 4, 2019). The abstract begins,
 
 > High U.S. spending on health care is commonly attributed to its intensity of specialized, high-tech medical care. A growing body of research focuses on physicians whose medical decisions shape treatment intensity, costs, and patient outcomes. Often overlooked in this research is the assignment of physician skills to patient conditions, which may strongly affect health outcomes and productivity. 
 
 The paper uses a natural experiment setting that randomly induces physician-patient mismatch, namely one where a physician specialized in treating high-risk patient cases is assigned to a mid-risk patient. Intuitively we can tell that such a mismatch is wasteful, but the question that Cheng takes up is whether there are any health consequences.
 
-The paper contributes to an empirical question that has yet to reach a consensus among economists and health policy experts: **what are the sources and the magnitude of waste that contribute to the exorbitant cost of U.S. health spending?** We usually focus on how expensive U.S. health care is, but there is much less discussion on whether the medical care we receive is of the appropriate quality. Thinking on that aspect of U.S. health care reminds me of Christy Ford Chapin's book, *Ensuring America's Health: The Public Creation of the Corporate Health Care System* (2015), which traces how the current flawed system came to be. I see Cheng's paper as complementing Chapin's work in that they respectively examine the macro-level and micro-level mechanism behind the inefficient resource allocation of current American health care system. 
+The paper contributes to an empirical question that has yet to reach a consensus among economists and health policy experts: *what are the sources and the magnitude of waste that contribute to the exorbitant cost of U.S. health spending?* We usually focus on how expensive U.S. health care is, but there is much less discussion on whether the medical care we receive is of the appropriate quality. Thinking on that aspect of U.S. health care reminds me of Christy Ford Chapin's book, *Ensuring America's Health: The Public Creation of the Corporate Health Care System* (2015), which traces how the current flawed system came to be. I see Cheng's paper as complementing Chapin's work in that they respectively examine the macro-level and micro-level mechanism behind the inefficient resource allocation of current American health care system. 
 
 
 ## Research design
 
-The research question is, "What is the effect of matching intensive care treatment administered by highly-skilled physician to a low-risk patient?", i.e.
+The research question is, "What is the effect of matching intensive care treatment administered by highly-skilled physician to a low-risk patient?"
 
-- the treatment is physician-patient (mis)match, and
-- the outcome is the patient's health as measured by days to discharge, remission rate, and hospital charge. 
+- *Treatment*: physician-patient (mis)match
+- *Outcome*: patient's health and care utilization
 
 If we were to run a randomized controlled treatment experiment without paying any heed to its ethicality, we would match patients and physicians randomly. In reality, highly skilled physicians are assigned to treat high-risk patients that could benefit from the physician's specialized expertise. In other words, there is a *selection mechanism* behind the treatment assignment. 
 
@@ -77,7 +76,7 @@ Figure 5 extends the result by conditioning on congestion level on day -1. This 
 
 > When NICUs are congested, the specialized physicians treat a higher fraction of previously admitted mid-risk newborns. On the contrary, such fraction is lower if NICU facilities are not congested upon unscheduled high risk admissions and the specialized physicians are likely to treat subsequent mid-risk newborn admissions. 
 
-*This part stumped me at first because it looks like low congestion (right panel) has higher peak on day 0 than high congestion (left panel), which is opposite of the description.:confused:* I wondered if the panels were supposed to be switched, but what I think Cheng means is that when NICU capacity is tight (left panel), mid-risk newborns who were admitted prior to day 0 are likely to be treated by specialized physicians. This makes sense because all hands are on deck and patient-to-physician ratio would tend to be high. On the other hand, when there is some slack in NICU occupancy, it sounds reasonable to me that specialized physicians wouldn't have their hands full with mid-risk newborns. I think what Cheng is saying is that the pre-treatment trends for the rest of the paper, not the post-treatment trend. The post-treatment trends, which are different in high and low congestion levels, matter when it comes to deciding a cutoff point for treatment/control group. For now, the takeaway is that incumbent patients are more likely to be treated by specialized physicians when NICU is already congested prior to the unscheduled admission of high-risk patient.
+*This part stumped me at first because it looks like low congestion (right panel) has higher peak on day 0 than high congestion (left panel), which is opposite of the description.*:confused: I wondered if the panels were supposed to be switched, but what I think Cheng means is that when NICU capacity is tight (left panel), mid-risk newborns who were admitted prior to day 0 are likely to be treated by specialized physicians. This makes sense because all hands are on deck and patient-to-physician ratio would tend to be high. On the other hand, when there is some slack in NICU occupancy, it sounds reasonable to me that specialized physicians wouldn't have their hands full with mid-risk newborns. I think what Cheng is saying is that the pre-treatment trends for the rest of the paper, not the post-treatment trend. The post-treatment trends, which are different in high and low congestion levels, matter when it comes to deciding a cutoff point for treatment/control group. For now, the takeaway is that incumbent patients are more likely to be treated by specialized physicians when NICU is already congested prior to the unscheduled admission of high-risk patient.
 
 # Treatment/control cutoffs
 

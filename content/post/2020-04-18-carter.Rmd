@@ -1,0 +1,129 @@
+---
+title: 'Chelsea E. Carter, "Forts and Frontier: The U.S. Army and the Spatial Distribution of Population"'
+date: '2020-04-18'
+slug: jmp-review-chelsea-carter
+categories: ["JMP by women in econ"]
+math: FALSE
+meta: TRUE
+---
+
+*This blog post is part of my "JMP by Women in Econ" series where I summarize and review some of the job market papers written by women PhD candidates. The papers are selected from Jennifer Doleac's [Twitter thread](https://twitter.com/jenniferdoleac/status/1187863251947806720). I am not reading this from the perspective of an economist, let alone of a job committee member: I just like reading cool articles that use observational data to tackle challenging research problems.* :bowtie:
+
+The article I'm reviewing in this blog post is by Chelsea E. Carter, ["Forts and Frontier: The U.S. Army and the Spatial Distribution of Population."](https://sites.google.com/a/bu.edu/chelsea-e-carter/research?authuser=0) One of the things that surprises me about other social science disciplines like economics and sociology is the range of social phenomena that they write about (I wasn't expecting to read a paper about the American West!). Carter checks the robustness of her results with new empirical methods published in the last few years, so there's a lot of methodological techniques to unpack in this paper. If you're like me and want to know how to do things, you'll be checking out the reference section of this paper constantly! 
+
+![*Me flipping to the reference section if I were reading this pdf hardcopy.*](https://media.giphy.com/media/jBzO4OBN8oIms/giphy.gif)
+
+An excerpt from the abstract:
+
+> Exploiting a unique setting in United States military history, I study the origins and persistence in the spatial distribution of the US population. ... [Military forts] predict initial increases in population and population density, indicative of their role as man-made factors in explaining the origins of local population patterns. Inceased population and density persist, on average, over a century after fort abandonment, indicative of path dependence at frontier fort locations. 
+
+The part of this excerpt that intrigues me the most is path dependence. I remember asking the professor in our research methodology seminar whether path dependence theory was falsifiable. I haven't been able to answer this question, so I am curious as to how the author empirically tests the hypothesis. 
+
+
+# Research puzzle
+
+There are two observations that can be drawn about the population distribution in parts of the United States west of the Mississippi River.
+
+1. The American West has [uneven distribution of population](https://i.redd.it/d0ioc9idrtf31.png). 
+2. The American West consists of [large regions of homogenous geography](https://www.mapsofworld.com/physical-map/usa-physical-map.html). 
+
+When asked how people have chosen where to live during the age of primitive technology, most people would guess that factors like geography, climate, and access to water transporation routes have determined which locations were attractive for permanent settlement. However, this piece of conventional wisdom doesn't explain the two observations about the American frontier because if there are large stretches of land with similar topography, the distribution of population should be even. Moreover, a 2018 paper found that "only 35 percent of within-country variation [in population density] can be explained by attributes of physical geography." Thus, Carter thinks that the pattern of population distribution in the American West too has been shaped by factors other than physical geography, in particular military forts. 
+
+*Assuming that individuals prefer to live close to each other*, we can imagine that the early settlers would have faced a spatial coordination problem.[^co-locate] There is a body of historical research suggesting that military forts built by the U.S. Army served as a congregation point for the settlers. What's interesting about Carter's paper is that she is presenting an alternative theory to another paper, Bleakley and Lin (2012), that posits that ports "as a *natural* advantage" solved the same spatial coordination problem for the frontier settlers (6). Carter, in turn, argues that that *man-made* features like military forts were critical in establishing the population density differentials in the flat plains of the U.S. interior. 
+
+[^co-locate]: This is actually a very crucial assumption and one that Carter herself addresses explicitly, for there is [an NBER paper](https://www.bu.edu/econ/files/2018/08/BFG_Frontier.pdf) that studies how frontier experience fostered a culture of individualism in the U.S. interior and the region's general disdain towards welfare redistribution. 
+
+**NB**: This, I think, is a really good example of a *research puzzle* as opposed to a mere *research question*.:mag: I consider a research puzzle as a special kind of research question that takes the form of a contradiction between a theory and a set of observations. Here, Carter is pointing out that there is a contradiction between a theory (the conventional wisdom that geography determines population distribution) and a set of observations about the phenomena that should be explained by that theory. I don't necessarily think that a paper inspired by a research puzzle is "better"---more scientifically relevant or intellectually interesting---than one that simply begins with a research question, but the former's advantage is that its scientific relevancy is self-evident. When you write a research paper, you have to defend why your research question is worth investigating, even to an academic audience: you have to answer the "so what" question. This is not much of a problem for a research puzzle: because a scientific progress is built on a process of testing the falsifiability of extant theories, a contradiction between a theory and empirical observations is clearly a matter to be settled 
+
+# Research design
+
+There are four empirical questions investigated in this paper. 
+
+1. Did military forts solve the initial spatial coordination problem? 
+2. If so, did they have persistent effect on population distribution in nearby counties? 
+3. Did military forts have an effect on the demographic composition of the settlers? 
+4. If so, how long did this effect last? 
+
+The first two ask the *where* question while the last two ask the *who* question. In this blog post, I am only going to discuss the *where* questions because the way Carter answered these questions were more interesting to me.  
+
+For the first question, the *treatment* variable is military fort establishment by year 1890.[^1890] County $i$ is in the treatment group in year $t$ if a fort was built that year but is in the control group for all other years. Carter tests other specification models where the treatment group is expanded to include the nearby counties. The *outcome* is either logged yearly population size or logged yearly population density. The unit of analysis for this question is county-year where the county boundary lines are harmonized to year 1900, meaning that the 1900 county border is held constant for all observed  years.[^harmonize] 
+
+[^1890]: The year 1890 is the cutoff point indicating U.S. frontier closure as railroad networks were beginning to expand towards the west by 1860. 
+
+[^harmonize]: See Hornbeck (2010) "Barbed Wire: Property Rights and Agricultural Development" footnote 21 for the logic behind this method. Carter cites Elizabeth Perlman, who has published zip files for county boundaries harmonized to a range of base decenial years along with the `arcpy` code script [on her website](http://elisabethperlman.net/code.html). I am excited to take a look at this myself to practice using `arcpy`'s tools again.
+
+The second question is an empirical test of the *path dependence* hypothesis, and I think the paper is an instructive example of how to do it quantitatively. Because of the availability of fort data, Carter is able to use fort abandonment as the *treatment* variable. The treatment group consists of 102 counties in year 2010 with military forts that were decommissioned by the year 1890. The control group consists of nearby counties without any military forts. The outcome is the population size and population density reported in the 2010 Census. Note that unlike the first question, this question does not use panel data: the unit of analysis is a U.S. county in the year 2010. 
+
+For both questions, the biggest threat to treatment effect identification is *selection bias*. Given that forts are man-made features, there would have been some important factors that went into the selection of fort location site. Based on the works of historians and military scholars, Carter identifies four exogenous features. 
+
+- water availability as measured by distance to nearest water source, distance to steam-navigable river, distance to portage site, whether a river/water source intersect county boundary
+- proximity to Native American tribes as measured by distance to nearest tribal boundary 
+- topography measured by mean elevation
+- suitability for human habitat and crop growth and livestock proxied by latitudinal longitudinal geocoordinates; annual average temperature, rainfall, and output of rain-fed crops 
+
+Below is a snippet view of Table 1 describing the covariate balance between treatment and control groups. There is a clear difference between fort counties and non-fort counties with respect to distance to steam-navigable rivers, proximity to the nearest Native American tribe, and mean elevation height. 
+
+![Table 1 from Carter (2019).](/post/2020-04-18-carter_files/CCarter_tab1.png)
+
+# Initial fort effect: OLS, propensity score matching, and causal random forest
+
+I will review three ways that Carter presents evidence for conditional average treatment effect of forts on initial spatial distribution of population. First, she runs OLS regressions with standard errors clustered at county level. The main equation is
+$$Y_{ist} = \alpha + \beta (\text{Fort}_{it})+ X_i\gamma_t + \theta_{st} + \epsilon_{ist}$$
+where $\text{Fort}_{it} = 1$ for all years including and after year $t$ that a military fort was built in county $i$; $X_i\gamma_t$ is an interaction between observable confounders in Table 1 ($X_i$) and year dummy ($\gamma_t$); $\theta_{st}$ is a state-by-year fixed effect such as ratification of statehood. She also runs the same regression on a sample that excludes no-fort counties that are adjacent to fort counties in order to remove the spillover effect. Here is a snippet of Table 2. 
+
+![Table 2 from Carter (2019)](/post/2020-04-18-carter_files/CCarter_tab2.png)
+
+Notice how much $R^2$ jumped by adding $\theta_{st}$. Even as more controls are added and spillover effect is removed, the coefficient size for $\hat{\beta}$ remains positive and significant. As far as evidence from OLS regression goes, this table is looking pretty strong. 
+
+The second piece of evidence comes from *propensity score matching*.[^matching] She creates a sample where a fort county is matched with a non-fort county that lies within 100=mile radius of a fort according to their propensity scores. The propensity scores are estimates of logistic model predicting the probability of treatment by the pre-existing covariates listed in Table 1. Sort of like event study, the year of fort arrival is noramlized to $t=0$ for each treated-control pair. Figure 5 visualizes how the mean population measure of fort counties and non-fort counties have diverged since $t=0$. 
+
+![Figure 5 from Carter (2019)](/post/2020-04-18-carter_files/CCarter_fig5.png)
+
+[^matching]: Carter says she's using this method because it "allow[s] the parameter of interest to depend on-linearly on pre-existing characteristics (24)." I don't understand what she means by this even after reading [the article](https://www.nber.org/papers/w11235) that she cites. 
+
+
+Finally, Carter provides evidence from *causal random forest estimation*. This is the first time I've seen machine learning used in causal inference. The problem with the methods thus far, Carter explains, is that 
+
+> [i]n OLS, [the unconfoundedness assumption] implies that by controlling linearly for $X_i$, I can recover unbiased estimates of $\tau(x)$ [the treatment effect]; under propensity score matching, the assumption suggests that if I know the *propensity* of receiving a treatment for all $X_i = x$, then too can I estimate $\tau(x)$. As a researcher, however, I am unaware of the exact functional form with which the pre-determined variables enter a model of interest which may lead to a failure to satisfy the unconfoundedness assumption using my earlier techniques. 
+
+Whereas OLS and propensity score matching come with their own assumptions on how the covariates $X_i$ relate to the outcome variable or the treatment variable, a random forest, which is just a bunch of decision trees, has the advantage of flexibility like kernel regressions. [Athey and Imbens (2019)](https://arxiv.org/abs/1903.10075) explains that like kernel regression, which fits kernel density function within each bin, decision tree finds the optimal cutoff of one covariate within each leaf. This allows for non-linearity and high-level interactions that must be specified beforehand when fitting linear regressions. Even better than kernel regression, a random forest is able to work in high-dimensional setting without picking up irrelevant features. 
+
+How do we use random forest for causal inference? [Athey and Wagner (2017)](https://arxiv.org/abs/1510.04342) explains that when a decision tree stops splitting, the sample in each leaf is an as-if random sample and therefore, the estimate for treatment effect conditional on covariate value $x$ for each leaf $L$ is 
+        $$\hat{\tau}(x)_L = \dfrac{1}{\{i: W_i = 1,\,X_i \in L \}}\sum_{\{i: \, W_i = 1, X_i \in L\}}Y_i - \dfrac{1}{\{i: \, W_i = 0,\, X_i \in L \}}  \sum_{\{i: \, W_i = 0,\, X_i \in L\}}Y_i.$$
+Next, $\hat{\tau}(x)_L$ is averaged across all leaves for the whole tree. Finally, the tree-level treatment estimates are aggregated to produce the ensemble treatment effect by taking their average: $$\hat{\tau}(x)_{\text{ensemble}} = \dfrac{1}{B} \sum_{b = 1}^B \hat{\tau}(x)_b.$$ Since estimator $\tau(x)$ is [asymptotically normal, consistent, and unbiased](https://arxiv.org/abs/1510.04342), we can perform the usual statistical inference on this estimator. 
+
+Table 4 are $\hat{\tau}(x)_{\text{ensemble}}$'s estimated with various model specifications (see p.28 for explanation of each model). The sample is a cross-sectional slice for an arbitrary year. The size of the estimates are definitely smaller compared to Table 2, but they are statistically significant and remain stable even when railroad access is included (compare column (1) to (3) and column (2) to (4)).
+![Table 4 from Carter (2019)](/post/2020-04-18-carter_files/CCarter_tab4.png)
+
+![Sec. 5 powering from OLS to propensity score matching to causal random forest.](https://media.giphy.com/media/3o6wO7hfMVIEeqUTJu/giphy.gif)
+
+# Persistent fort effect
+
+:thought_balloon: Path dependence is a difficult hypothesis to test because you have to think carefully about how to frame the question as a causal inference problem and construct the treatment and outcome variables. I think the way Carter does it is clean and rather instructive because you can compare her results in Section 7 (specifically Table 5) with Bleakley and Lin (2012)'s, which tests the persistence effect of portage sites on the same outcome.
+
+Thanks to the works of historians, Carter has data on the years the forts were established and decommissioned and identifies 102 forts that were decomissioned by 1890. This is great because she has information on precise timing of when forts became obsolete where as the same kind of information is unavailable for portage sites in Bleakley and Lin (2012). Restricting the non-fort counties to those whose centroids lie within 100-mile radius of the abandoned forts, Carter fits the following OLS regression:
+$$Y_i = \alpha + \beta(\text{abandoned fort})_i + X_i \gamma + \theta_s + \epsilon_i$$
+where $Y_i$ is the population measure of county $i$ in 2010, $X_i$ is the pre-determined covariates in Table 1, and $\theta_s$ is the state fixed effect. Table 5 displays the results. 
+
+![Table 5 from Carter (2019)](/post/2020-04-18-carter_files/CCarter_tab5.png)
+
+What strikes me is that even after including railroad access, the coefficient is statistically significant even if its size is reduced by half for population size and by a quarter for population density. Similar results are found with causal random forest. 
+
+
+# Conclusion
+
+This was a very cool research paper, and I think the body of evidence provided for her hypotheses is convincing. Moreover, I came out with a list of further readings. One of these readings is [Oster (2019) "Unobservable Selection and Coefficient Stability: Theory and Validation."](https://www.brown.edu/research/projects/oster/sites/brown.edu.research.projects.oster/files/uploads/Unobservable_Selection_and_Coefficient_Stability_0.pdf) In Section 10 "Robustness Exercises," Carter uses a method developed by Oster to investigate the potential effect of selection bias caused by unobservable variables. From what I can tell from briefly skimming the pdf, Oster builds on an old idea that if the $R^2$ and standard error of the treatment coefficient estimate remain stable as you add more controls to the OLS regression, it indicates that the effect of selection bias from unobservable variables is negligible. Carter draws a pretty strong conclusion after implementing Oster's method: "All evidence provided suggests that a systematic selection on unobservables related to both fort location and population measures is not of substantial concern (46)." I've seen another paper refering to Oster (2019), so I think this is a paper worth catching up on for all social scientists out there doing quantitative research. 
+
+![Here is my full list of further readings from Carter (2019)'s references.](https://gph.is/1PKx3Pj)
+
+- All of Susan Athey's papers, starting with Athey and Imbens (2019) "Machine Learning Methods Economists Should Know About," [pdf available at arxiv](https://arxiv.org/abs/1903.10075)
+- Abadie et al. (2017) "When Should You Adjust
+Standard Errors for Clustering?", [pdf available at arxiv](https://arxiv.org/abs/1710.02926)
+- Asher and Novosad (2019) "Rural Roads and Local Economic Development," [pdf available at aeaweb](https://www.aeaweb.org/articles?id=10.1257/aer.20180268)
+- Cage and Rueda (2017) "The Long-Term Effects of the Printing Press in sub-Saharan Africa," [pdf available at aeaweb](https://www.aeaweb.org/articles?id=10.1257/app.20140379)
+- Davis and Weinstein (2009) "Bones, Bombs and Break Points: The Geography of Economic Activity,"
+[pdf available at aeaweb](https://www.aeaweb.org/articles?id=10.1257/000282802762024502)
+- Henderson et al. (2018) "The Global Distribution of Economic Activity: Nature, History, and the Role of Trade," [open access pdf](https://academic.oup.com/qje/article/133/1/357/4110418)
+- Hornbeck (2010) "Barbed Wire: Property Rights and Agricultural Development," [open access pdf](https://dash.harvard.edu/bitstream/handle/1/11185832/hornbeck_barbedwire.pdf?sequence=2)
+- Li et al. (2014) "Balancing Covariates via Propensity Score Weighting," [pdf available at arxiv](https://arxiv.org/abs/1404.1785)
+- Oster (2019) "Unobservable Selection and Coefficient Stability: Theory and Validation," [open access pdf](https://www.brown.edu/research/projects/oster/sites/brown.edu.research.projects.oster/files/uploads/Unobservable_Selection_and_Coefficient_Stability_0.pdf)
