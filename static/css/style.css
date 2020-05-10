@@ -177,6 +177,8 @@ blockquote {
 .nav-bkg a {
   font-family: 'EB Garamond', serif;
   text-decoration: underline;
+  text-transform: uppercase;
+  font-size: 1.0em;
 }
 
 .pagewide-bar-padding {
