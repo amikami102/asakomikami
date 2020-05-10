@@ -296,7 +296,7 @@ a.no-underline:hover .re-underline {
 .list-of-titles .post-title {
   color: var(--dark-shades);
   font-size: 1.5em;
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'Merriweather', serif;
   font-weight: 400;
 }
 
