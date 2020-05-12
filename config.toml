@@ -4,22 +4,11 @@ title = "Asako Mikami"
 relativeURLs = true
 enableEmoji = true
 ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
+disqusShortname = "amikami102"
 
 [params]
-  firstname = "Asako"
+  subtitle = "Mastered out of a PhD program in political science, now applying for data scientist/analyst position."
 
-[[params.menu]]
-  name = "About"
-  url = "/about/"
-  
-[[params.menu]]
-  name = "Recent posts"
-  url = "/post/"
-  
-[[params.menu]]
-  name = "Categories"
-  url = "/categories/"
-  
 [[params.topmenu]]
   name = "About"
   url = "/about/"
