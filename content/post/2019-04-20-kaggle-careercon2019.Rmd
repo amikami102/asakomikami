@@ -3,11 +3,10 @@ title: "Lessons from Kaggle CareerCon 2019"
 type: "post"
 date: '2019-04-20'
 slug: kaggle-careercon2019
-categories: ['career']
+tags: ['career']
 comment: true
 math: no
-draft: false
-meta: yes
+meta: true
 bibliography: references.bib
 excerpt: "The three day live-stream conference left me with lessons that confirmed my intuition and a general feeling of optimism."
 output: 

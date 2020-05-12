@@ -2,7 +2,8 @@
 title: 'Chelsea E. Carter, "Forts and Frontier: The U.S. Army and the Spatial Distribution of Population"'
 date: '2020-04-18'
 slug: jmp-review-chelsea-carter
-categories: ["JMP by women in econ"]
+series: 
+        - JMP by women in economics
 math: FALSE
 meta: TRUE
 ---

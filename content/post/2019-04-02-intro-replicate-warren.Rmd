@@ -3,13 +3,9 @@ date: 2019-04-02
 title: "Introducing a replication project of Warren (2019)"
 slug: introduce-replicate-warren
 excerpt: "A replication project of a sociology study investigating the career path of recent PhD graduates until they land their junior faculty positions at top U.S. sociology departments."
-categories: ['replicate warren', 'webscraping', 'python', 'R']
+tags: ['replicate warren', 'webscraping', 'python', 'R']
 comment: true
 bibliography: references.bib
-output: 
-        blogdown::html_page:
-                toc: false
-                number_sections: false
 ---
 
 I have a project called `replicate_warren` (a private Github repository), where I am trying to replicate a sociology study, @warren2019. To put it succinctly, @warren2019 collected data from résumés of sociology PhD graduates and measured how over-achieving recent PhD graduates had to be to land a junior faculty jobs at top sociology departments in the United States. I want to replicate the study in the political science field. Due to a similar market structure, I expect to see the same trends in hiring---i.e., higher hurdles for publication numbers and longer post-doc years---but I am also interested in looking at how the trends differ among the four subfields in political science, namely American politics, comparative politics, political theory, and international relations. For instance, of the four subfields, political theory majors have the most dismal job prospects. It would be valuable to visualize the differences among subfields with data. 

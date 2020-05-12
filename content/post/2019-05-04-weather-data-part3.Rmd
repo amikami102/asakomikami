@@ -3,7 +3,9 @@ title: "Collecting historical weather data, Part III"
 date: '2019-05-04'
 slug: weather-data-part3
 draft: false
-categories: ['weather data', 'GIS', 'R']
+categories: ['GIS', 'R']
+series:
+        - Collecting historical weather data
 excerpt: "We're going to end this series with a blast and create an animated map."
 math: true
 meta: true

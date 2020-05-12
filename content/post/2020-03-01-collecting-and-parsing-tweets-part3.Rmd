@@ -1,13 +1,13 @@
 ---
-title: Collecting and Parsing Tweets, Part III
-author: ~
+title: Collecting and parsing tweets, Part III
 date: 2020-03-01
 slug: collecting-and-parsing-tweets-part3
-categories: ['python', 'webscraping', 'pizza-to-the-polls']
+tags: ['python', 'webscraping']
+series:
+    - Collecting and parsing tweets
 excerpt: "A three-part series explaining how I used Twitter API to search for tweets and extracted polling addresses from parsed tweets. Part III will parse the street addresses and geocode them through Google's Geocoding API."
 math: true
 comment: true
-draft: false
 type: "post"
 bibliography: references.bib
 output:

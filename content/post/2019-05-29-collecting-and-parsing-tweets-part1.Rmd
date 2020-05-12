@@ -1,8 +1,10 @@
 ---
-title: "Collecting and Parsing Tweets, Part I"
+title: "Collecting and parsing tweets, Part I"
 date: 2019-05-29
 slug: collecting-and-parsing-tweets-part1
-categories: ['python', 'webscraping', 'pizza-to-the-polls']
+tags: ['python', 'webscraping']
+series:
+    - Collecting and parsing tweets
 excerpt: "A three-part series explaining how I collected tweets from Twitter API and extracted polling addresses from parsed tweets. Part I will walk through how to use Twitter API Full Archive."
 math: true
 comment: true
