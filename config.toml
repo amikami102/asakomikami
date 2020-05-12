@@ -9,17 +9,22 @@ disqusShortname = "amikami102"
 [params]
   subtitle = "Mastered out of a PhD program in political science, now applying for data scientist/analyst position."
 
+[taxonomies]
+  category = "categories"
+  series = "series"
+
 [[params.topmenu]]
   name = "About"
   url = "/about/"
 
 [[params.topmenu]]
-  name = "Recent posts"
+  name = "All posts"
   url = "/post/"
   
 [[params.topmenu]]
-  name = "Categories"
-  url = "/categories/"
+  name = "Series"
+  url = "/series/"
+
   
 
 [permalinks]

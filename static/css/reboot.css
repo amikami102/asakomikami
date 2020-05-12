@@ -5,20 +5,16 @@
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  * Forked from Normalize.css, licensed MIT (https://github.com/necolas/normalize.css/blob/master/LICENSE.md)
  */
+ 
+ :root {
+  --dark-shades: #D1BE9C; /* khaki */
+  --dark-accent: #272838; /* raisin black */
+  --main-brand-color: #E17653; /* burnt sienna */
+  --light-accent: #F4B9B2; /* spanish pink */
+  --light-shades: #FFFFFF; /* white */
 
-
-:root {
-  --dark-shades: #222238; /* ebony clay */
-  --dark-accent: #877AB2; /* lavender clay */
-  --main-brand-color: #8541A3; /* royal purple */
-  --light-accent: #DB847B; /* new york pink */
-  --light-shades: #F5F4F1; /* pampas */
-  
-  /* other  */
-  --success: #5d8e69; /* spring leaves */
-  --warning: #da7e31; /* brandy punch */
-  --danger: #f44336; /* pomegrante */
 }
+
 
 *,
 *::before,
