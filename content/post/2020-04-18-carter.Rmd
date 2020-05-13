@@ -65,6 +65,8 @@ For both questions, the biggest threat to treatment effect identification is *se
 
 Below is a snippet view of Table 1 describing the covariate balance between treatment and control groups. There is a clear difference between fort counties and non-fort counties with respect to distance to steam-navigable rivers, proximity to the nearest Native American tribe, and mean elevation height. 
 
+{{< figure src="/post/2020-04-18-carter_files/CCarter_tab1.png" attr="Table 1 from Carter (2019)" >}}
+
 ![Table 1 from Carter (2019).](/post/2020-04-18-carter_files/CCarter_tab1.png)
 
 # Initial fort effect: OLS, propensity score matching, and causal random forest
