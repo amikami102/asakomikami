@@ -4,7 +4,6 @@ date: '2020-04-18'
 slug: jmp-review-chelsea-carter
 series: 
         - JMP by women in economics
-math: FALSE
 meta: TRUE
 ---
 
@@ -32,8 +31,8 @@ When asked how people have chosen where to live during the age of primitive tech
 
 *Assuming that individuals prefer to live close to each other*, we can imagine that the early settlers would have faced a spatial coordination problem.[^co-locate] There is a body of historical research suggesting that military forts built by the U.S. Army served as a congregation point for the settlers. What's interesting about Carter's paper is that she is presenting an alternative theory to another paper, Bleakley and Lin (2012), that posits that ports "as a *natural* advantage" solved the same spatial coordination problem for the frontier settlers (6). Carter, in turn, argues that that *man-made* features like military forts were critical in establishing the population density differentials in the flat plains of the U.S. interior. 
 
-{{< aside >}}
-[^co-locate]: This is actually a very crucial assumption and one that Carter herself addresses explicitly, for there is [an NBER paper](https://www.bu.edu/econ/files/2018/08/BFG_Frontier.pdf) that studies how frontier experience fostered a culture of individualism in the U.S. interior and the region's general disdain towards welfare redistribution. {{</ aside >}}
+
+[^co-locate]: This is actually a very crucial assumption and one that Carter herself addresses explicitly, for there is [an NBER paper](https://www.bu.edu/econ/files/2018/08/BFG_Frontier.pdf) that studies how frontier experience fostered a culture of individualism in the U.S. interior and the region's general disdain towards welfare redistribution. 
 
 **NB**: This, I think, is a really good example of a *research puzzle* as opposed to a mere *research question*.:mag: I consider a research puzzle as a special kind of research question that takes the form of a contradiction between a theory and a set of observations. Here, Carter is pointing out that there is a contradiction between a theory (the conventional wisdom that geography determines population distribution) and a set of observations about the phenomena that should be explained by that theory. I don't necessarily think that a paper inspired by a research puzzle is "better"---more scientifically relevant or intellectually interesting---than one that simply begins with a research question, but the former's advantage is that its scientific relevancy is self-evident. When you write a research paper, you have to defend why your research question is worth investigating, even to an academic audience: you have to answer the "so what" question. This is not much of a problem for a research puzzle: because a scientific progress is built on a process of testing the falsifiability of extant theories, a contradiction between a theory and empirical observations is clearly a matter to be settled 
 
