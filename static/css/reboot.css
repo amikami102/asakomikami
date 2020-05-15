@@ -6,15 +6,15 @@
  * Forked from Normalize.css, licensed MIT (https://github.com/necolas/normalize.css/blob/master/LICENSE.md)
  */
  
- :root {
-  --dark-shades:#272838; /* raisin black */
-  --dark-accent: #D1BE9C; /* khaki */
+
+:root {
+  --dark-shades: #272838; /* raisin black */
+  --dark-accent: #02111B; /* rich black */
   --main-brand-color: #E17653; /* burnt sienna */
   --light-accent: #F4B9B2; /* spanish pink */
   --light-shades: #FFFFFF; /* white */
 
 }
-
 
 *,
 *::before,
@@ -135,7 +135,7 @@ sup {
 
 a {
   color: var(--dark-accent);
-  text-decoration: none;
+  text-decoration: underline;
   background-color: transparent;
 }
 
