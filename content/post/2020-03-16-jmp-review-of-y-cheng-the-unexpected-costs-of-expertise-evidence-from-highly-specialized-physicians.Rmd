@@ -9,7 +9,7 @@ meta: true
 toc: false
 ---
 
-*This blog post is part of my "JMP by Women in Econ" series where I summarize and review some of the job market papers written by women PhD candidates. The papers are selected from Jennifer Doleac's [Twitter thread](https://twitter.com/jenniferdoleac/status/1187863251947806720). I am not reading this from the perspective of an economist, let alone of a job committee member: I just like reading observational studies that tackle challenging research problems.*:bowtie: 
+*This blog post is part of my "JMP by Women in Econ" series where I summarize and review some of the job market papers written by women PhD candidates in Economics. The papers are selected from Jennifer Doleac's [Twitter thread](https://twitter.com/jenniferdoleac/status/1187863251947806720). DISCLAIMER: I am not reading this from the perspective of an economist, let alone of a job committee member. I just like reading cool articles that use observational data to tackle challenging research problems.* :bowtie:
 
 For my first post of this series, I am reviewing Yi Cheng's job market paper, ["The Unexpected Costs of Expertise: Evidence from Highly Specialized Physicians"](https://asit-prod-web1.cc.columbia.edu/econdept/wp-content/uploads/sites/41/2019/09/YiCheng_JMP_current.pdf)(November 4, 2019). The abstract begins,
 

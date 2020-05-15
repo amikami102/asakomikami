@@ -26,11 +26,13 @@
                 {{ end }}
               </span>
               <br> {{ end }}
+              {{ if .Params.series }}
               <span class="post-meta">
                 {{ range .Params.series }}
                   SERIES: {{ . }}
                 {{ end }}
               </span>
+              <br> {{ end }}
             </a>
           </li>
         {{ end }}
