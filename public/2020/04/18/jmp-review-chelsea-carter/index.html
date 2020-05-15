@@ -12,7 +12,7 @@
 <meta name="HandheldFriendly" content="True" />
 <meta name="MobileOptimized" content="320" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-
+<meta name="generator" content="Hugo 0.67.1" />
 
 <link rel="apple-touch-icon" sizes="180x180" href="//apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="//favicon-32x32.png">
@@ -33,6 +33,7 @@
 <meta property="article:published_time" content="2020-04-18T00:00:00+00:00" />
 <meta property="article:modified_time" content="2020-04-18T00:00:00+00:00" />
 
+
 <meta property="og:site_name" content="Asako Mikami" />
 
 
@@ -40,7 +41,7 @@
 <meta itemprop="description" content="This blog post is part of my “JMP by Women in Econ” series where I summarize and review some of the job market papers written by women PhD candidates. The papers are selected from Jennifer Doleac’s Twitter thread. I am not reading this from the perspective of an economist, let alone of a job committee member: I just like reading cool articles that use observational data to tackle challenging research problems.">
 <meta itemprop="datePublished" content="2020-04-18T00:00:00&#43;00:00" />
 <meta itemprop="dateModified" content="2020-04-18T00:00:00&#43;00:00" />
-<meta itemprop="wordCount" content="1395">
+<meta itemprop="wordCount" content="2717">
 
 
 
@@ -71,7 +72,7 @@
 
 
 <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400&display=swap" rel="stylesheet">
-
+<link href="https://fonts.googleapis.com/css?family=EB+Garamond&display=swap" rel="stylesheet">
     <link rel="shortcut icon" href="../../../../favicon.ico" type="image/x-icon" />
     <link rel="apple-touch-icon" href="../../../../apple-touch-icon.png" />
   </head>
@@ -97,13 +98,13 @@
 
           <li>
             <a href="../../../../post/">
-              <span class="post-title">Recent posts</span>
+              <span class="post-title">All posts</span>
             </a>
           </li>
 
           <li>
-            <a href="../../../../categories/">
-              <span class="post-title">Categories</span>
+            <a href="../../../../series/">
+              <span class="post-title">Series</span>
             </a>
           </li>
 
@@ -121,8 +122,8 @@
 <p><em>This blog post is part of my “JMP by Women in Econ” series where I summarize and review some of the job market papers written by women PhD candidates. The papers are selected from Jennifer Doleac’s <a href="https://twitter.com/jenniferdoleac/status/1187863251947806720">Twitter thread</a>. I am not reading this from the perspective of an economist, let alone of a job committee member: I just like reading cool articles that use observational data to tackle challenging research problems.</em> :bowtie:</p>
 <p>The article I’m reviewing in this blog post is by Chelsea E. Carter, <a href="https://sites.google.com/a/bu.edu/chelsea-e-carter/research?authuser=0">“Forts and Frontier: The U.S. Army and the Spatial Distribution of Population.”</a> One of the things that surprises me about other social science disciplines like economics and sociology is the range of social phenomena that they write about (I wasn’t expecting to read a paper about the American West!). Carter checks the robustness of her results with new empirical methods published in the last few years, so there’s a lot of methodological techniques to unpack in this paper. If you’re like me and want to know how to do things, you’ll be checking out the reference section of this paper constantly!</p>
 <div class="figure">
-<img src="https://media.giphy.com/media/jBzO4OBN8oIms/giphy.gif" alt="Me flipping to the reference section if I were reading this pdf hardcopy." />
-<p class="caption"><em>Me flipping to the reference section if I were reading this pdf hardcopy.</em></p>
+<img src="https://media.giphy.com/media/jBzO4OBN8oIms/giphy.gif" alt="Me flipping to the reference section" />
+<p class="caption"><em>Me flipping to the reference section</em></p>
 </div>
 <p>An excerpt from the abstract:</p>
 <blockquote>
@@ -159,8 +160,71 @@
 <li>topography measured by mean elevation</li>
 <li>suitability for human habitat and crop growth and livestock proxied by latitudinal longitudinal geocoordinates; annual average temperature, rainfall, and output of rain-fed crops</li>
 </ul>
-<p>Below is a snippet view of Table 1 describing the covariate balance between treatment and control groups. There is a clear difference between fort counties and non-fort counties with respect to distance to steam-navigable rivers, proximity to the nearest Native American tribe, and mean elevation.</p>
-<p><img src="../../../../post/2020-04-18-carter_files/CCarter_tab1.png" /></p>
+<p>Below is a snippet view of Table 1 describing the covariate balance between treatment and control groups. There is a clear difference between fort counties and non-fort counties with respect to distance to steam-navigable rivers, proximity to the nearest Native American tribe, and mean elevation height.</p>
+<p align="center">
+<img src="../../../../post/2020-04-18-carter_files/CCarter_tab1.png" alt="Table 1 from Carter (2019)" />
+</p>
+</div>
+<div id="initial-fort-effect-ols-propensity-score-matching-and-causal-random-forest" class="section level1">
+<h1>Initial fort effect: OLS, propensity score matching, and causal random forest</h1>
+<p>I will review three ways that Carter presents evidence for conditional average treatment effect of forts on initial spatial distribution of population. First, she runs OLS regressions with standard errors clustered at county level. The main equation is
+<span class="math display">\[Y_{ist} = \alpha + \beta (\text{Fort}_{it})+ X_i\gamma_t + \theta_{st} + \epsilon_{ist}\]</span>
+where <span class="math inline">\(\text{Fort}_{it} = 1\)</span> for all years including and after year <span class="math inline">\(t\)</span> that a military fort was built in county <span class="math inline">\(i\)</span>; <span class="math inline">\(X_i\gamma_t\)</span> is an interaction between observable confounders in Table 1 (<span class="math inline">\(X_i\)</span>) and year dummy (<span class="math inline">\(\gamma_t\)</span>); <span class="math inline">\(\theta_{st}\)</span> is a state-by-year fixed effect such as ratification of statehood. She also runs the same regression on a sample that excludes no-fort counties that are adjacent to fort counties in order to remove the spillover effect. Here is a snippet of Table 2.</p>
+<p align="center">
+<img src="../../../../post/2020-04-18-carter_files/CCarter_tab2.png" alt="Table 2 from Carter (2019)" />
+</p>
+<p>Notice how much <span class="math inline">\(R^2\)</span> jumped by adding <span class="math inline">\(\theta_{st}\)</span>. Even as more controls are added and spillover effect is removed, the coefficient size for <span class="math inline">\(\hat{\beta}\)</span> remains positive and significant. As far as evidence from OLS regression goes, this table is looking pretty strong.</p>
+<p>The second piece of evidence comes from <em>propensity score matching</em>.<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a> She creates a sample where a fort county is matched with a non-fort county that lies within 100=mile radius of a fort according to their propensity scores. The propensity scores are estimates of logistic model predicting the probability of treatment by the pre-existing covariates listed in Table 1. Sort of like event study, the year of fort arrival is noramlized to <span class="math inline">\(t=0\)</span> for each treated-control pair. Figure 5 visualizes how the mean population measure of fort counties and non-fort counties have diverged since <span class="math inline">\(t=0\)</span>.</p>
+<p align="center">
+<img src="../../../../post/2020-04-18-carter_files/CCarter_fig5.png" alt="Figure 5 from Carter (2019)" />
+</p>
+<p>Finally, Carter provides evidence from <em>causal random forest estimation</em>. This is the first time I’ve seen machine learning used in causal inference. The problem with the methods thus far, Carter explains, is that</p>
+<blockquote>
+<p>[i]n OLS, [the unconfoundedness assumption] implies that by controlling linearly for <span class="math inline">\(X_i\)</span>, I can recover unbiased estimates of <span class="math inline">\(\tau(x)\)</span> [the treatment effect]; under propensity score matching, the assumption suggests that if I know the <em>propensity</em> of receiving a treatment for all <span class="math inline">\(X_i = x\)</span>, then too can I estimate <span class="math inline">\(\tau(x)\)</span>. As a researcher, however, I am unaware of the exact functional form with which the pre-determined variables enter a model of interest which may lead to a failure to satisfy the unconfoundedness assumption using my earlier techniques.</p>
+</blockquote>
+<p>Whereas OLS and propensity score matching come with their own assumptions on how the covariates <span class="math inline">\(X_i\)</span> relate to the outcome variable or the treatment variable, a random forest, which is just a bunch of decision trees, has the advantage of flexibility like kernel regressions. <a href="https://arxiv.org/abs/1903.10075">Athey and Imbens (2019)</a> explains that like kernel regression, which fits kernel density function within each bin, decision tree finds the optimal cutoff of one covariate within each leaf. This allows for non-linearity and high-level interactions that must be specified beforehand when fitting linear regressions. Even better than kernel regression, a random forest is able to work in high-dimensional setting without picking up irrelevant features.</p>
+<p>How do we use random forest for causal inference? <a href="https://arxiv.org/abs/1510.04342">Athey and Wagner (2017)</a> explains that when a decision tree stops splitting, the sample in each leaf is an as-if random sample and therefore, the estimate for treatment effect conditional on covariate value <span class="math inline">\(x\)</span> for each leaf <span class="math inline">\(L\)</span> is
+<span class="math display">\[\hat{\tau}(x)_L = \dfrac{1}{\{i: W_i = 1,\,X_i \in L \}}\sum_{\{i: \, W_i = 1, X_i \in L\}}Y_i - \dfrac{1}{\{i: \, W_i = 0,\, X_i \in L \}}  \sum_{\{i: \, W_i = 0,\, X_i \in L\}}Y_i.\]</span>
+Next, <span class="math inline">\(\hat{\tau}(x)_L\)</span> is averaged across all leaves for the whole tree. Finally, the tree-level treatment estimates are aggregated to produce the ensemble treatment effect by taking their average: <span class="math display">\[\hat{\tau}(x)_{\text{ensemble}} = \dfrac{1}{B} \sum_{b = 1}^B \hat{\tau}(x)_b.\]</span> Since estimator <span class="math inline">\(\tau(x)\)</span> is <a href="https://arxiv.org/abs/1510.04342">asymptotically normal, consistent, and unbiased</a>, we can perform the usual statistical inference on this estimator.</p>
+<p>Table 4 shows the values of <span class="math inline">\(\hat{\tau}(x)_{\text{ensemble}}\)</span>’s estimated with various model specifications (see p.28 for explanation of each model). The sample is a cross-sectional slice for an arbitrary year. The size of the estimates are definitely smaller compared to Table 2, but they are statistically significant and remain stable even when railroad access is included (compare column (1) to (3) and column (2) to (4)).</p>
+<p align="center">
+<img src="../../../../post/2020-04-18-carter_files/CCarter_tab4.png" alt="Table 4 from Carter (2019)" />
+</p>
+<p align="center">
+<img src="https://media.giphy.com/media/3o6wO7hfMVIEeqUTJu/giphy.gif" alt="Section 5 powering up from OLS to propensity score matching to causal random forest" />
+</p>
+</div>
+<div id="persistent-fort-effect" class="section level1">
+<h1>Persistent fort effect</h1>
+<p>💭 Path dependence is a difficult hypothesis to test because you have to think carefully about how to frame the question as a causal inference problem and construct the treatment and outcome variables. I think the way Carter does it is clean and rather instructive because you can compare her results in Section 7 (specifically Table 5) with Bleakley and Lin (2012)’s, which tests the persistence effect of portage sites on the same outcome.</p>
+<p>Thanks to the works of historians, Carter has data on the years the forts were established and decommissioned and identifies 102 forts that were decomissioned by 1890. This is great because she has information on precise timing of when forts became obsolete where as the same kind of information is unavailable for portage sites in Bleakley and Lin (2012). Restricting the non-fort counties to those whose centroids lie within 100-mile radius of the abandoned forts, Carter fits the following OLS regression:
+<span class="math display">\[Y_i = \alpha + \beta(\text{abandoned fort})_i + X_i \gamma + \theta_s + \epsilon_i\]</span>
+where <span class="math inline">\(Y_i\)</span> is the population measure of county <span class="math inline">\(i\)</span> in 2010, <span class="math inline">\(X_i\)</span> is the pre-determined covariates in Table 1, and <span class="math inline">\(\theta_s\)</span> is the state fixed effect. Table 5 displays the results.</p>
+<p align="center">
+<img src="../../../../post/2020-04-18-carter_files/CCarter_tab5.png" alt="Table 5 from Carter (2019)" />
+</p>
+<p>What strikes me is that even after including railroad access, the coefficient is statistically significant even if its size is reduced by half for population size and by a quarter for population density. Similar results are found with causal random forest.</p>
+</div>
+<div id="conclusion" class="section level1">
+<h1>Conclusion</h1>
+<p>This was a very cool research paper, and I think the body of evidence provided for her hypotheses is convincing. Moreover, I came out with a list of further readings. One of these readings is <a href="https://www.brown.edu/research/projects/oster/sites/brown.edu.research.projects.oster/files/uploads/Unobservable_Selection_and_Coefficient_Stability_0.pdf">Oster (2019) “Unobservable Selection and Coefficient Stability: Theory and Validation.”</a> In Section 10 “Robustness Exercises,” Carter uses a method developed by Oster to investigate the potential effect of selection bias caused by unobservable variables. From what I can tell from briefly skimming the pdf, Oster builds on an old idea that if the <span class="math inline">\(R^2\)</span> and standard error of the treatment coefficient estimate remain stable as you add more controls to the OLS regression, it indicates that the effect of selection bias from unobservable variables is negligible. Carter draws a pretty strong conclusion after implementing Oster’s method: “All evidence provided suggests that a systematic selection on unobservables related to both fort location and population measures is not of substantial concern (46).” I’ve seen another paper refering to Oster (2019), so I think this is a paper worth catching up on for all social scientists out there doing quantitative research.</p>
+<div class="figure">
+<img src="https://media.giphy.com/media/NFA61GS9qKZ68/giphy.gif" alt="Here is my list of readings extracted from Carter (2019)’s reference section." />
+<p class="caption"><em>Here is my list of readings extracted from Carter (2019)’s reference section.</em></p>
+</div>
+<ul>
+<li>All of Susan Athey’s papers, starting with Athey and Imbens (2019) “Machine Learning Methods Economists Should Know About,” <a href="https://arxiv.org/abs/1903.10075">pdf available at arxiv</a></li>
+<li>Abadie et al. (2017) “When Should You Adjust
+Standard Errors for Clustering?”, <a href="https://arxiv.org/abs/1710.02926">pdf available at arxiv</a></li>
+<li>Asher and Novosad (2019) “Rural Roads and Local Economic Development,” <a href="https://www.aeaweb.org/articles?id=10.1257/aer.20180268">pdf available at aeaweb</a></li>
+<li>Cage and Rueda (2017) “The Long-Term Effects of the Printing Press in sub-Saharan Africa,” <a href="https://www.aeaweb.org/articles?id=10.1257/app.20140379">pdf available at aeaweb</a></li>
+<li>Davis and Weinstein (2009) “Bones, Bombs and Break Points: The Geography of Economic Activity,”
+<a href="https://www.aeaweb.org/articles?id=10.1257/000282802762024502">pdf available at aeaweb</a></li>
+<li>Henderson et al. (2018) “The Global Distribution of Economic Activity: Nature, History, and the Role of Trade,” <a href="https://academic.oup.com/qje/article/133/1/357/4110418">open access pdf</a></li>
+<li>Hornbeck (2010) “Barbed Wire: Property Rights and Agricultural Development,” <a href="https://dash.harvard.edu/bitstream/handle/1/11185832/hornbeck_barbedwire.pdf?sequence=2">open access pdf</a></li>
+<li>Li et al. (2014) “Balancing Covariates via Propensity Score Weighting,” <a href="https://arxiv.org/abs/1404.1785">pdf available at arxiv</a></li>
+<li>Oster (2019) “Unobservable Selection and Coefficient Stability: Theory and Validation,” <a href="https://www.brown.edu/research/projects/oster/sites/brown.edu.research.projects.oster/files/uploads/Unobservable_Selection_and_Coefficient_Stability_0.pdf">open access pdf</a></li>
+</ul>
 </div>
 <div class="footnotes">
 <hr />
@@ -168,11 +232,13 @@
 <li id="fn1"><p>This is actually a very crucial assumption and one that Carter herself addresses explicitly, for there is <a href="https://www.bu.edu/econ/files/2018/08/BFG_Frontier.pdf">an NBER paper</a> that studies how frontier experience fostered a culture of individualism in the U.S. interior and the region’s general disdain towards welfare redistribution.<a href="#fnref1" class="footnote-back">↩</a></p></li>
 <li id="fn2"><p>The year 1890 is the cutoff point indicating U.S. frontier closure as railroad networks were beginning to expand towards the west by 1860.<a href="#fnref2" class="footnote-back">↩</a></p></li>
 <li id="fn3"><p>See Hornbeck (2010) “Barbed Wire: Property Rights and Agricultural Development” footnote 21 for the logic behind this method. Carter cites Elizabeth Perlman, who has published zip files for county boundaries harmonized to a range of base decenial years along with the <code>arcpy</code> code script <a href="http://elisabethperlman.net/code.html">on her website</a>. I am excited to take a look at this myself to practice using <code>arcpy</code>’s tools again.<a href="#fnref3" class="footnote-back">↩</a></p></li>
+<li id="fn4"><p>Carter says she’s using this method because it “allow[s] the parameter of interest to depend on-linearly on pre-existing characteristics (24).” I don’t understand what she means by this even after reading <a href="https://www.nber.org/papers/w11235">the article</a> that she cites.<a href="#fnref4" class="footnote-back">↩</a></p></li>
 </ol>
 </div>
 
     </article>
   </section>
   
+
   </body>
 </html>

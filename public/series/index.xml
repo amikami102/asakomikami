@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Series on Asako Mikami</title>
+    <link>/series/</link>
+    <description>Recent content in Series on Asako Mikami</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 18 Apr 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/series/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>JMP by women in economics</title>
+      <link>/series/jmp-by-women-in-economics/</link>
+      <pubDate>Sat, 18 Apr 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/series/jmp-by-women-in-economics/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Collecting and parsing tweets</title>
+      <link>/series/collecting-and-parsing-tweets/</link>
+      <pubDate>Sun, 01 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/series/collecting-and-parsing-tweets/</guid>
+      <description></description>
+    </item>
+    
+    <item>
+      <title>Collecting historical weather data</title>
+      <link>/series/collecting-historical-weather-data/</link>
+      <pubDate>Sat, 04 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/series/collecting-historical-weather-data/</guid>
+      <description></description>
+    </item>
+    
+  </channel>
+</rss>

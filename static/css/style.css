@@ -2,7 +2,7 @@
 
 :root {
   --dark-shades: #272838; /* raisin black */
-  --dark-accent: #D1BE9C; /* khaki */
+  --dark-accent: #02111B; /* rich black */
   --main-brand-color: #E17653; /* burnt sienna */
   --light-accent: #F4B9B2; /* spanish pink */
   --light-shades: #FFFFFF; /* white */
@@ -58,6 +58,7 @@ code {
 h1,h2,h3,h4,h5,h6 {
   font-family: 'EB Garamond', serif;
   font-weight: 400; /*regular */
+  font-size: 1.5em;
 }
 
 h1#title {
@@ -199,10 +200,7 @@ nav a, nav a:hover, nav a:visited {
   margin-top: 2em;
 }
 
-.article-body h2,.article-body h3 {
-  margin-top: 2em;
-  margin-bottom: 0.5em;
-}
+
 
 kbd {
   background-color: #333;
@@ -213,6 +211,7 @@ kbd {
   white-space: nowrap;
 }
 
+/*
 figure {
   margin: 2em auto;
   display: table;
@@ -225,6 +224,7 @@ figure:not(.no-border) video, figure:not(.no-border) img {
   background-color: #f7ddde;
   max-height: 85vh;
 }
+*/
 
 hr {
   padding: 0;
@@ -237,7 +237,7 @@ hr {
   background-color: white;
 } */
 
-figcaption {
+.caption {
   margin-top: 0.75em;
   font-style: italic;
   text-align: center;
@@ -324,7 +324,7 @@ a.no-underline:hover .re-underline {
 }
 
 .list-of-titles li:first-child a {
-  border-top: 1px solid #ccc;
+  border-top: 1px solid var(--dark-accent);
 }
 
 .list-of-titles .post-meta {
@@ -383,7 +383,7 @@ p {
 }
 
 aside.article-aside {
-  background-color: #fffdf7;
+  /* background-color: #fffdf7; */
   padding: 0 1em;
   margin-top: 3em;
 }

@@ -12,7 +12,7 @@
 <meta name="HandheldFriendly" content="True" />
 <meta name="MobileOptimized" content="320" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-
+<meta name="generator" content="Hugo 0.67.1" />
 
 <link rel="apple-touch-icon" sizes="180x180" href="//apple-touch-icon.png">
 <link rel="icon" type="image/png" sizes="32x32" href="//favicon-32x32.png">
@@ -24,9 +24,11 @@
 
 
 
-<meta name="keywords" content="">
+<meta name="keywords" content="python,
+webscraping,
+">
 
-<meta property="og:title" content="Collecting and Parsing Tweets, Part II" />
+<meta property="og:title" content="Collecting and parsing tweets, Part II" />
 <meta property="og:description" content="1 Clean the text 2 Find address in the text 3 if __name__ == &quot;__main__&quot;   Part II will clean the texts and label whether the text contains any street address. Here’s a sketch of the data directory:
 |-- data/ |-- raw/ # from Part I |-- 01_scraped/ # from Part I |-- 02_cleaned/ # output for Part II will go here |-- counts.json # from Part I We will use the following packages and set up a logger." />
 <meta property="og:type" content="article" />
@@ -34,10 +36,11 @@
 <meta property="article:published_time" content="2019-06-03T00:00:00+00:00" />
 <meta property="article:modified_time" content="2019-06-03T00:00:00+00:00" />
 
+
 <meta property="og:site_name" content="Asako Mikami" />
 
 
-<meta itemprop="name" content="Collecting and Parsing Tweets, Part II">
+<meta itemprop="name" content="Collecting and parsing tweets, Part II">
 <meta itemprop="description" content="1 Clean the text 2 Find address in the text 3 if __name__ == &quot;__main__&quot;   Part II will clean the texts and label whether the text contains any street address. Here’s a sketch of the data directory:
 |-- data/ |-- raw/ # from Part I |-- 01_scraped/ # from Part I |-- 02_cleaned/ # output for Part II will go here |-- counts.json # from Part I We will use the following packages and set up a logger.">
 <meta itemprop="datePublished" content="2019-06-03T00:00:00&#43;00:00" />
@@ -46,10 +49,10 @@
 
 
 
-<meta itemprop="keywords" content="" />
+<meta itemprop="keywords" content="python,webscraping," />
 
 
-    <title>Collecting and Parsing Tweets, Part II</title>
+    <title>Collecting and parsing tweets, Part II</title>
     <link rel="canonical" href="../../../../2019/06/03/collecting-and-parsing-tweets-part2/" />
 
     
@@ -73,7 +76,7 @@
 
 
 <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400&display=swap" rel="stylesheet">
-
+<link href="https://fonts.googleapis.com/css?family=EB+Garamond&display=swap" rel="stylesheet">
     <link rel="shortcut icon" href="../../../../favicon.ico" type="image/x-icon" />
     <link rel="apple-touch-icon" href="../../../../apple-touch-icon.png" />
   </head>
@@ -99,13 +102,13 @@
 
           <li>
             <a href="../../../../post/">
-              <span class="post-title">Recent posts</span>
+              <span class="post-title">All posts</span>
             </a>
           </li>
 
           <li>
-            <a href="../../../../categories/">
-              <span class="post-title">Categories</span>
+            <a href="../../../../series/">
+              <span class="post-title">Series</span>
             </a>
           </li>
 
@@ -115,7 +118,7 @@
   </div>
 
   <section id="main" class="content-container look-sheet article-pad-v " itemprop="mainEntityOfPage">
-    <h1 itemprop="name" id="title">Collecting and Parsing Tweets, Part II</h1>
+    <h1 itemprop="name" id="title">Collecting and parsing tweets, Part II</h1>
     <article itemprop="articleBody" id="content" class="article-body">
       
 
@@ -231,5 +234,6 @@ log.addHandler(f_handler)</code></pre>
     </article>
   </section>
   
+
   </body>
 </html>

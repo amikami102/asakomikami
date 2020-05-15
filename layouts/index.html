@@ -10,12 +10,27 @@
 
   <section id="main" class="content-container article-pad-v">
     <div>
-      <h1 id="title" style="margin-bottom: 0.75em">{{.Site.Title}}</h1>
+      <h1 id="title" style="margin-bottom: 0.75em">Recent posts</h1>
       <ul id="list" class="list-unstyled list-of-titles">
-        {{ range .Site.Params.Menu }}
-          <li>
-            <a href="{{ .url | relURL }}">
-              <span class="post-title">{{ .name }}</span>
+         {{ range first 3 .Site.RegularPages }}
+         <li>
+             <a href="{{ .RelPermalink}}">
+              <span class="post-title">{{ .Title }}</span>
+              <br>
+              <span class="post-meta">{{ .Date.Format "January 2, 2006" }}</span>
+              <br>
+              {{if .Params.tags }}
+              <span class="post-meta">
+                {{ range .Params.tags }}
+                  #{{ . }}&nbsp;
+                {{ end }}
+              </span>
+              <br> {{ end }}
+              <span class="post-meta">
+                {{ range .Params.series }}
+                  SERIES: {{ . }}
+                {{ end }}
+              </span>
             </a>
           </li>
         {{ end }}

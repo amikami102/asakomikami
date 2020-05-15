@@ -12,7 +12,7 @@ math: TRUE
 
 The article I'm reviewing in this blog post is by Chelsea E. Carter, ["Forts and Frontier: The U.S. Army and the Spatial Distribution of Population."](https://sites.google.com/a/bu.edu/chelsea-e-carter/research?authuser=0) One of the things that surprises me about other social science disciplines like economics and sociology is the range of social phenomena that they write about (I wasn't expecting to read a paper about the American West!). Carter checks the robustness of her results with new empirical methods published in the last few years, so there's a lot of methodological techniques to unpack in this paper. If you're like me and want to know how to do things, you'll be checking out the reference section of this paper constantly! 
 
-![*Me flipping to the reference section if I were reading this pdf hardcopy.*](https://media.giphy.com/media/jBzO4OBN8oIms/giphy.gif)
+![*Me flipping to the reference section*](https://media.giphy.com/media/jBzO4OBN8oIms/giphy.gif)
 
 An excerpt from the abstract:
 
@@ -65,7 +65,10 @@ For both questions, the biggest threat to treatment effect identification is *se
 
 Below is a snippet view of Table 1 describing the covariate balance between treatment and control groups. There is a clear difference between fort counties and non-fort counties with respect to distance to steam-navigable rivers, proximity to the nearest Native American tribe, and mean elevation height. 
 
-<insert Tab1>
+<p align="center">
+![Table 1 from Carter (2019)](/post/2020-04-18-carter_files/CCarter_tab1.png)
+</p>
+
 
 # Initial fort effect: OLS, propensity score matching, and causal random forest
 
@@ -73,13 +76,17 @@ I will review three ways that Carter presents evidence for conditional average t
 $$Y_{ist} = \alpha + \beta (\text{Fort}_{it})+ X_i\gamma_t + \theta_{st} + \epsilon_{ist}$$
 where $\text{Fort}_{it} = 1$ for all years including and after year $t$ that a military fort was built in county $i$; $X_i\gamma_t$ is an interaction between observable confounders in Table 1 ($X_i$) and year dummy ($\gamma_t$); $\theta_{st}$ is a state-by-year fixed effect such as ratification of statehood. She also runs the same regression on a sample that excludes no-fort counties that are adjacent to fort counties in order to remove the spillover effect. Here is a snippet of Table 2. 
 
+<p align="center">
 ![Table 2 from Carter (2019)](/post/2020-04-18-carter_files/CCarter_tab2.png)
+</p>
 
 Notice how much $R^2$ jumped by adding $\theta_{st}$. Even as more controls are added and spillover effect is removed, the coefficient size for $\hat{\beta}$ remains positive and significant. As far as evidence from OLS regression goes, this table is looking pretty strong. 
 
 The second piece of evidence comes from *propensity score matching*.[^matching] She creates a sample where a fort county is matched with a non-fort county that lies within 100=mile radius of a fort according to their propensity scores. The propensity scores are estimates of logistic model predicting the probability of treatment by the pre-existing covariates listed in Table 1. Sort of like event study, the year of fort arrival is noramlized to $t=0$ for each treated-control pair. Figure 5 visualizes how the mean population measure of fort counties and non-fort counties have diverged since $t=0$. 
 
+<p align="center">
 ![Figure 5 from Carter (2019)](/post/2020-04-18-carter_files/CCarter_fig5.png)
+</p>
 
 [^matching]: Carter says she's using this method because it "allow[s] the parameter of interest to depend on-linearly on pre-existing characteristics (24)." I don't understand what she means by this even after reading [the article](https://www.nber.org/papers/w11235) that she cites. 
 
@@ -94,10 +101,16 @@ How do we use random forest for causal inference? [Athey and Wagner (2017)](http
         $$\hat{\tau}(x)_L = \dfrac{1}{\{i: W_i = 1,\,X_i \in L \}}\sum_{\{i: \, W_i = 1, X_i \in L\}}Y_i - \dfrac{1}{\{i: \, W_i = 0,\, X_i \in L \}}  \sum_{\{i: \, W_i = 0,\, X_i \in L\}}Y_i.$$
 Next, $\hat{\tau}(x)_L$ is averaged across all leaves for the whole tree. Finally, the tree-level treatment estimates are aggregated to produce the ensemble treatment effect by taking their average: $$\hat{\tau}(x)_{\text{ensemble}} = \dfrac{1}{B} \sum_{b = 1}^B \hat{\tau}(x)_b.$$ Since estimator $\tau(x)$ is [asymptotically normal, consistent, and unbiased](https://arxiv.org/abs/1510.04342), we can perform the usual statistical inference on this estimator. 
 
-Table 4 are $\hat{\tau}(x)_{\text{ensemble}}$'s estimated with various model specifications (see p.28 for explanation of each model). The sample is a cross-sectional slice for an arbitrary year. The size of the estimates are definitely smaller compared to Table 2, but they are statistically significant and remain stable even when railroad access is included (compare column (1) to (3) and column (2) to (4)).
-![Table 4 from Carter (2019)](/post/2020-04-18-carter_files/CCarter_tab4.png)
+Table 4 shows the values of $\hat{\tau}(x)_{\text{ensemble}}$'s estimated with various model specifications (see p.28 for explanation of each model). The sample is a cross-sectional slice for an arbitrary year. The size of the estimates are definitely smaller compared to Table 2, but they are statistically significant and remain stable even when railroad access is included (compare column (1) to (3) and column (2) to (4)).
 
-![Sec. 5 powering from OLS to propensity score matching to causal random forest.](https://media.giphy.com/media/3o6wO7hfMVIEeqUTJu/giphy.gif)
+<p align="center">
+![Table 4 from Carter (2019)](/post/2020-04-18-carter_files/CCarter_tab4.png)
+</p>
+
+
+![*Section 5 powering up from OLS to propensity score matching to causal random forest*](https://media.giphy.com/media/3o6wO7hfMVIEeqUTJu/giphy.gif)
+
+
 
 # Persistent fort effect
 
@@ -107,7 +120,9 @@ Thanks to the works of historians, Carter has data on the years the forts were e
 $$Y_i = \alpha + \beta(\text{abandoned fort})_i + X_i \gamma + \theta_s + \epsilon_i$$
 where $Y_i$ is the population measure of county $i$ in 2010, $X_i$ is the pre-determined covariates in Table 1, and $\theta_s$ is the state fixed effect. Table 5 displays the results. 
 
+<p align="center">
 ![Table 5 from Carter (2019)](/post/2020-04-18-carter_files/CCarter_tab5.png)
+</p>
 
 What strikes me is that even after including railroad access, the coefficient is statistically significant even if its size is reduced by half for population size and by a quarter for population density. Similar results are found with causal random forest. 
 
@@ -116,7 +131,8 @@ What strikes me is that even after including railroad access, the coefficient is
 
 This was a very cool research paper, and I think the body of evidence provided for her hypotheses is convincing. Moreover, I came out with a list of further readings. One of these readings is [Oster (2019) "Unobservable Selection and Coefficient Stability: Theory and Validation."](https://www.brown.edu/research/projects/oster/sites/brown.edu.research.projects.oster/files/uploads/Unobservable_Selection_and_Coefficient_Stability_0.pdf) In Section 10 "Robustness Exercises," Carter uses a method developed by Oster to investigate the potential effect of selection bias caused by unobservable variables. From what I can tell from briefly skimming the pdf, Oster builds on an old idea that if the $R^2$ and standard error of the treatment coefficient estimate remain stable as you add more controls to the OLS regression, it indicates that the effect of selection bias from unobservable variables is negligible. Carter draws a pretty strong conclusion after implementing Oster's method: "All evidence provided suggests that a systematic selection on unobservables related to both fort location and population measures is not of substantial concern (46)." I've seen another paper refering to Oster (2019), so I think this is a paper worth catching up on for all social scientists out there doing quantitative research. 
 
-![Here is my full list of further readings from Carter (2019)'s references.](https://gph.is/1PKx3Pj)
+
+![*Here is my list of readings extracted from Carter (2019)'s reference section.*](https://media.giphy.com/media/NFA61GS9qKZ68/giphy.gif)
 
 - All of Susan Athey's papers, starting with Athey and Imbens (2019) "Machine Learning Methods Economists Should Know About," [pdf available at arxiv](https://arxiv.org/abs/1903.10075)
 - Abadie et al. (2017) "When Should You Adjust
