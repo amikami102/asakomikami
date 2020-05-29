@@ -75,6 +75,7 @@ body {
 .content-container {
   padding-left: 1em;
   padding-right: 1em;
+  hyphens: none;
 }
 
 .content-container-narrow-pad {
@@ -104,6 +105,7 @@ body {
     padding-left: 2em;
     padding-right: 2em;
     margin: 0 auto;
+    hyphens: none;
   }
 
   .content-container-narrow-pad {
@@ -147,6 +149,7 @@ figure.smaller {
 .article-pad-v {
     padding-top: 1em;
     padding-bottom: 1em;
+    hyphens: none;
 }
 
 blockquote {
