@@ -19,7 +19,7 @@
 
   <section id="main" class="content-container look-sheet article-pad-v {{ if (or .Params.disableMarginNotes .Site.Params.disableMarginNotes) }}no-floating-footnotes{{ end }}" itemprop="mainEntityOfPage">
     <h1 itemprop="name" id="title">{{ .Title }}</h1>
-    {{ if .Parmas.subtitle }} <h2 id = "subtitle">{{ .Params.subtitle }}</h2> {{ end }}
+    <h2 id = "subtitle">{{ .Params.subtitle }}</h2> 
     <article itemprop="articleBody" id="content" class="article-body">
       {{ .Content }}
     </article>
