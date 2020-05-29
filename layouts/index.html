@@ -17,6 +17,9 @@
              <a href="{{ .RelPermalink}}">
               <span class="post-title">{{ .Title }}</span>
               <br>
+              {{if .Params.subtitle }}
+              <span class = "post-subtitle"> {{.Params.subtitle}}</span> 
+              <br> {{ end }}
               <span class="post-meta">{{ .Date.Format "January 2, 2006" }}</span>
               <br>
               {{if .Params.tags }}

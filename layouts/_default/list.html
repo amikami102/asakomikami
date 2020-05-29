@@ -13,7 +13,7 @@
       <h1 id="title" style="margin-bottom: 0.75em">{{.CurrentSection.Name}}</h1>
       <ul id="list" class="list-unstyled list-of-titles">
         {{ range .Data.Pages.ByDate.Reverse }}
-          <li class="{{if .Draft }}draft{{ end }}">
+          <li>
             <a href="{{ .RelPermalink}}">
               <span class="post-title">{{ .Title }}</span>
               <br>

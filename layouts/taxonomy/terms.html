@@ -17,7 +17,7 @@
           {{ $numDrafts := len (where .Pages ".Draft" true) }}
             <li class="{{ if gt $numDrafts 0 }}draft{{ end }}">
               <a href="{{ .RelPermalink}}">
-                <span class="post-title">#{{ .Title }}</span>
+                <span class="post-title">{{ .Title }}</span>
                 <br>
                 <span class="post-meta">{{len .Pages}} {{if ne (len .Pages) 1}}entries{{else}}entry{{end}}</span>
                 <br>
