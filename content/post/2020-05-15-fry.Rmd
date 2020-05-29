@@ -1,7 +1,7 @@
 ---
 title: 'Caroline Fry, "Building Bridges: The impact of return migration by African scientists"'
 subtitle: "Studying network effects with good ol' regressions"
-date: '2020-04-18'
+date: '2020-05-25'
 slug: jmp-review-caroline-fry
 series: 
         - JMP by women in economics
