@@ -1,6 +1,7 @@
 ---
 title: 'Yi Cheng, "The Unexpected Costs of Expertise: Evidence from Highly
   Specialized Physicians"'
+subtitle: "What happens when hospitals are too busy"
 date: '2020-04-10'
 slug: jmp-review-yi-cheng
 series:
@@ -22,12 +23,12 @@ The paper contributes to an empirical question that has yet to reach a consensus
 
 ## Research design
 
-The research question is, "What is the effect of matching intensive care treatment administered by highly-skilled physician to a low-risk patient?"
+The research question is, "What is the effect of matching highly-skilled physician to a low-risk patient?"
 
 - *Treatment*: physician-patient (mis)match
-- *Outcome*: patient's health and care utilization
+- *Outcome*: patient's health and the amount of care utilization
 
-If we were to run a randomized controlled treatment experiment without paying any heed to its ethicality, we would match patients and physicians randomly. In reality, highly skilled physicians are assigned to treat high-risk patients that could benefit from the physician's specialized expertise. In other words, there is a *selection mechanism* behind the treatment assignment. 
+If we were to run a randomized controlled treatment experiment, without paying any heed to its ethicality, we would match patients and physicians randomly. In reality, highly skilled physicians are assigned to treat high-risk patients that could benefit from the physician's specialized expertise. In other words, there is a *selection mechanism* behind the treatment assignment. 
 
 This is where the paper gets really cool.:sparkles: Cheng looks at the unscheduled admission of high-risk newborns, who are defined as *vaginally delivered newborns with very low birth weight* (7-8).[^vlbw] This could be a great example of a random event because the timing of contractions is unpredictable and newborns with very low birth weights are rare. Unscheduled admission of these high-risk patients suddenly creates a demand in the neonatal care unit for highly technical physicians. Suppose that hospitals respond to this situation by calling in a specialist. If these specialized physicians also treat low-to-mid-risk incumbent newborns who were admitted earlier, i.e. patients who would have been assigned to less experienced/specialized physician had the high-risk newborn not arrived, then we have physician-patient mismatch. To sum, we have a naturally-occurring treatment-control pair: 
 
@@ -42,11 +43,11 @@ Of course, the question is whether this is how hospitals respond. The author adm
 
 The newborn sample is drawn from hospital discharge data collected by New York State Department of Health, consisting of 500,000 newborns born in 34 hospitals with NICU facilities that admit at least a hundred newborns annually. The hospital discharge data records their admission and discharge time, birth weight, the duration and type of accomodation, and one-year cumulative care utilization. 
 
-![](/post/2020-03-16-jmp-review-of-y-cheng-the-unexpected-costs-of-expertise-evidence-from-highly-specialized-physicians_files/YiCheng-figB6.png)
+![Figure B6 from Cheng (2019)](/post/2020-03-16-jmp-review-of-y-cheng-the-unexpected-costs-of-expertise-evidence-from-highly-specialized-physicians_files/YiCheng-figB6.png)
 
 From this hospital data, Cheng also calculates daily NICU congestion level. She counts the daily NICU patient occupancy for each hospital and divides it by the annual median occupancy. Any hospital-day observation that fall in the top quartile is labelled "high" and "low" if it falls in the bottom quartile; the middle two quartiles are labelled "medium." 
 
-![](/post/2020-03-16-jmp-review-of-y-cheng-the-unexpected-costs-of-expertise-evidence-from-highly-specialized-physicians_files/YiCheng-figB3.png)
+![Figure B3 from Cheng (2019)](/post/2020-03-16-jmp-review-of-y-cheng-the-unexpected-costs-of-expertise-evidence-from-highly-specialized-physicians_files/YiCheng-figB3.png)
 
 The hospital discharge data records the license number identifying the attending physician for each patient. The license number can then be looked up in the physician license information recorded by New York State Education Department. Cheng aggregates physician information to create three variables for each patient attended by physician $p$ on day $t$. One is physician's tenure measured by taking the difference between the year of licensure and the year of patient's admission. Second is physician expertise measured by the fraction of VLBW newborns the physician has attended up to $t-1$. Finally, she composes a measure for physician practice style by combining average total charges, length of stay, and the number of procedures done on newborns discharged by $t-1$. 
 
@@ -56,23 +57,23 @@ Two concerns come to my mind that could compromise the validity of the research 
 
 The event of interest is the admission of vaginally delivered newborns with very low birth weight, and the day of the event will be labeled day 0. Cheng applies event study on 10-day windows centered around day 0 to show how NICU patient flow and physician characteristics change before and after the event. Figure 2 clearly shows that compared to the baseline day -1, NICU occupancy jumps up and stays high after day 0. The appendix figures that show the discharge and admission rate do not indicate that the NICU tries to discharge more patients on and after day 0 to cancel out the occupancy rate. 
 
-![](/post/2020-03-16-jmp-review-of-y-cheng-the-unexpected-costs-of-expertise-evidence-from-highly-specialized-physicians_files/YiCheng-fig02.png)
+![Figure 2 from Cheng (2019)](/post/2020-03-16-jmp-review-of-y-cheng-the-unexpected-costs-of-expertise-evidence-from-highly-specialized-physicians_files/YiCheng-fig02.png)
 
 
 Figure 3 left panel shows that the presence of physicians increase on day 0 momentarily but then returns to pre-event level while the right panel shows that the physicians that come in on day 0 are more experienced with treating high-risk patients. 
 
 
-![](/post/2020-03-16-jmp-review-of-y-cheng-the-unexpected-costs-of-expertise-evidence-from-highly-specialized-physicians_files/YiCheng-fig03.png){width=100%}
+![Figure 3 from Cheng (2019)](/post/2020-03-16-jmp-review-of-y-cheng-the-unexpected-costs-of-expertise-evidence-from-highly-specialized-physicians_files/YiCheng-fig03.png){width=100%}
 
 
 Figures 4 shows how likely mid-risk patients admitted during the 10-day window are assigned to specialized physicians by counting the number of mid-risk newborns who were treated by the same physicians who were attending to high-risk newborns. The peak is on day 0 where mid-risk patients admitted on day 0 has about 30% chance of being treated by a specialized physician. 
 
-![](/post/2020-03-16-jmp-review-of-y-cheng-the-unexpected-costs-of-expertise-evidence-from-highly-specialized-physicians_files/YiCheng-fig04.png)
+![FIgure 4 from Cheng (2019)](/post/2020-03-16-jmp-review-of-y-cheng-the-unexpected-costs-of-expertise-evidence-from-highly-specialized-physicians_files/YiCheng-fig04.png)
 
 
 Figure 5 extends the result by conditioning on congestion level on day -1. This one is a little tricky to interpret, so I will paste Cheng's own words:
 
-![](/post/2020-03-16-jmp-review-of-y-cheng-the-unexpected-costs-of-expertise-evidence-from-highly-specialized-physicians_files/YiCheng-fig05.png)
+![Figure 5 from Cheng (2019)](/post/2020-03-16-jmp-review-of-y-cheng-the-unexpected-costs-of-expertise-evidence-from-highly-specialized-physicians_files/YiCheng-fig05.png)
 
 > When NICUs are congested, the specialized physicians treat a higher fraction of previously admitted mid-risk newborns. On the contrary, such fraction is lower if NICU facilities are not congested upon unscheduled high risk admissions and the specialized physicians are likely to treat subsequent mid-risk newborn admissions. 
 
@@ -100,16 +101,16 @@ Finally, let's talk about the main results presented in Tables 3, 4, 5, and 6.[^
 
 [^main]: Cheng extends the main result by looking at effect heterogeneity across birth weight binned by 100-gram increment and alternate control groups. 
 
-![](/post/2020-03-16-jmp-review-of-y-cheng-the-unexpected-costs-of-expertise-evidence-from-highly-specialized-physicians_files/YiCheng-eq2.png)
+![Equation 2 from Cheng (2019)](/post/2020-03-16-jmp-review-of-y-cheng-the-unexpected-costs-of-expertise-evidence-from-highly-specialized-physicians_files/YiCheng-eq2.png)
 
 
-![](/post/2020-03-16-jmp-review-of-y-cheng-the-unexpected-costs-of-expertise-evidence-from-highly-specialized-physicians_files/YiCheng-eq3.png)
+![Equation 3 from Cheng (2019)](/post/2020-03-16-jmp-review-of-y-cheng-the-unexpected-costs-of-expertise-evidence-from-highly-specialized-physicians_files/YiCheng-eq3.png)
 
 Here are Tables 3 and 4. Note that top panel is regression no.2 implemented on entire sample; bottom panels reports regression no.2 implemented on subsamples divided by the NICU congestion level on the day of their admission along with regression no.3 implemented on entire sample. *I'm not entirely sure why she implemented regression 2 on subsamples.*:confused:
 
-![](/post/2020-03-16-jmp-review-of-y-cheng-the-unexpected-costs-of-expertise-evidence-from-highly-specialized-physicians_files/YiCheng-table3.png)
+![Table 3 from Cheng (2019)](/post/2020-03-16-jmp-review-of-y-cheng-the-unexpected-costs-of-expertise-evidence-from-highly-specialized-physicians_files/YiCheng-table3.png)
 
-![](/post/2020-03-16-jmp-review-of-y-cheng-the-unexpected-costs-of-expertise-evidence-from-highly-specialized-physicians_files/YiCheng-table4.png)
+![Table 4 from Cheng (2019)](/post/2020-03-16-jmp-review-of-y-cheng-the-unexpected-costs-of-expertise-evidence-from-highly-specialized-physicians_files/YiCheng-table4.png)
 
 Recall that figures 4 and 5 implied that more mid-risk patients are likely to be treated by specialized physicians when NICU is congested because everyone has to do more, and vcvs. Tables 3 and 4 confirm this prediction. 
 
@@ -119,13 +120,13 @@ Recall that figures 4 and 5 implied that more mid-risk patients are likely to be
 
 Given that treatment group and control group are different in the attending physician characteristics depending on the NICU congestion level, what is the difference in their care utilization and health outcomes? 
 
-![](/post/2020-03-16-jmp-review-of-y-cheng-the-unexpected-costs-of-expertise-evidence-from-highly-specialized-physicians_files/YiCheng-table5.png)
+![Table 5 from Cheng (2019)](/post/2020-03-16-jmp-review-of-y-cheng-the-unexpected-costs-of-expertise-evidence-from-highly-specialized-physicians_files/YiCheng-table5.png)
 
 The result across the high congestion level is quite stunning: longer hospital stay, higher total charge, and more procedures than the control group (table 5). Are these worth it? 
 
-![](/post/2020-03-16-jmp-review-of-y-cheng-the-unexpected-costs-of-expertise-evidence-from-highly-specialized-physicians_files/YiCheng-table6-1.png)
+![Table 6 Panel 1 from Cheng (2019)](/post/2020-03-16-jmp-review-of-y-cheng-the-unexpected-costs-of-expertise-evidence-from-highly-specialized-physicians_files/YiCheng-table6-1.png)
 
-![](/post/2020-03-16-jmp-review-of-y-cheng-the-unexpected-costs-of-expertise-evidence-from-highly-specialized-physicians_files/YiCheng-table6-2.png)
+![Table 6 Panel 2 from Cheng (2019)](/post/2020-03-16-jmp-review-of-y-cheng-the-unexpected-costs-of-expertise-evidence-from-highly-specialized-physicians_files/YiCheng-table6-2.png)
 
 The answer is no, i.e. more care utilization enjoyed by the treatment group does not seem to lead to better health outcomes than the control group. As you can see in the snapshots above, none of the coefficients have stars next to them. Even looking at the readmission rates, there is no significant effect. 
 
@@ -135,10 +136,9 @@ A cynical reader might say that this whole study merely stated the obvious, i.e.
 
 > However, such a conclusion ignores the costs to achieve a seemingly more efficient physician-patient matching. When hospitals are congested, additional physicians will be needed to reduce waiting and ensure care quality. In the case of no high-risk newborn admissions, hospitals may bring in additional physicians normally treating mid-risk newborns. But with unexpected high-risk admissions, hospitals needs to call in highly specialized physicians regardless. 
 
-I too disagree with the cynical reader; I think the paper is worth it for showing the counterintuitive result that a specialist does not outperform a non-specialist in tasks where they are overqualified. If I have any disappointment, it is in her explanation of the potential causal mechanism, and this isn't even her fault. Cheng finds that the treatment group was more likely to receive the same procedure done on unscheduled high-risk newborn than the control group (Figure A12). She surmises that specialized physicians are inadept at tuning their diagnosis on mid-risk patients in the event of unexpected admission of high-risk newborn because they rely on heuristics to make short-cut judgements. Unfortunately, the sample size was too small to test this hypothesis (38). 
+I too disagree with the cynical reader; I think the paper is worth it for showing the counterintuitive result that a specialist does not outperform a non-specialist in tasks where they are overqualified. 
 
-
-
+If I have any disappointment, it is in her explanation of the potential causal mechanism. She gives some explanations for what might be going on that lead to these empirical results. She surmises that specialized physicians are inadept at tuning their diagnosis on mid-risk patients in the event of unexpected admission of high-risk newborn because they rely on heuristics to make short-cut judgements. Unfortunately, the sample size was too small to test this hypothesis (38). Yet even if the sample size was bigger, I don't think there would be much insight to be gained. I would like to hear what physicians think of the results shown in this paper. Would they be surprised? What goes through their head when they are treating a low-risk patient rather than a high-risk patient? I think this is where a qualitative research like interviewing the doctors, the hospital administrators, and the nurses would be more useful and add thickness to this study. Some might say that interviewing doctors in this context would be pointless because they would claim that they are giving the proper level of care and treatment to every patient and that Cheng is not employing the right outcome variables. I would say that the fact that they would make such a claim would be interesting in and of itself, either as an evidence of self-conceit or a constructive criticism of the research design.
 
 
 

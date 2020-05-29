@@ -1,5 +1,6 @@
 ---
 title: 'Chelsea E. Carter, "Forts and Frontier: The U.S. Army and the Spatial Distribution of Population"'
+subtitle: 'Solving coordination problem and taking over indigenous land with one military fort at a time'
 date: '2020-04-18'
 slug: jmp-review-chelsea-carter
 series: 

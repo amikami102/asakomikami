@@ -6,22 +6,10 @@
     <description>Recent content on Asako Mikami</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 20 May 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 18 Apr 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/index.xml" rel="self" type="application/rss+xml" />
     
-    
-    <item>
-      <title>The ethics in your epistemic conduct, review of *Epistemic Injustice* by Miranda Fricker</title>
-      <link>/2020/05/20/fricker-epistemic-injustice/</link>
-      <pubDate>Wed, 20 May 2020 00:00:00 +0000</pubDate>
-      
-      <guid>/2020/05/20/fricker-epistemic-injustice/</guid>
-      <description>
-
-
-</description>
-    </item>
     
     <item>
       <title>Caroline Fry, &#34;Building Bridges: The impact of return migration by African scientists&#34;</title>
@@ -178,9 +166,9 @@ n.b.: I learned the material in this article from taking Professor Daniel Weiner
       <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
       
       <guid>/about/</guid>
-      <description>My name is Asako. I am a PhD student in political science at Boston University. I received my BA from Smith College where I majored in Government and minored in Mathematics.
+      <description>… myself My name is Asako. I am a PhD student in political science at Boston University. I received my BA from Smith College where I majored in Government and minored in Mathematics.
 I have been studying political science for almost 9 years, but during my PhD training, I have found my calling in data science and am looking to start my career in the field.
-My blog showcases my working projects, R/Python tutorials for data collection, and notes.</description>
+You can reach me via Twitter or email.</description>
     </item>
     
   </channel>

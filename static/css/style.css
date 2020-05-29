@@ -301,6 +301,14 @@ a.no-underline:hover .re-underline {
   font-weight: 400;
 }
 
+.list-of-titles .post-subtitle {
+  color: var(--dark-shades);
+  font-size: 1.5em;
+  font-family: 'EB Garamond', serif;
+  font-weight: 400;
+}
+
+
 .list-of-titles li a {
   text-decoration: none;
   display: block;
@@ -313,7 +321,7 @@ a.no-underline:hover .re-underline {
 
 /*
 .list-of-titles li a:hover {
-  /* background-color: #f7ddde; */
+  background-color: #f7ddde; 
   border-left: 1px solid #ccc;
   border-right: 1px solid #ccc;
   box-shadow: 0 5px 5px -5px #777777;
@@ -332,6 +340,8 @@ a.no-underline:hover .re-underline {
   color: var(--light-accent);
   
 }
+
+
 
 ul.right-links {
   display: none;
