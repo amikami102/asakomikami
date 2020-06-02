@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>python on Asako Mikami</title>
+    <link>/tags/python/</link>
+    <description>Recent content in python on Asako Mikami</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sun, 01 Mar 2020 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/python/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Collecting and parsing tweets, Part III</title>
+      <link>/2020/03/01/collecting-and-parsing-tweets-part3/</link>
+      <pubDate>Sun, 01 Mar 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/2020/03/01/collecting-and-parsing-tweets-part3/</guid>
+      <description>1 Get API key 2 Pass address to Google’s Geocoding API 3 Parse XML 4 if __name__ == &amp;quot;__main__&amp;quot;   Part II of this tutorial series left us with cleaned&amp;lt;fromHour&amp;gt;-&amp;lt;toHour&amp;gt;-&amp;lt;page-count&amp;gt;.json files. Part III will parse the street addresses in those files and geocode them through Google’s Geocoding API.
+Here is the directory tree for Part III:
+|-- data/ |-- raw/ # from Part I |-- 01_scraped/ # from Part I |-- 02_cleaned/ # from Part II |-- 03_parsed/ # output for Part III will go here |-- counts.</description>
+    </item>
+    
+    <item>
+      <title>Collecting and parsing tweets, Part II</title>
+      <link>/2019/06/03/collecting-and-parsing-tweets-part2/</link>
+      <pubDate>Mon, 03 Jun 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/2019/06/03/collecting-and-parsing-tweets-part2/</guid>
+      <description>1 Clean the text 2 Find address in the text 3 if __name__ == &amp;quot;__main__&amp;quot;   Part II will clean the texts and label whether the text contains any street address. Here’s a sketch of the data directory:
+|-- data/ |-- raw/ # from Part I |-- 01_scraped/ # from Part I |-- 02_cleaned/ # output for Part II will go here |-- counts.json # from Part I We will use the following packages and set up a logger.</description>
+    </item>
+    
+    <item>
+      <title>Collecting and parsing tweets, Part I</title>
+      <link>/2019/05/29/collecting-and-parsing-tweets-part1/</link>
+      <pubDate>Wed, 29 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/2019/05/29/collecting-and-parsing-tweets-part1/</guid>
+      <description>1 Open a Twitter developer account 2 OAuth2 authentication 3 Count the number of requests to make 4 Retrieve tweets for every hour 4.1 Make search request 4.2 Scrape the response JSON 4.3 Pull the next page token  5 if __name__ == &amp;quot;__main__&amp;quot;   This is the first installment of a multi-part series waking through how I used Twitter API to collect, parse, and extract data for my project, “Locates long polling lines with Twitter data.</description>
+    </item>
+    
+    <item>
+      <title>Introducing a replication project of Warren (2019)</title>
+      <link>/2019/04/02/introduce-replicate-warren/</link>
+      <pubDate>Tue, 02 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/2019/04/02/introduce-replicate-warren/</guid>
+      <description>I have a project called replicate_warren (a private Github repository), where I am trying to replicate a sociology study, Warren (2019). To put it succinctly, Warren (2019) collected data from résumés of sociology PhD graduates and measured how over-achieving recent PhD graduates had to be to land a junior faculty jobs at top sociology departments in the United States. I want to replicate the study in the political science field.</description>
+    </item>
+    
+  </channel>
+</rss>

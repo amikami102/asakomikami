@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>career on Asako Mikami</title>
+    <link>/tags/career/</link>
+    <description>Recent content in career on Asako Mikami</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Sat, 20 Apr 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/career/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Lessons from Kaggle CareerCon 2019</title>
+      <link>/2019/04/20/kaggle-careercon2019/</link>
+      <pubDate>Sat, 20 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/2019/04/20/kaggle-careercon2019/</guid>
+      <description>Lesson: A PhD is neither necessary nor worthless. Lesson: Do your own projects and share them. Lesson: Product analytics sounds a lot like social science research. Conclusion: Am I ready for a data science job? References   Kaggle hosted a live-stream career conference from April 16th to 18th. I was not able to join the Slack channel, but otherwise I was able to view the live stream on Kaggle’s YouTube channel.</description>
+    </item>
+    
+  </channel>
+</rss>

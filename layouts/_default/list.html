@@ -8,23 +8,42 @@
       {{ partial "right-links" . }}
     </nav>
   </div>
+  
   <section id="main" class="content-container article-pad-v">
     <div>
       <h1 id="title" style="margin-bottom: 0.75em">{{.CurrentSection.Name}}</h1>
       <ul id="list" class="list-unstyled list-of-titles">
         {{ range .Data.Pages.ByDate.Reverse }}
           <li>
-            <a href="{{ .RelPermalink}}">
-              <span class="post-title">{{ .Title }}</span>
+             
+              <a class="post-link" href="{{ .RelPermalink}}">
+                 <span class="post-title"> {{ .Title }}</span>
               <br>
+              {{ if .Params.subtitle }}
+                <span class="post-subtitle">{{ .Params.subtitle }} </span>
+                <br>
+              {{ end }}
               <span class="post-meta">{{ .Date.Format "January 2, 2006" }}</span>
+              </a>
+              
               <br>
-              <span class="post-meta">
+              {{ if .Params.tags }}
                 {{ range .Params.tags }}
+                <a class = "post-tags" href="{{ "tags/" | absURL }}{{ . | urlize }}">
                   #{{ . }}&nbsp;
+                </a>
                 {{ end }}
-              </span>
-            </a>
+             
+              <br> {{ end }}
+              {{ if .Params.series }}
+                {{ range .Params.series }}
+                <a class = "post-tags" href="{{ "series/" | absURL }}{{ . | urlize }}">
+                  series: {{ . }}
+                </a>
+                {{ end }}
+              <br>
+              {{ end }}
+            
           </li>
         {{ end }}
       </ul>

@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>HTML on Asako Mikami</title>
+    <link>/tags/html/</link>
+    <description>Recent content in HTML on Asako Mikami</description>
+    <generator>Hugo -- gohugo.io</generator>
+    <language>en-us</language>
+    <lastBuildDate>Tue, 16 Apr 2019 00:00:00 +0000</lastBuildDate>
+    
+	<atom:link href="/tags/html/index.xml" rel="self" type="application/rss+xml" />
+    
+    
+    <item>
+      <title>Migrating to Hugo</title>
+      <link>/2019/04/16/migrating-to-hugo/</link>
+      <pubDate>Tue, 16 Apr 2019 00:00:00 +0000</pubDate>
+      
+      <guid>/2019/04/16/migrating-to-hugo/</guid>
+      <description>1 Installing ‘tuftesque’ theme 2 Setting up a navigation bar 2.1 nav element 2.1.1 .navbar-brand class  2.2 button element 2.3 .collapse.navbar-collapse class 2.4 Adding padding to the body  3 Adding syntax highlighting   I moved this blog from Jekyll to Hugo because I felt like I was missing out on blogdown. I spent days browsing for that right theme all over https://themes.gohugo.io/, but I finally made up my mind to use Nick Strayer’s tuftesque, which was one of Yihui Xie’s honorable mentions for impressive blogdown implementation.</description>
+    </item>
+    
+  </channel>
+</rss>

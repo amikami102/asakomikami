@@ -14,29 +14,34 @@
       <ul id="list" class="list-unstyled list-of-titles">
          {{ range first 3 .Site.RegularPages }}
          <li>
-             <a href="{{ .RelPermalink}}">
-              <span class="post-title">{{ .Title }}</span>
+             
+              <a href="{{ .RelPermalink}}">
+                 <span class="post-title"> {{ .Title }}</span>
               <br>
-              {{if .Params.subtitle }}
-              <span class = "post-subtitle"> {{.Params.subtitle}}</span> 
-              <br> {{ end }}
+              {{ if .Params.subtitle }}
+                <span class="post-subtitle">{{ .Params.subtitle }} </span>
+                <br>
+              {{ end }}
               <span class="post-meta">{{ .Date.Format "January 2, 2006" }}</span>
+              </a>
               <br>
-              {{if .Params.tags }}
-              <span class="post-meta">
+              {{ if .Params.tags }}
                 {{ range .Params.tags }}
+                <a class = "post-tags" href="{{ "tags/" | absURL }}{{ . | urlize }}">
                   #{{ . }}&nbsp;
+                </a>
                 {{ end }}
-              </span>
+             
               <br> {{ end }}
               {{ if .Params.series }}
-              <span class="post-meta">
                 {{ range .Params.series }}
-                  SERIES: {{ . }}
+                <a class = "post-tags" href="{{ "series/" | absURL }}{{ . | urlize }}">
+                  series: {{ . }}
+                </a>
                 {{ end }}
-              </span>
-              <br> {{ end }}
-            </a>
+              <br>
+              {{ end }}
+            
           </li>
         {{ end }}
       </ul>

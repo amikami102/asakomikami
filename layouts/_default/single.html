@@ -1,25 +1,16 @@
 {{ partial "header.html" . }}
-<body
-  class="{{ if .Draft }}draft{{ end }} look-sheet-bkg"
-  lang="{{ .Site.LanguageCode }}"
-  itemscope
-  itemtype="http://schema.org/Article">
-
+<body lang="{{ .Site.LanguageCode }}">
   <div class="nav-bkg">
     <nav class="content-container pagewide-bar-padding">
       <span class="divider">/ </span>
       <a href="{{ .Site.BaseURL  }}" >{{ .Site.Title  }}</a>
-      {{- if not .Parent.IsHome -}}
-      <span class="divider">/ </span>
-      <a href="{{ .Site.BaseURL  }}{{ .CurrentSection.Type }}">{{.CurrentSection.Name}}</a>
-      {{- end -}}
       {{ partial "right-links" . }}
     </nav>
   </div>
 
   <section id="main" class="content-container look-sheet article-pad-v {{ if (or .Params.disableMarginNotes .Site.Params.disableMarginNotes) }}no-floating-footnotes{{ end }}" itemprop="mainEntityOfPage">
     <h1 itemprop="name" id="title">{{ .Title }}</h1>
-    <h2 id = "subtitle">{{ .Params.subtitle }}</h2> 
+
     <article itemprop="articleBody" id="content" class="article-body">
       {{ .Content }}
     </article>

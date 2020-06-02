@@ -13,6 +13,11 @@
   </url>
   
   <url>
+    <loc>/series/jmp-by-women/</loc>
+    <lastmod>2020-05-25T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/series/jmp-by-women-in-economics/</loc>
     <lastmod>2020-05-25T00:00:00+00:00</lastmod>
   </url>
@@ -48,6 +53,21 @@
   </url>
   
   <url>
+    <loc>/tags/python/</loc>
+    <lastmod>2020-03-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/</loc>
+    <lastmod>2020-03-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/webscraping/</loc>
+    <lastmod>2020-03-01T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/2019/06/03/collecting-and-parsing-tweets-part2/</loc>
     <lastmod>2019-06-03T00:00:00+00:00</lastmod>
   </url>
@@ -55,6 +75,11 @@
   <url>
     <loc>/2019/05/29/collecting-and-parsing-tweets-part1/</loc>
     <lastmod>2019-05-29T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/math/</loc>
+    <lastmod>2019-05-19T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -68,27 +93,12 @@
   </url>
   
   <url>
-    <loc>/categories/</loc>
-    <lastmod>2019-05-04T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>/series/collecting-historical-weather-data/</loc>
     <lastmod>2019-05-04T00:00:00+00:00</lastmod>
   </url>
   
   <url>
     <loc>/2019/05/04/weather-data-part3/</loc>
-    <lastmod>2019-05-04T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/categories/gis/</loc>
-    <lastmod>2019-05-04T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>/categories/r/</loc>
     <lastmod>2019-05-04T00:00:00+00:00</lastmod>
   </url>
   
@@ -103,6 +113,11 @@
   </url>
   
   <url>
+    <loc>/tags/career/</loc>
+    <lastmod>2019-04-20T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/2019/04/20/kaggle-careercon2019/</loc>
     <lastmod>2019-04-20T00:00:00+00:00</lastmod>
   </url>
@@ -113,8 +128,23 @@
   </url>
   
   <url>
-    <loc>/categories/python/</loc>
-    <lastmod>2019-04-18T00:00:00+00:00</lastmod>
+    <loc>/tags/blogdown/</loc>
+    <lastmod>2019-04-16T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/css/</loc>
+    <lastmod>2019-04-16T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/html/</loc>
+    <lastmod>2019-04-16T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/hugo-theme/</loc>
+    <lastmod>2019-04-16T00:00:00+00:00</lastmod>
   </url>
   
   <url>
@@ -123,12 +153,32 @@
   </url>
   
   <url>
+    <loc>/tags/rnoaa/</loc>
+    <lastmod>2019-04-10T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/2019/04/10/weather-data-part1/</loc>
     <lastmod>2019-04-10T00:00:00+00:00</lastmod>
   </url>
   
   <url>
+    <loc>/tags/r/</loc>
+    <lastmod>2019-04-10T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/weather-data/</loc>
+    <lastmod>2019-04-10T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>/2019/04/02/introduce-replicate-warren/</loc>
+    <lastmod>2019-04-02T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>/tags/replicate-warren/</loc>
     <lastmod>2019-04-02T00:00:00+00:00</lastmod>
   </url>
   

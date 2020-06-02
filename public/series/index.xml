@@ -12,6 +12,15 @@
     
     
     <item>
+      <title>JMP by Women In Economics</title>
+      <link>/series/jmp-by-women/</link>
+      <pubDate>Mon, 25 May 2020 00:00:00 +0000</pubDate>
+      
+      <guid>/series/jmp-by-women/</guid>
+      <description>This is a series of blog posts where I write summary reviews of job market papers written by women graduating from Economics PhD programs in 2020. The papers are selected from Jennifer Doleac&amp;rsquo;s Twitter thread in which she includes the links to the papers and the screenshot of their abstract in each tweet. There are both theoretical and empirical papers, but since economics is not my field of expertise, I will almost always be reviewing an empirical paper where my knowledge of statistics and causal inference can help me comprehend the research design and results.</description>
+    </item>
+    
+    <item>
       <title>JMP by women in economics</title>
       <link>/series/jmp-by-women-in-economics/</link>
       <pubDate>Mon, 25 May 2020 00:00:00 +0000</pubDate>
@@ -30,7 +39,7 @@
     </item>
     
     <item>
-      <title>Collecting historical weather data</title>
+      <title></title>
       <link>/series/collecting-historical-weather-data/</link>
       <pubDate>Sat, 04 May 2019 00:00:00 +0000</pubDate>
       

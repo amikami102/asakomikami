@@ -6,12 +6,9 @@ enableEmoji = true
 ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
 disqusShortname = "amikami102"
 
-[params]
-  subtitle = "Mastered out of a PhD program in political science, now applying for data scientist/analyst position."
-
 [taxonomies]
-  category = "categories"
   series = "series"
+  tag = "tags"
 
 [[params.topmenu]]
   name = "About"
