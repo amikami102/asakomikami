@@ -16,7 +16,7 @@
       {{ .Content }}
       
       <ul id="list" class="list-unstyled list-of-titles">
-        {{ range .Data.Pages.ByDate.Reverse }}
+        {{ range .Data.Pages }}
           <li>
              
               <a href="{{ .RelPermalink}}">

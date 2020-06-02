@@ -323,7 +323,12 @@ twitter-widget {
   font-size: 0.875em;
 }
 
-a:hover {
+p a {
+  color: inherit;
+  text-decoration: underline;
+}
+
+p a:hover {
   text-decoration: underline;
 }
 

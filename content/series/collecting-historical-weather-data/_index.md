@@ -1,3 +1,3 @@
 ---
-name: "Collecting historical weather data"
+title: "Collecting historical weather data"
 ---
