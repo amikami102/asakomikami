@@ -5,7 +5,7 @@ comment: false
 
 
 
-My name is Asako. I am a PhD student in political science at Boston University. I received my BA from Smith College where I majored in Government and minored in Mathematics. 
+My name is Asako. I recently mastered out of a PhD program in political science. I received my BA from Smith College where I majored in Government and minored in Mathematics. 
 
 I have been studying political science for almost 9 years, but during my PhD training, I have found my calling in data science and am looking to start my career in the field. 
 
@@ -13,8 +13,7 @@ You can reach me via
 [Twitter](https://twitter.com/asak0mikami) or [email](mailto:asakomikami@gmail.com).
 
 
-
-This website is my little corner on the Internet where I can write down things that don't neatly fit in 240 words. I'm doing this mainly to practice writing in English, and I'm hoping to expand the range of topics I write here. 
+This website is my little corner on the Internet that I mainly use to practice writing in English. Right now as of `r format(Sys.time(), '%B %d, %Y')`, the topics are limited to Python/R tutorials and reviews of academic research papers. 
 
 # Acknowledgements
 
