@@ -23,9 +23,9 @@ The paper contributes to an empirical question that has yet to reach a consensus
 
 ## Research design
 
-The research question is, "What is the effect of matching highly-skilled physician to a low-risk patient?"
+The research question is, **"What is the effect of manipulating the physician skill and patient risk match to the patient's helath outcome?"**
 
-- *Treatment*: physician-patient (mis)match
+- *Treatment*: physician skill and patient risk (mis)match
 - *Outcome*: patient's health and the amount of care utilization
 
 If we were to run a randomized controlled treatment experiment, without paying any heed to its ethicality, we would match patients and physicians randomly. In reality, highly skilled physicians are assigned to treat high-risk patients that could benefit from the physician's specialized expertise. In other words, there is a *selection mechanism* behind the treatment assignment. 

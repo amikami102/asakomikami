@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html
+  class=""
+  lang="en-us"
+  prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#"
+>
+  <head>
+    <meta charset="utf-8" />
+
+    
+
+
+    <title>CarlyWill Sloan, &#34;Racial Bias by Prosecutors: Evidence from Random Assignment&#34;</title>
+    <link rel="canonical" href="../../../../2020/06/19/jmp-review-carlywill-sloan/" />
+
+    
+
+    <link rel="stylesheet" href="../../../../css/reboot.css" />
+<link rel="stylesheet" href="../../../../css/style.css" />
+<script type="text/javascript" src="../../../../js/main.js"></script>
+
+
+<link rel="stylesheet" href="../../../../highlight/styles/github-gist.css" rel="stylesheet" id="theme-stylesheet">
+<script src="../../../../highlight/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=EB+Garamond&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;700;900&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="../../../../favicon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="../../../../apple-touch-icon.png" />
+  </head>
+
+
+<body lang="en-us">
+  <div class="nav-bkg">
+    <nav class="content-container pagewide-bar-padding">
+      <span class="divider">/ </span>
+      <a href="../../../../" >Asako Mikami</a>
+      <ul class="list-unstyled right-links">
+
+          <li>
+            <a href="../../../../about/">
+              <span class="post-title">About</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="../../../../post/">
+              <span class="post-title">All posts</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="../../../../series/">
+              <span class="post-title">Series</span>
+            </a>
+          </li>
+
+</ul>
+
+    </nav>
+  </div>
+
+  <section id="main" class="content-container look-sheet article-pad-v " itemprop="mainEntityOfPage">
+    <h1 itemprop="name" id="title">CarlyWill Sloan, &#34;Racial Bias by Prosecutors: Evidence from Random Assignment&#34;</h1>
+
+    <article itemprop="articleBody" id="content" class="article-body">
+      
+
+
+<p>This blog post is coming up during a wave of Black Lives Matter protests in the United States and around the world. Black lives matter. This <a href="https://github.com/carlywillsloan/Prosecutors/blob/master/191228_sloan_jmp.pdf">research paper by CarlyWill Sloan</a> provides evidence on the racism of prosecutors that perpetuates the mass incarceration of Black men.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> Here is an excerpt from the abstract:</p>
+<blockquote>
+<p>Racial disparities in criminal justice outcomes are well-documented. However, there is little evidence on the extent to which racial bias exhibited by prosecutors is responsible for these disparities. This paper tests for racial bias in convictions by prosecutors. To identify effects, I leverage as good-as-random variation in prosecutor race using detailed administrative data on the case assignment process and case outcomes in a major US city.</p>
+</blockquote>
+<p>This is an example of a really good empirical paper that hits most of the marks of empirical etiquette such as providing illustrative figures that substantiates the author’s claim and interpreting the economic significance of coefficient estimates rather than simply stating its statistically significance. A policymaker could read this paper and understand it without any training in econometrics.</p>
+<p>Still, I found this paper exhibiting the typical weaknesses of economics where scholars often end up whitewashing certain aspects of their work in the name of being “objective.” For instance, Sloan uses the term “opposite-race bias,” presumably to refer to cases where White prosecutors discriminate against Black defendants as well as when Black prosecutors discriminate against White defendants.</p>
+<p>I’m not against holding Black prosecutors accountable to their citizens as their legal representatives. However, the false inclusion of calling that “opposite-race bias” has the same pernicious effect as bothesideism and #AllLivesMatter in that it distracts us from perceiving the overaching power structure—White supremacy—that produce both behaviors.</p>
+<p>The rest of the blog post will review the results of the empirical analysis up to Figure 3. For this paper, I focus on the interpretation of the main effects and interaction term coefficients, summarizing them in a table. I conclude the blog post with comments on aspects that were omitted from the paper and could use further investigation.</p>
+<div id="research-question" class="section level1">
+<h1>Research question</h1>
+<p>The author wants to know whether White prosecutors exhibit racial prejudice against Black defendants. The research question, reworded in the manipulationist framework, can be stated as follows: <strong>“What is the effect of manipulating the race pairings of a prosecutor and a defendant on the case outcome?”</strong></p>
+<p>The main <em>outcome</em> is whether the defendant is found guilty, which could happen in two ways— either the defendant accepts a plea offer or is convicted through a trial. The <em>treatment</em> event, <span class="math inline">\(X\)</span>, is the assignment of Black defendant’s case to a White prosecutor. The <em>control</em> events are all other race pairings: a Black defendant’s case to a Black prosecutor, a White defendant’s case to a White prosecutor, and a White defendant’s case to a Black prosecutor.</p>
+<ul>
+<li><em>treatment</em>: Black defendant and White prosecutor</li>
+<li><em>control</em>: Black defendant and Black prosecutor, White defendant and White prosecutor, and White defendant and Black prosecutor</li>
+</ul>
+<p>Even though Sloan uses the phrase “opposite-race bias,” the main treatment of interest is the pairing of Black defendant to a White prosecutor. This is the right thing to do both from social justice point of view and analytical point of view. From the social justice perspective, it makes sense that we focus on what we suspect are systemic transgressions of justice committed by the social group who holds power on the marginalized group. In the contemporary America, the first group is the White people and the latter is the Blak people. From the analytical point of view, majority of the prosecutors are White while the majority of defendants are Black. If we go purely by numbers and assume random case assignment, there is a greater chance of a White person prosecuting a Black person’s case than a Black person prosecuting a White person’s. There is very little justification to look at “both” sides.</p>
+</div>
+<div id="research-design" class="section level1">
+<h1>Research Design</h1>
+<p>The particular way that police files are reviewed by prosecutors at the Early Case Assessment Bureau of the New York District Attorney Office, is the key to the <em>good-as-random</em> treatment assignment. Sloan describes,</p>
+<blockquote>
+<p>In contrast to felonies, the assignment of misdemeanor case is as-good-as random. Within each shift at the Early Case Assessment Bureau, cases are assigned on a rotational basis depeneding on a case’s timestamp, which is when the bureau received it. The assignment works as follows: when prosecutors arrive at the office, the office administrator gives them the earliest timestamped case available. The timestamp on the case is essential. During my visit to the Early Case Assessment Bureau, multiple prosecutors and administrators mentioned the importance of handling cases in the order they arrived. … A prosecutor cannot screen, or even look at, a case before she begins working on it. When she is finished writing up her case, she will return to the administrator and is again assigned the earliest timestamped case available (9).</p>
+</blockquote>
+<p>Clearly, this system eliminates <em>selection bias</em>, which would happen if prosecutors were choosing cases that they knew could be found guilty or not guilty. I also think they key is that the prosecutors working at the ECAB are first years who move on to another bureau after a month. Therefore, <strong>assuming that</strong> the order in which the prosecutors arrive to the office each work day and the cases are distributed according to the order that they arrived to the office, the case assignment is as good as random conditional on the screening day.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a></p>
+<p>The bigger obstacle, however, is <em>omitted variable bias</em>, which would happen if we fail to account for variables that are correlated with race and therefore indirectly affect the outcome, or have an independent direct effect on the probability of guilty.</p>
+<p>For example, prosecutors may perceive defendants with criminal history more likely to be guilty than those without, and in 2010, a Black male adult is <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC5996985/table/T2/">three times</a> more likely to have been convicted for felon than a White male adult.<a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a> In that case, it would be inaccurate to attribute the outcome to racial bias. Therefore, if we are interested in measuring racial bias, it’s important to control for case characteristics (e.g. type of crime, presence of hard evidence) and defendant characteristics (e.g. criminal history) besides his racial profile.</p>
+</div>
+<div id="sample-data-description" class="section level1">
+<h1>Sample Data Description</h1>
+<p>The sample data contains 87,461 misdemeanor cases assigned through the ECAB between 2010 and 2011. The unit of analysis is at case level. The cases can be partitioned into four groups:</p>
+<ul>
+<li>68% with a White prosecutor and a Black defendant,</li>
+<li>18% with a White prosecutor and a White defendant,</li>
+<li>11% with a Black prosecutor and a Black defendant, and</li>
+<li>3% with a Black prosecutor and a White defendant.</li>
+</ul>
+<p>According to the summary statistics displayed in Table 1, 61% of the Black defendants were found guilty while 50% of the White defendants were found guilty. While 70% of White defendants did not have prior arrest of conviction history, this percentage decreases to 50% for Black defendants.</p>
+<p>Figure 1 shows the predicted probability of being found guilty based on case and defendant characteristics for each of the four groups listed above before the case is assigned to a prosecutor. What is important is that for both White and Black defendants, there is no difference in their pre-treatment predicted probability of guilty between the cases assigned to Black prosecutor and those assigned to White prosecutors. If there were differences in the height of the bars for either Black defendants or White defendants, it would suggest that treatment assignemnt is not exogenous and that there might be selection bias.</p>
+<div class="figure">
+<img src="../../../../post/2020-06-12-carlywill-sloan_files/CWSloan_fig1.png" alt="Figure 1 from Sloan (2019)." />
+<p class="caption">Figure 1 from Sloan (2019).</p>
+</div>
+</div>
+<div id="regression-model" class="section level1">
+<h1>Regression Model</h1>
+<p>For the main regression, Sloan models the binary outcome (guilty or not guilty) on the interaction on <span class="math inline">\(I(\text{Black defendant})_c\)</span> and <span class="math inline">\(I(\text{White prosecutor})_c\)</span> while controlling for <span class="math inline">\(\text{Screening Date}_c\)</span>:</p>
+<p><span class="math display">\[\begin{align*}
+\text{Guilty}_c &amp; = \beta_0 + \beta_1 I(\text{Black def.})_c + \beta_2 I(\text{White pros.})_c  \\
+&amp; + \beta_3I(\text{Black def.} \times \text{White pros.})_c \\
+&amp;+ X_c + \text{Screening Date}_c + \epsilon_c
+\end{align*}\]</span></p>
+<p>where <span class="math inline">\(X_c\)</span> represents the control variables and their coefficients. <span class="math inline">\(I(\cdot)\)</span> are indicator functions, meaning that they equal 1 when <span class="math inline">\(\cdot\)</span> is true and 0 otherwise. The standard errors are clusterred at prosecutor level because the same prosecutor could review multiple cases during her time at ECAB. Finally, when she is presenting crime-type specific estimates, Sloan reports corrected standard errors in the fashion of Anderson (2008) to prevent multiple testing.<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a></p>
+<p><aside class="article-aside look-sheet-border"></p>
+<p><strong>Side note: Clustered SE or fixed effect</strong>❓</p>
+<p>I want to note that the cases are correlated in two ways—one by screening date and another by prosecutors—but the way they matter are different.</p>
+<p>On the one hand, the observations/cases are independent and identical draws within each screening day. However, there might be systematic differences in what kinds of cases come on one day versus another, so the <em>fixed effect</em> <span class="math inline">\(\text{Screening Date}_c\)</span> is included to <a href="https://stats.stackexchange.com/questions/185378/when-to-use-fixed-effects-vs-using-cluster-ses">remove that unobserved heterogeneity</a> between screening days.</p>
+<p>On the other hand, cases reviewed by the same prosecutor are not independent and are likely to be correlated with each other in some way. Because the computer thinks that there are more independent observations than there are, without any clustering, the significance of between-subject variables like <span class="math inline">\(I(\text{Black def.})_c\)</span> and <span class="math inline">\(I(\text{Black_def.} \times \text{White pros.})_c\)</span> would be exaggerated.</p>
+<p></aside>
+</p>
+<p>Sloan only reports the estimates of <span class="math inline">\(\beta_3\)</span>, which she says captures “the effect of being assigned an opposite-race prosecutor.” Here is the table to help understand what she means by that phrase:</p>
+<div class="figure">
+<img src="../../../../post/2020-06-12-carlywill-sloan_files/CWSloan_treatment-group-and-size.png" alt="Treatment group and size" />
+<p class="caption">Treatment group and size</p>
+</div>
+<p>As you can see in the table above, the difference for a Black defendant between being prosecuted by a White proseuctor and a Black prosecutor is <span class="math inline">\((\beta_0 + \beta_1 + \beta_2 + \beta_3) - (\beta_0 + \beta_1) = \beta_2 + \beta_3\)</span>. Another way to capture opposite race is to take the difference for a White prosecutor between prosecuting a Black defendant and a White defendant, which is <span class="math inline">\((\beta_0 + \beta_1 + \beta_2 + \beta_3) - (\beta_0 + \beta_2) = \beta_1 + \beta_3\)</span>. Therefore, there are two ways of measuring opposite-race bias.<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a> <span class="math inline">\(\beta_3\)</span> is the portion that is common in both quantities and therefore could be said to capture “opposite-race bias.”</p>
+<p>Let’s look at the results. I’m presenting Panels A and D from Table 4 where the main regression I mentioned earlier is fit on subsamples of drug crimes and property crimes respectively. I highlight column (4) where <span class="math inline">\(X_c\)</span> includes interaction of case and defendant characteristics (besides race) with prosecutor’s race. Sloan explains her thinking behind the model specification of column (4):</p>
+<blockquote>
+<p>If prosecutors are responding to case characteristics that are correlated with defendant race, but not defendant race itself, then I could incorrectly categorize different treatment of case characteristics as opposite-race bias. Here, I add a separate interaction for each case characteristic and defendant control, included in column 2 and interacted with prosecutor race; doing this allows [B]lack and [W]hite prosecutors to respond differently to case characteristics (25).</p>
+</blockquote>
+<div class="figure">
+<img src="../../../../post/2020-06-12-carlywill-sloan_files/CWSloan_tab4panelA.png" alt="Panel A of Table 4 from Sloan (2019)." />
+<p class="caption">Panel A of Table 4 from Sloan (2019).</p>
+</div>
+<div class="figure">
+<img src="../../../../post/2020-06-12-carlywill-sloan_files/CWSloan_tab4.png" alt="Panel D of Table 4 from Sloan (2019)." />
+<p class="caption">Panel D of Table 4 from Sloan (2019).</p>
+</div>
+<p>Panels A and D of Table 4 say that <span class="math inline">\(\hat{\beta}_3\)</span> is sensitive to crime type. Even with <a href="https://doi.org/10.1198/016214508000000841">adjusted p-value</a>, <span class="math inline">\(\hat{\beta}_3\)</span> is significant for property crimes. When a White prosecutor is assigned to a Black defendant’s case, the probability of guilty increases by <span class="math inline">\(0.0549\)</span> or 5.5 percentage points, which translates to <strong>increasing the probability from <span class="math inline">\(0.607\)</span> to <span class="math inline">\(0.607 + (0.0549/0.607) = 0.697\)</span> or by 9 percent</strong>. I find that to be a pretty substantial difference.</p>
+<p>One of the things this paper does well is to draw the policy significance of her coefficient estimates. I rarely see this done in empirical papers; most papers simply celebrate the statistical significance of their results but do not translate their estimates into comprehensible terms. For instance, Sloan states that the column (4) estimates imply that “[o]pposite-race bias by prosecutors could account for about 50 percent of the difference in guilt across race for property crimes (35).”</p>
+<p><aside class="article-aside look-sheet-border"></p>
+<p><strong>“50% of difference in guilt”</strong></p>
+<p>The math is explained in detail in footnote 30, but I’d like to write it all down.</p>
+<p><span class="math display">\[\begin{align*}
+&amp; \Delta(\text{conviction rate between Black and White def.})  \\
+&amp; = \Big[ (\beta_0 + \beta_1) Pr(\text{Black pros.} \, | \, \text{Black def.}) + (\beta_0 + \beta_1 + \beta_2 + \beta_3) Pr(\text{White pros.} \, | \, \text{Black def.})\text\Big] \\
+&amp; - \Big[ \beta_0 Pr(\text{Black pros.} \, | \, \text{White def.}) + (\beta_1 + \beta_3) Pr(\text{White pros.}\, | \, \text{White def.})]  \\
+&amp; = \ldots
+\end{align*}\]</span></p>
+<p>Because the assignment of a prosecutor to a case is random conditional on the screening date, the probabilities simplify to
+<span class="math display">\[Pr(\text{Black pros.} \, | \, \text{White def.}) = Pr(\text{Black pros.} \, | \, \text{Black def.})\]</span>
+and
+<span class="math display">\[Pr(\text{White pros.} \, | \, \text{Black def.}) = Pr(\text{White pros.} \, | \, \text{White def.}).\]</span></p>
+<p><span class="math display">\[\begin{align*}
+\ldots &amp; = \beta_1 Pr(\text{Black pros.} \, | \, \text{White def.}) \\
+&amp; + (\beta_1 + \beta_3) Pr(\text{White pros.} \, | \, \text{Black def.}) \\
+&amp; = \ldots 
+\end{align*}\]</span></p>
+<p></aside>
+</p>
+</div>
+<div id="evidence-of-systemic-bias" class="section level1">
+<h1>Evidence of systemic bias</h1>
+<p>The results I’ve discussed earlier could either be caused by few bad apples or be a symptom of a systemic racism among the first year prosecutors, many of which are White. In order to investigate this, Sloam estimates heterogeneous treatment effect for every prosecutor <span class="math inline">\(p\)</span> who reviwed at least 75 cases.</p>
+<p>First, she fits the following regression for all <span class="math inline">\(p\)</span> and <span class="math inline">\(c\)</span>:</p>
+<p><span class="math display">\[\begin{align*}
+\text{Guilty}_c &amp; = \beta_0 + \beta_1 I(\text{Black def.})_c + \text{Pros}_p + \\
+&amp; + \sum_{p=1}^P \beta_{3p} I(\text{Black def.} \times \text{White pros.})_c \times I(\text{Prosecutor})_p \\
+&amp; + \text{Screening Date}_c + X_c + \epsilon_c.
+\end{align*}\]</span></p>
+<p>Unlike the first regression mentioned earlier, this regression now includes prosecutor-specific fixed effect, <span class="math inline">\(\text{Pros}_p\)</span>, and interacts the treatment variable with <span class="math inline">\(I(\text{Prosecutor})_p\)</span>.<a href="#fn6" class="footnote-ref" id="fnref6"><sup>6</sup></a> To help with coefficient interpretation, I have drawn a table below.</p>
+<div class="figure">
+<img src="../../../../post/2020-06-12-carlywill-sloan_files/CWSloan_beta3p.png" alt="How to interpret \beta_{3p}" />
+<p class="caption">How to interpret <span class="math inline">\(\beta_{3p}\)</span></p>
+</div>
+<p><span class="math inline">\(\beta_{3p}\)</span> has a clearer interpretation than <span class="math inline">\(\beta_3\)</span> earlier: it captures the effect of assigning a Black defendant to a White prosecutor <span class="math inline">\(p\)</span> compared to the average Black prosecutor. Likewise, Sloan fits a similar model to measure the opposite-race effect on White defendants. The interpretation for <span class="math inline">\(\zeta_{3p}\)</span> below is the counterpart of <span class="math inline">\(\beta_{3p}\)</span> for Black prosecutors.</p>
+<p><span class="math display">\[\begin{align*}
+\text{Guilty}_c &amp; = \zeta_0 + \zeta_1 I(\text{White def.})_c + \text{Pros}_p + \\
+&amp; + \sum_{p=1}^P \zeta_{3p} I(\text{White def.} \times \text{Black pros.})_c \times I(\text{Prosecutor})_p \\
+&amp; + \text{Screening Date}_c + X_c + \epsilon_c.
+\end{align*}\]</span></p>
+<div class="figure">
+<img src="../../../../post/2020-06-12-carlywill-sloan_files/CWSloan_zeta3p.png" alt="How to interpret \zeta_{3p}" />
+<p class="caption">How to interpret <span class="math inline">\(\zeta_{3p}\)</span></p>
+</div>
+<p>Figure 3 plots <span class="math inline">\(\hat{\beta}_{3p}\)</span> for White prosecutors and <span class="math inline">\(\hat{\zeta}_{3p}\)</span> for Black prosecutors with their 95% confidence intervals in the order of their size. This is a powerful visualization. Ideally, if case outcomes are purely determined by their evidence, then the coefficient intervals should line up at 0. Obviously that is not true in Figure 3. Moreover, it’s not a few bad apples because about half of the intervals lie above 0.</p>
+<div class="figure">
+<img src="../../../../post/2020-06-12-carlywill-sloan_files/CWSloan_fig3.png" alt="Figure 3 from Sloan (2019)." />
+<p class="caption">Figure 3 from Sloan (2019).</p>
+</div>
+<hr />
+<p><strong>“BUt cAn’t BLack peOplE Also bE RAcist?”</strong></p>
+<p>Even though there are some black dots that are above 0 in Figure 3, I hesitate to call the behavior of these Black prosecutors racist. Is it possible that some Black prosecutors embody reverse racism and are judging the White defendants more harshly than they would to their Black brethrens? That is possible, but that still takes us back to white supremacy as the source of this perversity.</p>
+<p>I am reminded of the passage from Martin Luther King Jr.’s “Letter from Birmingham Jail”:</p>
+<blockquote>
+<p>[W]hen you suddenly find your tongue twisted and your speech stammering as you seek to explain to your six year old daughter why she can’t go to the public amusement park that has just been advertised on television, and see tears welling up in her eyes when she is told that Funtown is closed to colored children, and see ominous clouds of inferiority beginning to form in her little mental sky, and see her beginning to distort her personality by developing an unconscious bitterness toward [W]hite people … then you will understand why we find it difficult to wait.</p>
+</blockquote>
+<p>The black dots among the white dots above the x-axis in Figure 3 are symptoms of the same oppressive system called white supremacy.</p>
+<hr />
+</div>
+<div id="concluding-thoughts" class="section level1">
+<h1>Concluding thoughts</h1>
+<p>I’m going to wrap up my review of Sloan’s job market paper around here because I’ve covered the core results. I would encourage looking at rest of the tables and figures on your own as they are pretty striaght forward if you’ve made it this far.</p>
+<p>When she assesses the external validity of her study’s results, Sloan notes that the New York District Attorney’s Office has been one of the more proactive offices in the United States in combatting racism within their institutions and that therefore the results from NYDA constitutes the lower bound for the rest of the country. In other words, it’s worse in other parts of the country.</p>
+<p>So, what is the policy implication of <span class="math inline">\(\hat{\beta}_3\)</span>?</p>
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>I am capitalizing the words “Black” and “White” when they refer to race identity per the <a href="https://cssp.org/2020/03/recognizing-race-in-language-why-we-capitalize-black-and-white/">guidelines from Center for the Study of Social Policy</a>.<a href="#fnref1" class="footnote-back">↩</a></p></li>
+<li id="fn2"><p>I was wondering if a prosecutor while reviewing a case could discuss about it with her colleagues before making her decisions and therefore violate the stable unit treatment value assumption (<a href="https://bookdown.org/paul/applied-causal-analysis/sutva1.html">SUTVA</a>). It turns out this is unlikely according to Sloan’s observation since it sounds like the process moves like a chore.<a href="#fnref2" class="footnote-back">↩</a></p></li>
+<li id="fn3"><p>See Table 2 from Shannon, S. et al. (2017). “The Growth, Scope, and Spatial Distribution of People With Felony Records in the United States, 1948-2010.” <em>Demography</em>, 54(5), 1795–1818. <a href="https://doi.org/10.1007/s13524-017-0611-1" class="uri">https://doi.org/10.1007/s13524-017-0611-1</a>.<a href="#fnref3" class="footnote-back">↩</a></p></li>
+<li id="fn4"><p>Anderson, M. L. (2008). “Multiple inference and gender differences in the effects of early intervention: A reevaluation of the Abecedarian, Perry Preschool, and Early Training Projects,” <em>Journal of the American statistical Association</em>, 103(484), 1481-1495. <a href="https://doi.org/10.1198/016214508000000841" class="uri">https://doi.org/10.1198/016214508000000841</a>.<a href="#fnref4" class="footnote-back">↩</a></p></li>
+<li id="fn5"><p>Empirically and theoretically, there’s no reason that <span class="math inline">\(\beta_1 + \beta_3\)</span> and <span class="math inline">\(\beta_2 + \beta_3\)</span> should be the same: empirically because not all of our observations are independent; theoretically because if it were, it would imply that <span class="math inline">\(\beta_2 = \beta_1\)</span>, which would further imply that White prosecutors find White defendants guilty at the same rate as Black prosecutors find Black defendants guilty. I find that unlikely.<a href="#fnref5" class="footnote-back">↩</a></p></li>
+<li id="fn6"><p>I don’t think the summation over <span class="math inline">\(p\)</span> is necessary since, as far as I can tell from the paper, each case <span class="math inline">\(c\)</span> is only assigned to one prosecutor <span class="math inline">\(p\)</span>. To the extent that <span class="math inline">\(c\)</span> and <span class="math inline">\({p, c}\)</span> are interchangeable, the equations would still stand without the summation.<a href="#fnref6" class="footnote-back">↩</a></p></li>
+</ol>
+</div>
+
+    </article>
+  </section>
+  
+
+  </body>
+</html>

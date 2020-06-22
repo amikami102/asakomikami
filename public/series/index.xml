@@ -6,7 +6,7 @@
     <description>Recent content in Series on Asako Mikami</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Mon, 25 May 2020 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Fri, 19 Jun 2020 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="/series/index.xml" rel="self" type="application/rss+xml" />
     
@@ -14,10 +14,11 @@
     <item>
       <title>JMP by Women In Economics</title>
       <link>/series/jmp-by-women-in-economics/</link>
-      <pubDate>Mon, 25 May 2020 00:00:00 +0000</pubDate>
+      <pubDate>Fri, 19 Jun 2020 00:00:00 +0000</pubDate>
       
       <guid>/series/jmp-by-women-in-economics/</guid>
-      <description>This is a series of blog posts where I write summary reviews of job market papers written by women graduating from Economics PhD programs in 2020. The papers are selected from Jennifer Doleac&amp;rsquo;s Twitter thread in which she includes the links to the papers and the screenshot of their abstract in each tweet. There are both theoretical and empirical papers, but since economics is not my field of expertise, I will almost always be reviewing an empirical paper where my knowledge of statistics and causal inference can help me comprehend the research design and results.</description>
+      <description>This is a series of blog posts where I review job market papers written by women graduating from Economics PhD programs in 2020. The papers are selected from Jennifer Doleac&amp;rsquo;s Twitter thread.
+There are both theoretical and empirical papers, but since economics is not my field of expertise, I will almost always be reviewing an empirical paper where my knowledge of statistics and causal inference can help me comprehend the research design and interpret the results.</description>
     </item>
     
     <item>

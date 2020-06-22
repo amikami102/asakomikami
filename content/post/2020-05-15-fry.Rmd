@@ -9,8 +9,6 @@ meta: TRUE
 math: TRUE
 ---
 
-*This blog post is part of my "JMP by Women in Econ" series where I summarize and review some of the job market papers written by women PhD candidates in Economics. The papers are selected from Jennifer Doleac's [Twitter thread](https://twitter.com/jenniferdoleac/status/1187863251947806720). DISCLAIMER: I am not reading this from the perspective of an economist, let alone of a job committee member. I just like reading cool articles that use observational data to tackle challenging research problems.* :bowtie:
-
 The third installment in this series is Caroline Fry's paper, ["Building Bridges: The impact of migration by African scientists."](http://carolinefry.mit.edu/research-0) Here's an excerpt from the abstract: 
 
 > Despite significant interest in the potential for 'returnee' scientists moving back to developing countries to connect developed and developing countries, prior work has found limited evidence of success. I shift the focus to the broader network of the returnee, and study the extent to which the return home of American-trained HIV researchers to African institutions impacts publication outcomes of non-migrant scientists in Africa. I find that following the arrival of a returnee in their institution, non-migrants experience increased productivity, mostly in HIV research. I find strong evidence that the mechanism driving this effect is that of the returnee providing a bridge to their central connections and subsequent knowledge and resources thus affecting outcomes. 

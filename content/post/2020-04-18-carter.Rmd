@@ -9,7 +9,6 @@ meta: TRUE
 math: TRUE
 ---
 
-*This blog post is part of my "JMP by Women in Econ" series where I summarize and review some of the job market papers written by women PhD candidates in Economics.* :bowtie:
 
 The article I'm reviewing in this blog post is by Chelsea E. Carter, ["Forts and Frontier: The U.S. Army and the Spatial Distribution of Population."](https://sites.google.com/a/bu.edu/chelsea-e-carter/research?authuser=0) One of the things that surprises me about other social science disciplines like economics and sociology is the range of social phenomena that they write about (I wasn't expecting to read a paper about the American West!). Carter checks the robustness of her results with new empirical methods published in the last few years, so there's a lot of methodological techniques to unpack in this paper. If you're like me and want to know how to do things, you'll be checking out the reference section of this paper constantly! 
 
@@ -32,6 +31,8 @@ There are two observations that can be drawn about the population distribution i
 When asked how people have chosen where to live during the age of primitive technology, most people would guess that factors like geography, climate, and access to water transporation routes have determined which locations were attractive for permanent settlement. However, this piece of conventional wisdom doesn't explain the two observations about the American frontier because if there are large stretches of land with similar topography, the distribution of population should be even. Moreover, a 2018 paper found that "only 35 percent of within-country variation [in population density] can be explained by attributes of physical geography." Thus, Carter thinks that the pattern of population distribution in the American West too has been shaped by factors other than physical geography, in particular military forts. 
 
 *Assuming that individuals prefer to live close to each other*, we can imagine that the early settlers would have faced a spatial coordination problem.[^co-locate] There is a body of historical research suggesting that military forts built by the U.S. Army served as a congregation point for the settlers. What's interesting about Carter's paper is that she is presenting an alternative theory to another paper, Bleakley and Lin (2012), that posits that ports "as a *natural* advantage" solved the same spatial coordination problem for the frontier settlers (6). Carter, in turn, argues that that *man-made* features like military forts were critical in establishing the population density differentials in the flat plains of the U.S. interior. 
+
+Therefore, the research question can be stated as follows: **What is the effect of manipulating military fort location on the pattern of population distribution in the American West?**
 
 
 [^co-locate]: This is actually a very crucial assumption and one that Carter herself addresses explicitly, for there is [an NBER paper](https://www.bu.edu/econ/files/2018/08/BFG_Frontier.pdf) that studies how frontier experience fostered a culture of individualism in the U.S. interior and the region's general disdain towards welfare redistribution. 
