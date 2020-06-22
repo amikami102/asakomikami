@@ -2,21 +2,21 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>replicate warren on Asako Mikami</title>
-    <link>/tags/replicate-warren/</link>
+    <link>https://asakomikami.com/tags/replicate-warren/</link>
     <description>Recent content in replicate warren on Asako Mikami</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Tue, 02 Apr 2019 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="/tags/replicate-warren/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="https://asakomikami.com/tags/replicate-warren/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Introducing a replication project of Warren (2019)</title>
-      <link>/2019/04/02/introduce-replicate-warren/</link>
+      <link>https://asakomikami.com/2019/04/02/introduce-replicate-warren/</link>
       <pubDate>Tue, 02 Apr 2019 00:00:00 +0000</pubDate>
       
-      <guid>/2019/04/02/introduce-replicate-warren/</guid>
+      <guid>https://asakomikami.com/2019/04/02/introduce-replicate-warren/</guid>
       <description>I have a project called replicate_warren (a private Github repository), where I am trying to replicate a sociology study, Warren (2019). To put it succinctly, Warren (2019) collected data from résumés of sociology PhD graduates and measured how over-achieving recent PhD graduates had to be to land a junior faculty jobs at top sociology departments in the United States. I want to replicate the study in the political science field.</description>
     </item>
     

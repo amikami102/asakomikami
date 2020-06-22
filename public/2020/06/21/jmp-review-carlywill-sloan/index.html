@@ -1,14 +1,82 @@
----
-title: 'CarlyWill Sloan, "Racial Bias by Prosecutors: Evidence from Random Assignment"'
-subtitle: "#BlackLivesMatter"
-date: '2020-06-21'
-slug: jmp-review-carlywill-sloan
-series: 
-        - JMP by women in economics
-meta: true
-math: true
----
+<!DOCTYPE html>
+<html
+  class=""
+  lang="en-us"
+  prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#"
+>
+  <head>
+    <meta charset="utf-8" />
 
+    
+
+
+    <title>CarlyWill Sloan, &#34;Racial Bias by Prosecutors: Evidence from Random Assignment&#34;</title>
+    <link rel="canonical" href="https://asakomikami.com/2020/06/21/jmp-review-carlywill-sloan/" />
+
+    
+
+    <link rel="stylesheet" href="../../../../css/reboot.css" />
+<link rel="stylesheet" href="../../../../css/style.css" />
+<script type="text/javascript" src="../../../../js/main.js"></script>
+
+
+<link rel="stylesheet" href="https://asakomikami.com/highlight/styles/github-gist.css" rel="stylesheet" id="theme-stylesheet">
+<script src="https://asakomikami.com/highlight/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=EB+Garamond&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;700;900&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="../../../../favicon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="../../../../apple-touch-icon.png" />
+  </head>
+
+
+<body lang="en-us">
+  <div class="nav-bkg">
+    <nav class="content-container pagewide-bar-padding">
+      <span class="divider">/ </span>
+      <a href="https://asakomikami.com" >Asako Mikami</a>
+      <ul class="list-unstyled right-links">
+
+          <li>
+            <a href="../../../../about/">
+              <span class="post-title">About</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="../../../../post/">
+              <span class="post-title">All posts</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="../../../../series/">
+              <span class="post-title">Series</span>
+            </a>
+          </li>
+
+</ul>
+
+    </nav>
+  </div>
+
+  <section id="main" class="content-container look-sheet article-pad-v " itemprop="mainEntityOfPage">
+    <h1 itemprop="name" id="title">CarlyWill Sloan, &#34;Racial Bias by Prosecutors: Evidence from Random Assignment&#34;</h1>
+
+    <article itemprop="articleBody" id="content" class="article-body">
+      
 
 
 <p>This blog post is coming up during a wave of Black Lives Matter protests in the United States and around the world. Black lives matter. This <a href="https://github.com/carlywillsloan/Prosecutors/blob/master/191228_sloan_jmp.pdf">research paper by CarlyWill Sloan</a> provides evidence on the racism of prosecutors that perpetuates the mass incarceration of Black men.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> Here is an excerpt from the abstract:</p>
@@ -51,7 +119,7 @@ math: true
 <p>According to the summary statistics displayed in Table 1, 61% of the Black defendants were found guilty while 50% of the White defendants were found guilty. While 70% of White defendants did not have prior arrest of conviction history, this percentage decreases to 50% for Black defendants.</p>
 <p>Figure 1 shows the predicted probability of being found guilty based on case and defendant characteristics for each of the four groups listed above before the case is assigned to a prosecutor. What is important is that for both White and Black defendants, there is no difference in their pre-treatment predicted probability of guilty between the cases assigned to Black prosecutor and those assigned to White prosecutors. If there were differences in the height of the bars for either Black defendants or White defendants, it would suggest that treatment assignemnt is not exogenous and that there might be selection bias.</p>
 <div class="figure">
-<img src="/post/2020-06-12-carlywill-sloan_files/CWSloan_fig1.png" alt="Figure 1 from Sloan (2019)." />
+<img src="../../../../post/2020-06-12-carlywill-sloan_files/CWSloan_fig1.png" alt="Figure 1 from Sloan (2019)." />
 <p class="caption">Figure 1 from Sloan (2019).</p>
 </div>
 </div>
@@ -64,15 +132,16 @@ math: true
 &amp;+ X_c + \text{Screening Date}_c + \epsilon_c
 \end{align*}\]</span></p>
 <p>where <span class="math inline">\(X_c\)</span> represents the control variables and their coefficients. <span class="math inline">\(I(\cdot)\)</span> are indicator functions, meaning that they equal 1 when <span class="math inline">\(\cdot\)</span> is true and 0 otherwise. The standard errors are clusterred at prosecutor level because the same prosecutor could review multiple cases during her time at ECAB. Finally, when she is presenting crime-type specific estimates, Sloan reports corrected standard errors in the fashion of Anderson (2008) to prevent multiple testing.<a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a></p>
-<p>{{% aside %}}</p>
-<p><strong>Side note: Clustered SE or fixed effect</strong>:question:</p>
+<p><aside class="article-aside look-sheet-border"></p>
+<p><strong>Side note: Clustered SE or fixed effect</strong>❓</p>
 <p>I want to note that the cases are correlated in two ways—one by screening date and another by prosecutors—but the way they matter are different.</p>
 <p>On the one hand, the observations/cases are independent and identical draws within each screening day. However, there might be systematic differences in what kinds of cases come on one day versus another, so the <em>fixed effect</em> <span class="math inline">\(\text{Screening Date}_c\)</span> is included to <a href="https://stats.stackexchange.com/questions/185378/when-to-use-fixed-effects-vs-using-cluster-ses">remove that unobserved heterogeneity</a> between screening days.</p>
 <p>On the other hand, cases reviewed by the same prosecutor are not independent and are likely to be correlated with each other in some way. Because the computer thinks that there are more independent observations than there are, without any clustering, the significance of between-subject variables like <span class="math inline">\(I(\text{Black def.})_c\)</span> and <span class="math inline">\(I(\text{Black_def.} \times \text{White pros.})_c\)</span> would be exaggerated.</p>
-<p>{{% /aside %}}</p>
+<p></aside>
+</p>
 <p>Sloan only reports the estimates of <span class="math inline">\(\beta_3\)</span>, which she says captures “the effect of being assigned an opposite-race prosecutor.” Here is the table to help understand what she means by that phrase:</p>
 <div class="figure">
-<img src="/post/2020-06-12-carlywill-sloan_files/CWSloan_treatment-group-and-size.png" alt="Treatment group and size" />
+<img src="../../../../post/2020-06-12-carlywill-sloan_files/CWSloan_treatment-group-and-size.png" alt="Treatment group and size" />
 <p class="caption">Treatment group and size</p>
 </div>
 <p>As you can see in the table above, the difference for a Black defendant between being prosecuted by a White proseuctor and a Black prosecutor is <span class="math inline">\((\beta_0 + \beta_1 + \beta_2 + \beta_3) - (\beta_0 + \beta_1) = \beta_2 + \beta_3\)</span>. Another way to capture opposite race is to take the difference for a White prosecutor between prosecuting a Black defendant and a White defendant, which is <span class="math inline">\((\beta_0 + \beta_1 + \beta_2 + \beta_3) - (\beta_0 + \beta_2) = \beta_1 + \beta_3\)</span>. Therefore, there are two ways of measuring opposite-race bias.<a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a> <span class="math inline">\(\beta_3\)</span> is the portion that is common in both quantities and therefore could be said to capture “opposite-race bias.”</p>
@@ -81,15 +150,15 @@ math: true
 <p>If prosecutors are responding to case characteristics that are correlated with defendant race, but not defendant race itself, then I could incorrectly categorize different treatment of case characteristics as opposite-race bias. Here, I add a separate interaction for each case characteristic and defendant control, included in column 2 and interacted with prosecutor race; doing this allows [B]lack and [W]hite prosecutors to respond differently to case characteristics (25).</p>
 </blockquote>
 <div class="figure">
-<img src="/post/2020-06-12-carlywill-sloan_files/CWSloan_tab4panelA.png" alt="Panel A of Table 4 from Sloan (2019)." />
+<img src="../../../../post/2020-06-12-carlywill-sloan_files/CWSloan_tab4panelA.png" alt="Panel A of Table 4 from Sloan (2019)." />
 <p class="caption">Panel A of Table 4 from Sloan (2019).</p>
 </div>
 <div class="figure">
-<img src="/post/2020-06-12-carlywill-sloan_files/CWSloan_tab4.png" alt="Panel D of Table 4 from Sloan (2019)." />
+<img src="../../../../post/2020-06-12-carlywill-sloan_files/CWSloan_tab4.png" alt="Panel D of Table 4 from Sloan (2019)." />
 <p class="caption">Panel D of Table 4 from Sloan (2019).</p>
 </div>
 <p>Panels A and D of Table 4 say that <span class="math inline">\(\hat{\beta}_3\)</span> is sensitive to crime type. Even with <a href="https://doi.org/10.1198/016214508000000841">adjusted p-value</a>, <span class="math inline">\(\hat{\beta}_3\)</span> is significant for property crimes. When a White prosecutor is assigned to a Black defendant’s case, the probability of guilty increases by <span class="math inline">\(0.0549\)</span> or 5.5 percentage points, which translates to <strong>increasing the probability from <span class="math inline">\(0.607\)</span> to <span class="math inline">\(0.607 + (0.0549/0.607) = 0.697\)</span> or by 9 percent</strong>. I find that to be a pretty substantial difference. Moreover, Sloan states that the column (4) estimates imply that “[o]pposite-race bias by prosecutors could account for about 50 percent of the difference in guilt across race for property crimes (35).”</p>
-<p>{{% aside %}}</p>
+<p><aside class="article-aside look-sheet-border"></p>
 <p><strong>“50% of difference in guilt”</strong></p>
 <p>The math is explained in detail in footnote no. 13, but I’d like to write it all down.</p>
 <p><span class="math display">\[\begin{align*}
@@ -110,7 +179,8 @@ Therefore, the difference in conviction rate between a Black and White defendant
 &amp; = \beta_1 + \beta_3 Pr(\text{White pros.})
 \end{align*}\]</span></p>
 <p>Plugging in <span class="math inline">\(\hat{\beta_3} = 0.0549\)</span> from column (4) of Table 4. <span class="math inline">\(Pr(\text{White pros.}) = 0.86\)</span>, and <span class="math inline">\(\hat{\beta}_1 = 0.049\)</span> reported by Sloan in footnote no. 13, the proportion of the difference in conviction rate between a Black and White defendant that can be attributed to White prosecutor’s racism towards Black defendants is <span class="math inline">\((0.0549*0.86)/(0.049 + 0.0549 * 0.86) = 0.491\)</span> or roughly 50%.</p>
-<p>{{% /aside %}}</p>
+<p></aside>
+</p>
 </div>
 <div id="evidence-of-systemic-bias" class="section level1">
 <h1>Evidence of systemic bias</h1>
@@ -123,7 +193,7 @@ Therefore, the difference in conviction rate between a Black and White defendant
 \end{align*}\]</span></p>
 <p>Unlike the first regression mentioned earlier, this regression now includes prosecutor-specific fixed effect, <span class="math inline">\(\text{Pros}_p\)</span>, and interacts the treatment variable with <span class="math inline">\(I(\text{Prosecutor})_p\)</span>.<a href="#fn6" class="footnote-ref" id="fnref6"><sup>6</sup></a> To help with coefficient interpretation, I have drawn a table below.</p>
 <div class="figure">
-<img src="/post/2020-06-12-carlywill-sloan_files/CWSloan_beta3p.png" alt="How to interpret \beta_{3p}" />
+<img src="../../../../post/2020-06-12-carlywill-sloan_files/CWSloan_beta3p.png" alt="How to interpret \beta_{3p}" />
 <p class="caption">How to interpret <span class="math inline">\(\beta_{3p}\)</span></p>
 </div>
 <p><span class="math inline">\(\beta_{3p}\)</span> has a clearer interpretation than <span class="math inline">\(\beta_3\)</span> earlier: it captures the effect of assigning a Black defendant to a White prosecutor <span class="math inline">\(p\)</span> compared to the average Black prosecutor. Likewise, Sloan fits a similar model to measure the opposite-race effect on White defendants. The interpretation for <span class="math inline">\(\zeta_{3p}\)</span> below is the counterpart of <span class="math inline">\(\beta_{3p}\)</span> for Black prosecutors.</p>
@@ -133,15 +203,15 @@ Therefore, the difference in conviction rate between a Black and White defendant
 &amp; + \text{Screening Date}_c + X_c + \epsilon_c.
 \end{align*}\]</span></p>
 <div class="figure">
-<img src="/post/2020-06-12-carlywill-sloan_files/CWSloan_zeta3p.png" alt="How to interpret \zeta_{3p}" />
+<img src="../../../../post/2020-06-12-carlywill-sloan_files/CWSloan_zeta3p.png" alt="How to interpret \zeta_{3p}" />
 <p class="caption">How to interpret <span class="math inline">\(\zeta_{3p}\)</span></p>
 </div>
 <p>Figure 3 plots <span class="math inline">\(\hat{\beta}_{3p}\)</span> for White prosecutors and <span class="math inline">\(\hat{\zeta}_{3p}\)</span> for Black prosecutors with their 95% confidence intervals in the order of their size. This is a powerful visualization. Ideally, if case outcomes are purely determined by their evidence, then the coefficient intervals should line up at 0. Obviously that is not true in Figure 3. Moreover, it’s not a few bad apples because about half of the intervals lie above 0.</p>
 <div class="figure">
-<img src="/post/2020-06-12-carlywill-sloan_files/CWSloan_fig3.png" alt="Figure 3 from Sloan (2019)." />
+<img src="../../../../post/2020-06-12-carlywill-sloan_files/CWSloan_fig3.png" alt="Figure 3 from Sloan (2019)." />
 <p class="caption">Figure 3 from Sloan (2019).</p>
 </div>
-<p>{{% aside %}}</p>
+<p><aside class="article-aside look-sheet-border"></p>
 <p><strong>“BUt cAn’t BLack peOplE Also bE RAcisT?”</strong></p>
 <p>Even though there are some black dots that are above 0 in Figure 3, I hesitate to call the behavior of these Black prosecutors racist. Is it possible that some Black prosecutors embody reverse racism and are judging the White defendants more harshly than they would to their Black brethrens? That is possible, but that still takes us back to white supremacy as the source of this perversity.</p>
 <p>I am reminded of the passage from Martin Luther King Jr.’s “Letter from Birmingham Jail”:</p>
@@ -149,7 +219,8 @@ Therefore, the difference in conviction rate between a Black and White defendant
 <p>[W]hen you suddenly find your tongue twisted and your speech stammering as you seek to explain to your six year old daughter why she can’t go to the public amusement park that has just been advertised on television, and see tears welling up in her eyes when she is told that Funtown is closed to colored children, and see ominous clouds of inferiority beginning to form in her little mental sky, and see her beginning to distort her personality by developing an unconscious bitterness toward [W]hite people … then you will understand why we find it difficult to wait.</p>
 </blockquote>
 <p>The black dots among the white dots above the x-axis in Figure 3 are symptoms of the same oppressive system that is the White supremacy.</p>
-<p>{{% /aside %}}</p>
+<p></aside>
+</p>
 </div>
 <div id="concluding-thoughts" class="section level1">
 <h1>Concluding thoughts</h1>
@@ -169,3 +240,10 @@ sanctified iinstitutions in American democracy <a href="https://www.vox.com/poli
 <li id="fn6"><p>I don’t think the summation over <span class="math inline">\(p\)</span> is necessary since, as far as I can tell from the paper, each case <span class="math inline">\(c\)</span> is only assigned to one prosecutor <span class="math inline">\(p\)</span>. To the extent that <span class="math inline">\(c\)</span> and <span class="math inline">\({p, c}\)</span> are interchangeable, the equations would still stand without the summation.<a href="#fnref6" class="footnote-back">↩</a></p></li>
 </ol>
 </div>
+
+    </article>
+  </section>
+  
+
+  </body>
+</html>
