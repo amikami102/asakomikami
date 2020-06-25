@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html
+  class=""
+  lang="en-us"
+  prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#"
+>
+  <head>
+    <meta charset="utf-8" />
+
+    
+
+  <ul>
+    
+      <li>
+          <a href="https://asakomikami.com/tags/r/">replicate-warren</a>
+        </li>
+      <li>
+          <a href="https://asakomikami.com/tags/webscraping/">webscraping</a>
+        </li>
+      <li>
+          <a href="https://asakomikami.com/tags/python/">python</a>
+        </li>
+      <li>
+          <a href="https://asakomikami.com/tags/r/">r</a>
+        </li></ul>
+
+
+    <title>Introducing a replication project of Warren (2019)</title>
+    <link rel="canonical" href="https://asakomikami.com/posts/introduce-replicate-warren/" />
+
+    
+
+    <link rel="stylesheet" href="../../css/reboot.css" />
+<link rel="stylesheet" href="../../css/style.css" />
+<script type="text/javascript" src="../../js/main.js"></script>
+
+
+<link rel="stylesheet" href="https://asakomikami.com/highlight/styles/github-gist.css" rel="stylesheet" id="theme-stylesheet">
+<script src="https://asakomikami.com/highlight/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=EB+Garamond&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="../../favicon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="../../apple-touch-icon.png" />
+  </head>
+
+
+<body
+  class=" look-sheet-bkg"
+  lang="en-us"
+  itemscope
+  itemtype="http://schema.org/Article" >
+  <meta itemprop="author" content="" />
+  <meta itemprop="publisher" content="" />
+  <meta itemprop="image" content="" />
+
+  <div class="nav-bkg">
+    <nav class="content-container pagewide-bar-padding">
+      <span class="divider">/ </span>
+      <a href="https://asakomikami.com" >Asako Mikami</a>
+      <span class="divider">/ </span>
+      <a href="https://asakomikami.composts">Posts</a>
+      <ul class="list-unstyled right-links">
+
+          <li>
+            <a href="../../about/">
+              <span class="post-title">About</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="../../posts/">
+              <span class="post-title">All posts</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="../../series/">
+              <span class="post-title">Series</span>
+            </a>
+          </li>
+
+</ul>
+
+    </nav>
+  </div>
+  <section id="main" class="content-container look-sheet article-pad-v " itemprop="mainEntityOfPage">
+    <h1 itemprop="name" id="title">Introducing a replication project of Warren (2019)</h1>
+    <article itemprop="articleBody" id="content" class="article-body margin-top-2em">
+      
+
+
+<p>I have a project called <code>replicate_warren</code> (a private Github repository), where I am trying to replicate a sociology study, <span class="citation">Warren (2019)</span>. To put it succinctly, <span class="citation">Warren (2019)</span> collected data from résumés of sociology PhD graduates and measured how over-achieving recent PhD graduates had to be to land a junior faculty jobs at top sociology departments in the United States. I want to replicate the study in the political science field. Due to a similar market structure, I expect to see the same trends in hiring—i.e., higher hurdles for publication numbers and longer post-doc years—but I am also interested in looking at how the trends differ among the four subfields in political science, namely American politics, comparative politics, political theory, and international relations. For instance, of the four subfields, political theory majors have the most dismal job prospects. It would be valuable to visualize the differences among subfields with data.</p>
+<div id="method-of-data-collection" class="section level1">
+<h1>Method of data collection</h1>
+<p>Warren selected top 21 sociology departments by triangulating multiple PhD program rankings. For these 21 departments, he identified new assistant professors and newly promoted associate professors. Next, Warren had undergraduate research assistants look up the junior faculty members’ CVs, their web pages, and Google Scholar pages to identify the type and number of published work. For the new assistant professors, he was interested in their career path during the gap years between completing their degree and starting their faculty appointment.</p>
+<p>Besides having research assistants, Warren was able to streamline this process significantly by using American Sociological Association’s annual guidebook called <a href="http://www.asanet.org/news-events/asa-news/2018-guide-graduate-departments-sociology-now-available"><em>Guide to Graduate Departments of Sociology</em></a>, which lists sociology departments that offer graduate-level degrees along with the faculty roster. Unfortunately, the American Political Science Association does not have a similar publication, so I will be scraping political science department websites to obtain a similar list of junior-level faculty. Once I have these rosters, I will look up résumés and personal websites to collect the following features for each new assistant professors and newly promoted associate professors:</p>
+<ul>
+<li><code>position</code>: (factor) assistant or associate;</li>
+<li><code>yr_graduated</code>: (int) PhD graduation year;</li>
+<li><code>school_graduated</code>: (factor) school that he/she received PhD;</li>
+<li><code>gender</code>: (factor) male or female;</li>
+<li><code>subfield</code>: (factor) American, comparative, international, or theory;</li>
+<li><code>n_publication</code>: (int) number of publications until landing in assistant position or until promotion to associate position;</li>
+<li><code>n_gap_year</code>: (factor) the number of gap years.</li>
+</ul>
+<p>For each publication counted in <code>n_publication</code>, I would collect the following attributes:</p>
+<ul>
+<li><code>type</code>: (factor) peer-reviewed article, book chapter, book;</li>
+<li><code>journal</code>: (str) if peer-reveiwed article, the title of the journal;</li>
+<li><code>method</code>: (factor) qualitative, quantitative, or mixed.</li>
+</ul>
+<hr>
+<p>The project is available publicly at my Github project respository.</p>
+<div class="github-card" data-github="amikami102/replicate_warren" data-width="400" data-height="" data-theme="default">
+
+</div>
+<script src="//cdn.jsdelivr.net/github-cards/latest/widget.js"></script>
+</div>
+<div id="references" class="section level1 unnumbered">
+<h1>References</h1>
+<div id="refs" class="references">
+<div id="ref-warren2019">
+<p>Warren, John Robert. 2019. “How Much Do You Have to Publish to Get a Job in a Top Sociology Department? Or to Get Tenure? Trends over a Generation.” <em>Sociological Science</em> 6: 172–96.</p>
+</div>
+</div>
+</div>
+
+    </article>
+  </section>
+  
+  <div class="nav-bkg-50 content-container-narrow-pad bottom-links text-0p75">
+    <nav class="flex-row">
+    
+      <span class="flex-row v-center"></span>
+    
+    
+      <a href="https://asakomikami.com/posts/weather-data-part1/" class="flex-row v-center no-underline" style="max-width: 45%;">
+      <span class="re-underline">Next: Collecting historical weather data, Part I</span>&nbsp;<span class="text-1p5">→</span>
+      </a>
+    
+    </nav>
+  </div>
+  
+
+  </body>
+</html>

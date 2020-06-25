@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html
+  class=""
+  lang="en-us"
+  prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb#"
+>
+  <head>
+    <meta charset="utf-8" />
+
+    
+
+  <ul>
+    
+      <li>
+          <a href="https://asakomikami.com/tags/r/">r</a>
+        </li>
+      </ul>
+
+
+    <title>Collecting historical weather data, Part I</title>
+    <link rel="canonical" href="https://asakomikami.com/posts/weather-data-part1/" />
+
+    
+
+    <link rel="stylesheet" href="../../css/reboot.css" />
+<link rel="stylesheet" href="../../css/style.css" />
+<script type="text/javascript" src="../../js/main.js"></script>
+
+
+<link rel="stylesheet" href="https://asakomikami.com/highlight/styles/github-gist.css" rel="stylesheet" id="theme-stylesheet">
+<script src="https://asakomikami.com/highlight/highlight.pack.js"></script>
+<script>hljs.initHighlightingOnLoad();</script>
+
+
+
+
+<script type="text/javascript" async
+  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-MML-AM_CHTML">
+</script>
+
+
+
+<link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css?family=EB+Garamond&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;700;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600&display=swap" rel="stylesheet">
+    <link rel="shortcut icon" href="../../favicon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="../../apple-touch-icon.png" />
+  </head>
+
+
+<body lang="en-us">
+  <div class="nav-bkg">
+    <nav class="content-container pagewide-bar-padding">
+      <span class="divider">/ </span>
+      <a href="https://asakomikami.com" >Asako Mikami</a>
+      <ul class="list-unstyled right-links">
+
+          <li>
+            <a href="../../about/">
+              <span class="post-title">About</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="../../posts/">
+              <span class="post-title">All posts</span>
+            </a>
+          </li>
+
+          <li>
+            <a href="../../series/">
+              <span class="post-title">Series</span>
+            </a>
+          </li>
+
+</ul>
+
+    </nav>
+  </div>
+
+  <section id="main" class="content-container look-sheet article-pad-v " itemprop="mainEntityOfPage">
+    <h1 itemprop="name" id="title">Collecting historical weather data, Part I</h1>
+
+    <article itemprop="articleBody" id="content" class="article-body">
+      
+
+<div id="TOC">
+<ul>
+<li><a href="#obtain-noaa-api-key-token"><span class="toc-section-number">1</span> Obtain NOAA API key token</a></li>
+<li><a href="#obtain-weather-data-with-rnoaancdc"><span class="toc-section-number">2</span> Obtain weather data with <code>rnoaa::ncdc()</code></a><ul>
+<li><a href="#code-breakdown"><span class="toc-section-number">2.1</span> Code breakdown</a></li>
+</ul></li>
+<li><a href="#obtain-weather-station-data-with-rnoaancdc_stations"><span class="toc-section-number">3</span> Obtain weather station data with <code>rnoaa::ncdc_stations()</code></a></li>
+<li><a href="#join-dataframes"><span class="toc-section-number">4</span> Join dataframes</a></li>
+<li><a href="#create-spatial-point-dataframes"><span class="toc-section-number">5</span> Create spatial point dataframes</a></li>
+<li><a href="#optional-plot-the-data"><span class="toc-section-number">6</span> (Optional) Plot the data</a></li>
+</ul>
+</div>
+
+<p>As part of a coauthored project investigating whether rain deters voters from going to the polls in US elections, I had to collect past weather data. This series walks you through how to gather data on the daily total precipitation level from November 1st to November 7th, 2006, where the last day is the 2006 midterm election. In Part I, I will retrieve the raw precipitation measures recorded by NOAA weather stations. National Oceanic Atmospheric Administration (NOAA) maintains a database called Global Historical Climate Network Daily (GHCN-Daily). Here is the opening paragraph of the description from the <a href="https://www.ncdc.noaa.gov/ghcn-daily-description">official website</a>:</p>
+<blockquote>
+<p>GHCN (Global Historical Climatology Network)-Daily is an integrated database of daily climate summaries from land surface stations across the globe. Like its monthly counterpart (GHCN-Monthly), GHCN-Daily is comprised of daily climate records from numerous sources that have been integrated and subjected to a common suite of quality assurance reviews.</p>
+</blockquote>
+<p>So, it sounds like GHCN-Daily is the database I want to access. Thankfully, NOAA has set up an API (Application Programming Interface) to facilitate user interaction with their database. We will use <code>rnoaa</code> package to interact with the NOAA API, which in turn will make requests to the NOAA data server.</p>
+<div id="obtain-noaa-api-key-token" class="section level1">
+<h1><span class="header-section-number">1</span> Obtain NOAA API key token</h1>
+<p>After getting an <a href="https://www.ncdc.noaa.gov/cdo-web/token">API key token</a>, I wrote the key in my “.Renviron” file located in my home directory.</p>
+<p><em>n.b.</em>: For how to store an API key, I referred to Section 2.4 <a href="https://csgillespie.github.io/efficientR/r-startup.html#r-startup-arguments">‘R Startup’</a> in <span class="citation">Gillespie and Lovelace (2016)</span>.</p>
+<p>Write the following line in your command line, substituting <code>&lt;your-api-key&gt;</code> with your NOAA API key token.</p>
+<pre class="bash"><code>$ echo &#39;NOAA_KEY = &lt;your-api-key&gt;&#39; &gt; .Renviron</code></pre>
+</div>
+<div id="obtain-weather-data-with-rnoaancdc" class="section level1">
+<h1><span class="header-section-number">2</span> Obtain weather data with <code>rnoaa::ncdc()</code></h1>
+<p>Let’s set up the libraries and API key.</p>
+<pre class="r"><code>Sys.getenv(&quot;NOAA_KEY&quot;) # your NOAA API key
+library(rnoaa)
+library(tidyverse)
+library(magrittr)
+library(logging)</code></pre>
+<p>And, I will also set a vector of dates I need.</p>
+<pre class="r"><code>days &lt;- seq(from = as.Date(&quot;2006-11-01&quot;), 
+            to = as.Date(&quot;2006-11-07&quot;), by = &quot;day&quot;)</code></pre>
+<pre><code>&gt; days
+[1] &quot;2006-11-01&quot; &quot;2006-11-02&quot; &quot;2006-11-03&quot;
+[4] &quot;2006-11-04&quot; &quot;2006-11-05&quot; &quot;2006-11-06&quot;
+[7] &quot;2006-11-07&quot;</code></pre>
+<p>To start requesting data, I need to specify which data I want in the language that the server would understand. This is done by filling out the pertinent arguments in the function, <code>rnoaa:ncdc()</code>. Note that many of the arguments shown below are deprecated as of version 0.8.4.</p>
+<pre class="r"><code>ncdc(datasetid = NULL, datatypeid = NULL, stationid = NULL,
+    locationid = NULL, startdate = NULL, enddate = NULL,
+    sortfield = NULL, sortorder = NULL, limit = 25, offset = NULL,
+    token = NULL, dataset = NULL, datatype = NULL, station = NULL,
+    location = NULL, locationtype = NULL, page = NULL, year = NULL,
+    month = NULL, day = NULL, includemetadata = TRUE, results = NULL,
+    add_units = FALSE, ...)</code></pre>
+<p>I will be using the following six arguments:</p>
+<ul>
+<li><code>datasetid = &quot;GHCND&quot;</code> to access GHCN-Daily,</li>
+<li><code>datatypeid = &quot;PRCP&quot;</code> to get the precipitation level,<label for="tufte-mn-" class="margin-toggle">⊕</label><input type="checkbox" id="tufte-mn-" class="margin-toggle"><span class="marginnote">Consult <a href="https://data.nodc.noaa.gov/cgi-bin/iso?id=gov.noaa.ncdc:C00861">the documentation</a> from NOAA website for more information on available data types for GHCN-Daily.</span></li>
+<li><code>startdate</code> and <code>enddate</code> to specify the date I want the data for,</li>
+<li><code>limit = 1000</code> to set the number of results per request to 1000 (the maximum),</li>
+<li><code>offset</code> to specify which entry to start displaying.</li>
+</ul>
+<p>Here is the code for the function I wrote to retrieve precipitation data for a specific day. I will breakdown the code into steps and explain them one by one.</p>
+<pre class="r"><code>get_prcp &lt;- function(day, datatype){
+                #------------------
+                # Retrieves the precipitation data for 
+                # a specific day.
+                #-------------------
+                # day (date, YYYY-MM-DD format)
+                #--------------------
+
+                # create an empty dataframe
+                df &lt;- data.frame(station = character(), 
+                                 value = integer(), 
+                                 stringsAsFactors=FALSE) 
+                # The maximum number of results displayed for each 
+                # request is 1000. We want to count how many requests
+                # are necessary to get all the results. 
+                counter &lt;- ncdc(datasetid = &quot;GHCND&quot;, 
+                                datatypeid =  &quot;PRCP&quot;,
+                                startdate = as.character(day),
+                                enddate = as.character(day))$meta$totalCount %/% 1000
+                for(i in 1:counter){
+                    safe_fun &lt;- safely(ncdc) 
+                    response &lt;- safe_fun(datasetid = &quot;GHCND&quot;,
+                        datatypeid = &quot;PRCP&quot;,
+                        startdate = as.character(day),
+                        enddate = as.character(day),
+                        limit = 1000,
+                        offset = 1000*i)
+                    df &lt;- response$result$data %&gt;%
+                            select(station, value) %&gt;% rbind(df)
+                    # print error message if not NULL
+                    if(!is.null(response$error)){loginfo(response$error)}
+                }
+                return(df)
+        }</code></pre>
+<div id="code-breakdown" class="section level2">
+<h2><span class="header-section-number">2.1</span> Code breakdown</h2>
+<p>First, I set up an empty dataframe with columns “station” and “value”. Each row records the precipitation level recorded by the weather station on <code>day</code>.</p>
+<pre class="r"><code>df &lt;- data.frame(station = character(), 
+                value = integer(), 
+                stringsAsFactors = FALSE) </code></pre>
+<p>Second, I set up an object called <code>counter</code>. Because I will not retrieve all the data I want in a single request, I want to look at the metadata to see how many requests are necessary if the maximum number of results per request is 1000. <code>ncdc()</code> returns a list of two lists, <code>meta</code> and <code>data</code>. Inside the <code>meta</code> sublist is an element called <code>totalCount</code>, which I mod by 1000 to get the number of requests I need to make.</p>
+<pre class="r"><code>counter &lt;- ncdc(datasetid = &quot;GHCND&quot;, 
+                datatypeid =  &quot;PRCP&quot;, 
+                startdate = as.character(day),
+                enddate = as.character(day))$meta$totalCount %/% 1000</code></pre>
+<p>The final component of <code>get_prcp</code> is this <code>for</code> loop. To catch exceptions caused by bad requests or missing data, I first create <code>safe_fun</code> by wrapping <code>ncdc()</code> with <code>safely()</code> function from <code>purrr</code> package. It can be thought of as a safe version of ncdc that will handle errors without stopping the function from running. <code>safe_fun</code> will return a list with two lists, <code>result</code> and <code>error</code>. The <code>result</code> sublist contains the usual output of <code>ncdc()</code> while the <code>error</code> sublist contains the error messages if an error occurs and <code>NULL</code> otherwise.</p>
+<pre class="r"><code>for(i in 1:counter){
+    safe_fun &lt;- safely(ncdc) 
+    response &lt;- safe_fun(datasetid = &quot;GHCND&quot;,
+                        datatypeid = &quot;PRCP&quot;,
+                        startdate = as.character(day),
+                        enddate = as.character(day),
+                        limit = 1000,
+                        offset = 1000*i)
+    df &lt;- response$result$data %&gt;%
+            select(station, value) %&gt;% 
+            rbind(df)
+    # print error message if not NULL
+    if(!is.null(response$error)){loginfo(response$error)}
+}</code></pre>
+<p>Now, let’s map <code>get_prcp</code> to <code>days</code>. The object <code>prcp_data</code> is a list of 7 elements where each element is a dataframe with two columns, “station” and “value”.</p>
+<pre class="r"><code>prcp_data &lt;- days %&gt;% 
+                set_names(as.character(.)) %&gt;% 
+                map(~ get_prcp(.x))
+glimpse(prcp_data)</code></pre>
+<pre><code>List of 7
+ $ 2006-11-01:Classes ‘tbl_df’, ‘tbl’ and &#39;data.frame&#39;: 11304 obs. of  2 variables:
+  ..$ station: chr [1:11304] &quot;GHCND:US10adam001&quot; &quot;GHCND:US10adam002&quot; &quot;GHCND:US10adam004&quot; &quot;GHCND:US10adam006&quot; ...
+  ..$ value  : int [1:11304] 0 0 0 0 0 0 0 0 0 0 ...
+ $ 2006-11-02:Classes ‘tbl_df’, ‘tbl’ and &#39;data.frame&#39;: 11288 obs. of  2 variables:
+  ..$ station: chr [1:11288] &quot;GHCND:US10adam001&quot; &quot;GHCND:US10adam002&quot; &quot;GHCND:US10adam003&quot; &quot;GHCND:US10adam004&quot; ...
+  ..$ value  : int [1:11288] 0 0 0 0 0 0 0 0 0 0 ...
+ $ 2006-11-03:Classes ‘tbl_df’, ‘tbl’ and &#39;data.frame&#39;: 11251 obs. of  2 variables:
+  ..$ station: chr [1:11251] &quot;GHCND:US10adam001&quot; &quot;GHCND:US10adam002&quot; &quot;GHCND:US10adam003&quot; &quot;GHCND:US10adam004&quot; ...
+  ..$ value  : int [1:11251] 0 0 0 0 0 0 0 0 0 0 ...
+ $ 2006-11-04:Classes ‘tbl_df’, ‘tbl’ and &#39;data.frame&#39;: 11145 obs. of  2 variables:
+  ..$ station: chr [1:11145] &quot;GHCND:US10adam001&quot; &quot;GHCND:US10adam002&quot; &quot;GHCND:US10adam004&quot; &quot;GHCND:US10adam006&quot; ...
+  ..$ value  : int [1:11145] 0 0 0 0 0 0 0 0 0 0 ...
+ $ 2006-11-05:Classes ‘tbl_df’, ‘tbl’ and &#39;data.frame&#39;: 11136 obs. of  2 variables:
+  ..$ station: chr [1:11136] &quot;GHCND:US10adam001&quot; &quot;GHCND:US10adam002&quot; &quot;GHCND:US10adam003&quot; &quot;GHCND:US10adam004&quot; ...
+  ..$ value  : int [1:11136] 0 0 0 0 0 0 0 0 0 0 ...
+ $ 2006-11-06:Classes ‘tbl_df’, ‘tbl’ and &#39;data.frame&#39;: 11212 obs. of  2 variables:
+  ..$ station: chr [1:11212] &quot;GHCND:US10adam001&quot; &quot;GHCND:US10adam002&quot; &quot;GHCND:US10adam003&quot; &quot;GHCND:US10adam004&quot; ...
+  ..$ value  : int [1:11212] 0 0 0 0 0 0 0 0 0 0 ...
+ $ 2006-11-07:Classes ‘tbl_df’, ‘tbl’ and &#39;data.frame&#39;: 11253 obs. of  2 variables:
+  ..$ station: chr [1:11253] &quot;GHCND:US10adam001&quot; &quot;GHCND:US10adam002&quot; &quot;GHCND:US10adam003&quot; &quot;GHCND:US10adam004&quot; ...
+  ..$ value  : int [1:11253] 0 0 0 0 0 0 0 0 0 0 ...</code></pre>
+</div>
+</div>
+<div id="obtain-weather-station-data-with-rnoaancdc_stations" class="section level1">
+<h1><span class="header-section-number">3</span> Obtain weather station data with <code>rnoaa::ncdc_stations()</code></h1>
+<p>Next, we want to get more information on the weather stations, specifically their geographical coordinates. We will use the function, <code>rnoaa::ncdc_stations()</code>.<label for="tufte-mn-" class="margin-toggle">⊕</label><input type="checkbox" id="tufte-mn-" class="margin-toggle"><span class="marginnote">Again, many of these arguments are deprecated as of version 0.8.4.</span></p>
+<pre class="r"><code>ncdc_stations(stationid = NULL, datasetid = NULL, datatypeid = NULL,
+  locationid = NULL, startdate = NULL, enddate = NULL,
+  sortfield = NULL, sortorder = NULL, limit = 25, offset = NULL,
+  datacategoryid = NULL, extent = NULL, token = NULL,
+  dataset = NULL, station = NULL, location = NULL,
+  locationtype = NULL, page = NULL, ...)</code></pre>
+<p>Similar to the arguments for <code>ncdc()</code>, I will be using the following arguments:</p>
+<ul>
+<li><code>datasetid = &quot;GHCND&quot;</code>,</li>
+<li><code>datatypeid = &quot;PRCP&quot;</code>,</li>
+<li><code>startdate = &quot;2006-11-01</code> and <code>enddate = &quot;2006-11-07&quot;</code> because I only want weather stations whose data recorded from 2006-11-01 to 2006-11-07 are available,</li>
+<li><code>limit = 1000</code>,</li>
+<li><code>offset</code>.</li>
+</ul>
+<p>The following function retrieves information on weather stations. Note that its structure and steps are very similar to <code>get_prcp</code>.</p>
+<pre class="r"><code>get_stations &lt;- function(start, end){
+        #--------------------------------
+        # Retrieve the geographical coordinates of
+        # weather stations in the US whose data is available
+        # for the observation period. 
+        # Output is a dataframe with three columns: 
+        # the station id, longitude, and latitude. 
+        #-------------------------------
+        # state (chr, start date in YYYY-MM-DD format)
+        # end (chr, end date in YYYY-MM-DD format)
+        #--------------------------------
+        
+        # count how many API requests are necessary to get all the results
+        counter &lt;- ncdc_stations(datasetid = &quot;GHCND&quot;, 
+                              dattatypeid = &quot;PRCP&quot;,
+                              startdate = start, 
+                              enddate = end,
+                              limit = 1000)$meta$totalCount %/% 1000
+        # create empty dataframe to store output
+        df &lt;- data.frame(station = character(),
+                         longitude = numeric(),
+                         latitude = numeric())
+        for (i in 1:counter){
+                safe_fun &lt;- safely(ncdc_stations)
+                response &lt;- safe_fun(datasetid = &quot;GHCND&quot;,
+                                datatypid = &quot;PRCP&quot;,
+                                startdate = start,
+                                enddate = end, 
+                                limit = 1000,
+                                offset = 1000*i)
+                df &lt;- response$result$data %&gt;%
+                        select(id, longitude, latitude) %&gt;%
+                        filter(grepl(&quot;GHCND:US&quot;, id)) %&gt;%
+                        rbind(df)
+                if(!is.null(response$error)){loginfo(response$error)}
+        }
+      df %&lt;&gt;% filter(!duplicated(df)) # remove duplicates
+      return(df)
+}</code></pre>
+<pre class="r"><code>stations &lt;- days[c(1, 7)] %&gt;% map2(~ get_stations(.x, .y))
+glimpse(stations)</code></pre>
+<pre><code>Observations: 416
+Variables: 3
+$ id        &lt;chr&gt; &quot;GHCND:USW00026523&quot;, &quot;GHCND:USW00026…
+$ longitude &lt;dbl&gt; -151.2391, -150.0950, -152.1067, -15…
+$ latitude  &lt;dbl&gt; 60.57970, 62.32000, 65.17500, 66.916…</code></pre>
+</div>
+<div id="join-dataframes" class="section level1">
+<h1><span class="header-section-number">4</span> Join dataframes</h1>
+<p>Let’s go over the two list objects, <code>prcp_data</code> and <code>stations</code>. <code>prcp_data</code> is a list of 7 dataframes, each dataframe recording the precipitation level recorded by weather stations in the United States on one 7 days listed in <code>days</code>. <code>stations</code> is a dataframe of weather stations with their longitude and latitude. Naturally, we want to join <code>stations</code> to each dataframe in <code>prcp_data</code> by the station id.</p>
+<pre class="r"><code>prcp_data %&lt;&gt;% map(~{
+        left_join(.x, stations, by = c(&quot;station&quot; = &quot;id&quot;)) %&gt;%
+                drop_na(longitude, latitude)
+})
+glimpse(prcp_data)</code></pre>
+<pre><code>List of 7
+ $ 2006-11-01:Classes ‘tbl_df’, ‘tbl’ and &#39;data.frame&#39;: 400 obs. of  4 variables:
+  ..$ station  : chr [1:400] &quot;GHCND:USW00026523&quot; &quot;GHCND:USW00026528&quot; &quot;GHCND:USW00026529&quot; &quot;GHCND:USW00026533&quot; ...
+  ..$ value    : int [1:400] 0 0 0 0 0 8 0 18 3 0 ...
+  ..$ longitude: num [1:400] -151 -150 -152 -152 -162 ...
+  ..$ latitude : num [1:400] 60.6 62.3 65.2 66.9 60.8 ...
+ $ 2006-11-02:Classes ‘tbl_df’, ‘tbl’ and &#39;data.frame&#39;: 399 obs. of  4 variables:
+  ..$ station  : chr [1:399] &quot;GHCND:USW00026523&quot; &quot;GHCND:USW00026528&quot; &quot;GHCND:USW00026529&quot; &quot;GHCND:USW00026533&quot; ...
+  ..$ value    : int [1:399] 0 0 0 0 0 0 0 3 0 5 ...
+  ..$ longitude: num [1:399] -151 -150 -152 -152 -162 ...
+  ..$ latitude : num [1:399] 60.6 62.3 65.2 66.9 60.8 ...
+ $ 2006-11-03:Classes ‘tbl_df’, ‘tbl’ and &#39;data.frame&#39;: 399 obs. of  4 variables:
+  ..$ station  : chr [1:399] &quot;GHCND:USW00026523&quot; &quot;GHCND:USW00026528&quot; &quot;GHCND:USW00026529&quot; &quot;GHCND:USW00026533&quot; ...
+  ..$ value    : int [1:399] 0 0 0 0 5 0 23 0 0 0 ...
+  ..$ longitude: num [1:399] -151 -150 -152 -152 -162 ...
+  ..$ latitude : num [1:399] 60.6 62.3 65.2 66.9 60.8 ...
+ $ 2006-11-04:Classes ‘tbl_df’, ‘tbl’ and &#39;data.frame&#39;: 399 obs. of  4 variables:
+  ..$ station  : chr [1:399] &quot;GHCND:USW00026523&quot; &quot;GHCND:USW00026528&quot; &quot;GHCND:USW00026529&quot; &quot;GHCND:USW00026533&quot; ...
+  ..$ value    : int [1:399] 0 0 0 0 3 0 0 0 0 0 ...
+  ..$ longitude: num [1:399] -151 -150 -152 -152 -162 ...
+  ..$ latitude : num [1:399] 60.6 62.3 65.2 66.9 60.8 ...
+ $ 2006-11-05:Classes ‘tbl_df’, ‘tbl’ and &#39;data.frame&#39;: 399 obs. of  4 variables:
+  ..$ station  : chr [1:399] &quot;GHCND:USW00026523&quot; &quot;GHCND:USW00026528&quot; &quot;GHCND:USW00026529&quot; &quot;GHCND:USW00026533&quot; ...
+  ..$ value    : int [1:399] 0 0 0 0 0 3 0 13 5 0 ...
+  ..$ longitude: num [1:399] -151 -150 -152 -152 -162 ...
+  ..$ latitude : num [1:399] 60.6 62.3 65.2 66.9 60.8 ...
+ $ 2006-11-06:Classes ‘tbl_df’, ‘tbl’ and &#39;data.frame&#39;: 401 obs. of  4 variables:
+  ..$ station  : chr [1:401] &quot;GHCND:USW00026523&quot; &quot;GHCND:USW00026528&quot; &quot;GHCND:USW00026529&quot; &quot;GHCND:USW00026533&quot; ...
+  ..$ value    : int [1:401] 0 0 0 8 0 0 0 3 5 0 ...
+  ..$ longitude: num [1:401] -151 -150 -152 -152 -162 ...
+  ..$ latitude : num [1:401] 60.6 62.3 65.2 66.9 60.8 ...
+ $ 2006-11-07:Classes ‘tbl_df’, ‘tbl’ and &#39;data.frame&#39;: 401 obs. of  4 variables:
+  ..$ station  : chr [1:401] &quot;GHCND:USW00026523&quot; &quot;GHCND:USW00026528&quot; &quot;GHCND:USW00026529&quot; &quot;GHCND:USW00026533&quot; ...
+  ..$ value    : int [1:401] 0 0 0 0 0 0 0 0 0 0 ...
+  ..$ longitude: num [1:401] -151 -150 -152 -152 -162 ...
+  ..$ latitude : num [1:401] 60.6 62.3 65.2 66.9 60.8 ...</code></pre>
+<pre class="r"><code>export(prcp_data, file = &quot;prcp_data.rds&quot;)</code></pre>
+</div>
+<div id="create-spatial-point-dataframes" class="section level1">
+<h1><span class="header-section-number">5</span> Create spatial point dataframes</h1>
+<p>Before ending Part I, I want to prep the data for Kriging interpolation that we will be performing in Part II. For this, we need to convert the seven dataframes in <code>prcp_data</code> to spatial point dataframes and save them as shapefiles.</p>
+<pre class="r"><code>library(rgdal)
+library(sp)
+
+# get the NAD 1983 projection string 
+nad1983 &lt;- &quot;http://spatialreference.org/ref/epsg/nad83/proj4/&quot; %&gt;%
+        readLines(warn = FALSE)
+
+prcp_data %&gt;% imap(~{
+        # create spatial points dataframe object
+        spdf &lt;- SpatialPointsDataFrame(
+                .x[, c(&quot;longitude&quot;, &quot;latitude&quot;)],
+                data = .x, 
+                proj4string = CRS(nad1983)
+                )
+        # save spdf as a shape file
+        writeOGR(obj = spdf, 
+                 dsn = file.path(&quot;rainfall_shp&quot;),
+                 layer = paste0(&quot;rainfall&quot;, .y),
+                 driver = &quot;ESRI Shapefile&quot;)
+})</code></pre>
+<p>Now I have seven shapefiles in my “rainfall_shp” subdirectory.</p>
+<pre class="r"><code>list.files(&quot;rainfall_shp&quot;)</code></pre>
+<pre><code>[1] &quot;rainfall2006-11-01.shp&quot; &quot;rainfall2006-11-02.shp&quot;
+[3] &quot;rainfall2006-11-03.shp&quot; &quot;rainfall2006-11-04.shp&quot;
+[5] &quot;rainfall2006-11-05.shp&quot; &quot;rainfall2006-11-06.shp&quot;
+[7] &quot;rainfall2006-11-07.shp&quot;</code></pre>
+</div>
+<div id="optional-plot-the-data" class="section level1">
+<h1><span class="header-section-number">6</span> (Optional) Plot the data</h1>
+<p>Below, using <em>rainfall2006-11-01.shp</em>, I have produced a map of the precipitation level recorded on November 1st, 2006 in the United States.</p>
+<p><img src="../../post/2019-04-10-weather-data-part1_files/rainfall2006-11-01.png" /></p>
+<hr>
+<p>That completes the first task of collecting the data. 😄 Next in <a href="">Part II</a>, we’ll be performing interpolation on these shapefiles to get precipitation level for each county.</p>
+<div id="refs" class="references">
+<div id="ref-efficient">
+<p>Gillespie, Colin, and Robin Lovelace. 2016. <em>Efficient R Programming: A Practical Guide to Smarter Programming</em>. &quot; O’Reilly Media, Inc.&quot;. <a href="https://csgillespie.github.io/efficientR">https://csgillespie.github.io/efficientR</a>.</p>
+</div>
+</div>
+</div>
+
+    </article>
+  </section>
+  
+
+  </body>
+</html>

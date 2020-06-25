@@ -16,7 +16,7 @@ disqusShortname = "amikami102"
 
 [[params.topmenu]]
   name = "All posts"
-  url = "/post/"
+  url = "/posts/"
   
 [[params.topmenu]]
   name = "Series"

@@ -13,10 +13,10 @@
     
     <item>
       <title>Collecting historical weather data, Part I</title>
-      <link>https://asakomikami.com/2019/04/10/weather-data-part1/</link>
+      <link>https://asakomikami.com/posts/weather-data-part1/</link>
       <pubDate>Wed, 10 Apr 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://asakomikami.com/2019/04/10/weather-data-part1/</guid>
+      <guid>https://asakomikami.com/posts/weather-data-part1/</guid>
       <description>1 Obtain NOAA API key token 2 Obtain weather data with rnoaa::ncdc() 2.1 Code breakdown  3 Obtain weather station data with rnoaa::ncdc_stations() 4 Join dataframes 5 Create spatial point dataframes 6 (Optional) Plot the data   As part of a coauthored project investigating whether rain deters voters from going to the polls in US elections, I had to collect past weather data. This series walks you through how to gather data on the daily total precipitation level from November 1st to November 7th, 2006, where the last day is the 2006 midterm election.</description>
     </item>
     

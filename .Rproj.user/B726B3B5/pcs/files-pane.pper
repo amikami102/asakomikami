@@ -1,5 +1,5 @@
 {
-    "path" : "~/blog/layouts/partials",
+    "path" : "~/blog/content/posts",
     "sortOrder" : [
         {
             "ascending" : true,

@@ -1,0 +1,80 @@
+---
+title: 'Caroline Fry, "Building Bridges: The impact of return migration by African scientists"'
+subtitle: "Studying network effects with good ol' regressions"
+date: '2020-05-25'
+slug: jmp-review-caroline-fry
+series: 
+        - JMP by women in economics
+meta: TRUE
+math: TRUE
+---
+
+The third installment in this series is Caroline Fry's paper, ["Building Bridges: The impact of migration by African scientists."](http://carolinefry.mit.edu/research-0) Here's an excerpt from the abstract: 
+
+> Despite significant interest in the potential for 'returnee' scientists moving back to developing countries to connect developed and developing countries, prior work has found limited evidence of success. I shift the focus to the broader network of the returnee, and study the extent to which the return home of American-trained HIV researchers to African institutions impacts publication outcomes of non-migrant scientists in Africa. I find that following the arrival of a returnee in their institution, non-migrants experience increased productivity, mostly in HIV research. I find strong evidence that the mechanism driving this effect is that of the returnee providing a bridge to their central connections and subsequent knowledge and resources thus affecting outcomes. 
+
+Research questions on the effects of networks are hard to translate to clean causal inference questions. First of all, networks aren't formed randomly: we select ourselves and are selected into networks. Second, it can be difficult to decipher what exactly is the effect produced from purely being in the network group as opposed to, say, the effect of some background characteristic shared by members of the group. This problem is called [Manski's reflection problem](https://doi.org/10.2307/2298123). For instance, if the univeristy was recently endowned with funding--an exogenous shock--there might be an increase in publication rate overall across the university separate from being in a network of a US-trained researcher. In my review, I will discuss whether and how Fry overcomes these challenges in her research design. 
+
+# Research question
+
+The research question is, *"When HIV researchers return to African institutions after their training in American institutions, what is the effect on the publication outcomes of local scientists?"* The training refers to the AIDS International Training and Research Program (AITRP) funded by National Institute of Health (NIH) Fogarty International Center (FIC). Research universities in the United States that participate in this program are given grants to design a training program related to research on HIV and AIDS. What is interesting is that FIC provides arrangements to encourage the trainees, who are selected from low and middle income countries, to return home (11-12). Therefore, the *treatment* event is these trainees' return to their home countries. 
+
+The author wants to show that local scientists working at the institutions that receive a trainee benefits from the knowledge and connection that she brings. This is a little bit different from the outcomes studied in the existing literature where the focus was on the trainees themselves, whose productivity, according to these studies, dropped after their return from abroad. Thus the existing literature has been pessimistic about the benefits of networking.
+
+However, Fry argues that we're looking at the wrong place.:mag: According to the theory of *second-hand brokerage*, between the *core* (the United States) and the *periphery* (African countries) are *brokers* who bridge the two clusters (see Figure 2 of Fry (2019) copied below). The yields of global science would be found in the periphery when the periphery can "effectively borrow the broker's access to connections, knowledges and resources" (4). If the contextual factors are right, the periphery scientists should be publishing more papers and in more prestigious journals through borrowed knowledge and borrowed network position of the broker. 
+
+![Panel (b) of Figure 2 from Fry (2019).](/posts/2020-05-15-fry_files/CFry-fig2.png)
+
+Fry has three outcome variables in her empirical analysis where the latter two are causal mechanisms that drive the first outcome. 
+
+- publication rates weighed by journal impact factor
+- collaboration rates between non-migrant scientists and the U.S. training institutions/scientists 
+- knowledge flows between the core and the periphery
+        
+I want to elaborate a little bit on the last one, how Fry measures *knowledge flow*.:triangular_ruler: One way she measures it is publication-to-publication citation rate introduced by [Jaffe, Trajtenberg, and Henderson (1993) "Geographic Localization of Knowledge Spillovers as Evidenced by Patent Citations"](https://doi.org/10.2307/2118401). The second method, which Fry borrows from [Bourdeau et al. (2016) "Looking Across and Looking Beyond the Knowledge Frontier: Intellectual Distance, Novelty, and Resource Allocation in Science"](https://pubsonline.informs.org/doi/10.1287/mnsc.2015.2285), quantifies the intellectual proximity between the publication outputs of the periphery and the core scientists. This is done by constructing vectors of Medical Heading Subject term frequencies for non-migrant scientists and returning trainee's U.S. training institutions, and taking their "cosine distance, expressed as a percentile across all sample values [where] the value of 1% reflects the least (and the closest) and 100% the greatest distance" (17). This is a clever way to avoid intepreting the cosine of 0 as the greatest (and the farthest) and the cosine of 1 as the least (and the closest).:bulb:
+
+
+# Research design 
+
+As mentioned earlier, the treatment event is the return of AITRP trainee to their home country. During the study period 1988 to 2014, there were 316 unique return events to fifteen African countries. The *treated group* consists of 1,657 local African scientists who are working in HIV-related field in the institutions at the time of the return of a AITRP trainee. They must have published at least one HIV-related research within three years before the AITRP trainee graduates, and over 75% of their publications during those three years must be affiliated with that institution.
+
+These 1,657 treated African scientists are then matched with 1,657 *control* African scientists, who are located in countries affiliated with the AITRP but whose institution did not receive an AITRP trainee during the study period. The two groups are [coarsed-exact matched](https://gking.harvard.edu/files/political_analysis-2011-iacus-pan_mpr013.pdf) by pre-treatment publication rate, pre-treatment collaboration frequencies with international or U.S.-based scientists, type of research, and career age. 
+
+Figure A and Table 3 present how balanced the treated and control groups are across these covariates and outcome variables. Their pre-treatment trends are not completely identical: according to the last two rows of Table 3 and panel (d) of Figure A, the treated and the control group are very different in their pre-treatment collaboration rates with a returnee and U.S. training institutions. I think this is where I would have liked to see a histogram to check whether there are outliers that happen to have a lot of collaborative experience with American coauthors prior to the treatment event. 
+
+# Regression equation
+
+For African scientist $i$ at year $t$ from the return of a trainee to her institution, Fry costructs the following model:
+$$ E[y_{it} \, | \, X_{it}] = \exp \Big\{ \beta_0 + \beta_1(\text{After_Return})_{it} + \beta_2(\text{After_Return})_{it} \times (\text{Return_Inst})_{i} + f(\text{Age})_{it} + \delta_t + \gamma_i \Big\}.$$
+
+$\text{After_Return}_{it}$ turns to 1 from 0 after the trainee returns to the home country, but $\text{Return_Inst}_{i}$ turns to 1 from 0 when scientist $i$ is treated. The standard errors are clustered at the level of treatment, i.e. institution level. 
+
+
+Fry doesn't explain why she includes $\text{After_Return}_{it} \times \text{Return_Inst}_i$ instead of simply a dummy variable $\text{Return_Inst}_{it}$ that switches to 1 when the trainee joins scientist $i$'s institution after year $t$. In none of the results, figures, and tables does Fry mention $\hat{\beta}_1$. My guess is that because the control scientists are still located in countries affiliated with AITRP, upon the return of a trainee to their home country the control scientists in that country will feel the effect of size $\beta_1$ while the treated scientists will feel the effect of size $\beta_1 + \beta_2$. This is fair if the return of a trainee is thought to have some impact on scientists across the country regardless of which specific institution the trainee returns to. If we only had $\text{Return_Inst}_{it}$ in the regression, we wouldn't be able to see the difference in impact on the treated and the control scientists. 
+
+![Outcome of treated and control scientist before and after the return of a trainee.](/posts/2020-05-15-fry_files/table_explaining.png)
+
+Maybe I was slow to understand this difference-in-difference setup, but I wish this was all explained in the text because I think the size of $\hat{\beta_2}$ should be interpreted in the light of $\hat{\beta_1}$. In the worst case scenario, if $\hat{\beta}_1$ is equal or larger in size than $\hat{\beta_2}$ and statistically significant too, the statistical significance of a positive $\hat{\beta}_2$ wouldn't be enough to support the second-hand brokerage theory. 
+
+![Or maybe I'm misreading?](https://media.giphy.com/media/JRhS6WoswF8FxE0g2R/giphy.gif)
+
+# Who reaps the fruits of global science? 
+
+Here is a snapshot of Table 4 from the paper.
+
+![Columns 1 - 4 of Table 4 from Fry (2019).](/posts/2020-05-15-fry_files/CFry-tab4.png)
+
+Column 4 of Table 4 shows that the scientists in the treatment group are not listed as first authors more frequently than the control group at a statistically significant level even though they are publishing more and in prestigious journals. Fry notes that this "raises the questions on the role of the African scientists on projects, and the possibility that they are 'long-arm' of the American labs (20)" in which "African scientists carry out low-skilled filed work tasks to deliver samples to the United States for analysis" (27). 
+
+While I give props to Fry for taking note on this questionable aspect of "global science," I wish she had elaborate on it. I'm curious whether her African interviewees ever brough up issues of [predatory behavior by the Western science community](https://www.thelancet.com/journals/langlo/article/PIIS2214-109X30239-0/fulltext).
+
+# Conclusion
+
+This paper pays a lot of attention to the causal mechanism and integrates the sociological theory in the background into the analysis of the sample at hand. Unlike most empirical papers that are only interested in identifying the treatment effect on the main outcome, the causal mechanism is the essence of Fry's paper. Using what she learned from her interviews, Fry tests additional hypotheses on the heterogeneity in treatement effect in rest of the paper.
+
+I also want to note that there is a specific reason I chose to review this paper. I wrote in the subtitle of this blog post, "Studying networks with good ol' regressions," because I'm adding Fry's paper to my collection of empirical works whose research question pertains to network effects but whose research design employs familiar tools like regressions. A case in point is [Jaffe, Trajtenberg, and Henderson (1993) "Geographic Localization of Knowledge Spillovers as Evidenced by Patent Citations"](https://doi.org/10.2307/2118401), whose design of publication-to-publication citation rate Fry uses in her paper. The other one in the collection is [Azoulay, Zivin, and Wang (2016) "Superstar Extinction"](https://doi.org/10.1162/qjec.2010.125.2.549), which is my favorite paper that studies a very similar phenomenon to Fry's. I think reading these papers and Fry's would be valuable for other researchers studying the effect of social networks. 
+
+
+
+
+
