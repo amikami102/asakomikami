@@ -115,7 +115,7 @@ $$
 The mgf convergence theorem tells us to take the last expression to infinity, but notice what happens to the last expression as $n \rightarrow \infty$. Since $\dfrac{t}{\sqrt{n}} \rightarrow 0$, 
 $$ \lim_{n \to \infty} g\bigg(\dfrac{t}{\sqrt{n}}\bigg)  = g(0) = a$$ for some constant $a$. But $a^n \rightarrow \infty$ as $n \rightarrow \infty$. 
 
-Here, I will use Taylor series expansion on $g$. Recall that by [Taylor series expansion](`r blogdown::shortcode('ref', '/post/2019-05-08-taylor-series')`), the Taylor series expansion of $g(s)$ at $s=0$ is
+Here, I will use Taylor series expansion on $g$. Recall that by [Taylor series expansion](`r blogdown::shortcode('ref', '/posts/2019-05-08-taylor-series')`), the Taylor series expansion of $g(s)$ at $s=0$ is
 $$
         \begin{align*}
         g(s) & = g^0(0) + g^\prime(0)(s) + \dfrac{g^{\prime\prime}(0)}{2!}(s^2) + \cdots \\

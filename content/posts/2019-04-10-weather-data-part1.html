@@ -37,7 +37,9 @@ output:
 <div id="obtain-noaa-api-key-token" class="section level1">
 <h1><span class="header-section-number">1</span> Obtain NOAA API key token</h1>
 <p>After getting an <a href="https://www.ncdc.noaa.gov/cdo-web/token">API key token</a>, I wrote the key in my “.Renviron” file located in my home directory.</p>
-<p><em>n.b.</em>: For how to store an API key, I referred to Section 2.4 <a href="https://csgillespie.github.io/efficientR/r-startup.html#r-startup-arguments">‘R Startup’</a> in <span class="citation">Gillespie and Lovelace (2016)</span>.</p>
+<p>{{% aside %}}
+For how to store an API key, I referred to Section 2.4 <a href="https://csgillespie.github.io/efficientR/r-startup.html#r-startup-arguments">‘R Startup’</a> in <span class="citation">Gillespie and Lovelace (2016)</span>.
+{{% /aside %}}</p>
 <p>Write the following line in your command line, substituting <code>&lt;your-api-key&gt;</code> with your NOAA API key token.</p>
 <pre class="bash"><code>$ echo &#39;NOAA_KEY = &lt;your-api-key&gt;&#39; &gt; .Renviron</code></pre>
 </div>
@@ -306,9 +308,9 @@ prcp_data %&gt;% imap(~{
 <div id="optional-plot-the-data" class="section level1">
 <h1><span class="header-section-number">6</span> (Optional) Plot the data</h1>
 <p>Below, using <em>rainfall2006-11-01.shp</em>, I have produced a map of the precipitation level recorded on November 1st, 2006 in the United States.</p>
-<p><img src="/post/2019-04-10-weather-data-part1_files/rainfall2006-11-01.png" /></p>
+<p><img src="/posts/2019-04-10-weather-data-part1_files/rainfall2006-11-01.png" /></p>
 <hr>
-<p>That completes the first task of collecting the data. :smile: Next in <a href="{{% ref "/post/2019-04-18-weather-data-part2" %}}">Part II</a>, we’ll be performing interpolation on these shapefiles to get precipitation level for each county.</p>
+<p>That completes the first task of collecting the data. :smile: Next in <a href="{{% ref "/posts/2019-04-18-weather-data-part2" %}}">Part II</a>, we’ll be performing interpolation on these shapefiles to get precipitation level for each county.</p>
 <div id="refs" class="references">
 <div id="ref-efficient">
 <p>Gillespie, Colin, and Robin Lovelace. 2016. <em>Efficient R Programming: A Practical Guide to Smarter Programming</em>. &quot; O’Reilly Media, Inc.&quot;. <a href="https://csgillespie.github.io/efficientR">https://csgillespie.github.io/efficientR</a>.</p>

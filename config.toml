@@ -6,6 +6,8 @@ enableEmoji = true
 ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
 disqusShortname = "amikami102"
 
+
+
 [taxonomies]
   series = "series"
   tag = "tags"

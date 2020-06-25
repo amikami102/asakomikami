@@ -22,15 +22,17 @@ output:
 <p>The last post, “Correlation as standardized covariance”, mentions geometric and triangle inequalities, i.e.</p>
 <ul>
 <li><em>geometric inequality</em>: <span class="math inline">\(\left| ab \right| \leq \dfrac{a^2 + b^2}{2}\)</span> for all <span class="math inline">\(a, b \in \mathbb{R}\)</span></li>
-<li><em>triangle inequality for expectations</em>: <span class="math inline">\(\left| \E [X] \right| \leq \E [ \left| X \right|]\)</span> for a discrete or continuous random variable <span class="math inline">\(X\)</span>.</li>
+<li><em>triangle inequality for expectations</em>: <span class="math inline">\(\left| E [X] \right| \leq E [ \left| X \right|]\)</span> for a discrete or continuous random variable <span class="math inline">\(X\)</span>.</li>
 </ul>
 <p>They look deceptively simple and intuitive, but I was surprised by how frequently they can be used in proofs. As I expect to refer to them again in some other blog posts, I want to write them down here.</p>
-<p><em>n.b.</em>: I draw the material from Professor Daniel Weiner’s course, <em>Mathematics of Statistics</em>, taught at BU. All the credit goes to him while all mistakes are mine. 💁</p>
+<p>{{% aside %}}
+This is all stuff I learned from Professor Daniel Weiner’s class <em>Mathematics of Statistics</em> at BU. All the credit goes to him while all mistakes are mine. 💁
+{{% /aside %}}</p>
 <div id="geometric-inequality" class="section level2">
 <h2>Geometric inequality</h2>
 <div class="figure">
-<img src="/post/2019-05-03-geometric-and-triangle-inequality_files/tikz-diagram.png" alt="geometric inequality" width="600" />
-<p class="caption">geometric inequality</p>
+<img src="/posts/2019-05-03-geometric-and-triangle-inequality_files/tikz-diagram.png" alt="Geometric inequality" />
+<p class="caption">Geometric inequality</p>
 </div>
 <p>The diagram above demonstrates one way of expressing the geometric inequality. Let <span class="math inline">\(a, b \in \mathbb{R}\)</span>.<br />
 <span class="math display">\[
@@ -48,28 +50,29 @@ In other words, the size of the product is dominated by the average of the sum o
 <p>The geometric inequality looks at the size of the product; the triangle inequality is a statement about the size of the sum: for all <span class="math inline">\(a, b \in \mathbb{R}\)</span>,
 <span class="math display">\[ \left| a + b \right| \leq \left| a \right| + \left| b \right|.\]</span>
 Since the expectation of a random variable is also a summation, we can apply the triangle inequality to random variables to claim that
-<span class="math display">\[ \left| \E [X] \right| \leq \E \big[ \left| X \right| \big].\]</span>
-Assume that <span class="math inline">\(X\)</span> is a discrete random variable with pmf <span class="math inline">\(p(x)\)</span> and a finite first moment, i.e. <span class="math inline">\(\E[X] \leq \infty\)</span>.
+<span class="math display">\[ \left| E [X] \right| \leq E \big[ \left| X \right| \big].\]</span>
+Assume that <span class="math inline">\(X\)</span> is a discrete random variable with pmf <span class="math inline">\(p(x)\)</span> and a finite first moment, i.e. <span class="math inline">\(E[X] \leq \infty\)</span>.
 <span class="math display">\[
 \begin{align*}
-        \left| \E [X] \right| &amp; = \left| \sum_x x p(x) \right| \\
+        \left| E [X] \right| &amp; = \left| \sum_x x p(x) \right| \\
         &amp; \leq \sum_x \left|x  p(x) \right| \qquad \text{by triangle inequality for $\mathbb{R}$} \\
         &amp; = \sum_x \left| x \right| p(x) \qquad \text{because $p(x)$ is non-negative} \\
-        &amp; = \E \big[ \left| X \right| \big] \qquad \heartsuit.
-\end{align*}
+        &amp; = E \big[ \left| X \right| \big] \qquad \heartsuit.
+E\en{align*}
 \]</span>
 An integral is the limit of summation, so intuitively the continuous case should hold and proceed similarly. Assume that <span class="math inline">\(X\)</span> is a continuous random variable with pdf <span class="math inline">\(f(x)\)</span> and a finite first moment.
 <span class="math display">\[
        \begin{align*}
-       \left|\E[ X] \right| &amp;= \left| \int_{-\infty}^\infty x f(x) \, dx \right| \\
+       \left|E[ X] \right| &amp;= \left| \int_{-\infty}^\infty x f(x) \, dx \right| \\
        &amp; =  \left| \int_{-\infty}^0 x f(x) \, dx+ \int_{0}^\infty x f(x) \, dx \right|\\
        &amp; \leq \left| \int_{-\infty}^0 x f(x) \, dx \right| + \left| \int_{0}^\infty x f(x) \, dx \right| \qquad \text{by triangle inequality} \\
        &amp; = \int_{-\infty}^0 \left|x \right| f(x) \, dx + \int_{0}^\infty \left|x \right| f(x) \, dx \qquad \text{because $f(x)$ is non-negative} \\
        &amp; = \int_{-\infty}^{\infty} \left|x\right| f(x) \, dx \\
-       &amp; = \E \big[  \left| X \right| \big] \qquad \heartsuit.
-       \end{align*}
+       &amp; = E \big[  \left| X \right| \big] \qquad \heartsuit.
+       E\e{align*}
        \]</span>
-<strong>NB</strong>: I’m sure there are analytical scaffoldings that should be made explicit, but that is beyond my capability.</p>
-<hr />
+*
+I want to note that this proof is not perfect. Tere are analytical scaffoldings that sI relied on but aren’t proven explicitly here.
+—</p>
 <p>Both of these inequalities were used <a href="https://asakomikami.com/2019/05/01/correlation-is-just-standardized-covariance/">in the proof</a> of <span class="math inline">\(\left| \rho(X, Y) \right| \leq 1\)</span> for any vector of random variables, <span class="math inline">\((X, Y)\)</span>.</p>
 </div>

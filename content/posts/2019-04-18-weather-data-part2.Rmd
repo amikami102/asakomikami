@@ -16,7 +16,7 @@ output:
     number_sections: true
 ---
 
-`prcp_data` we created in [Part I](`r blogdown::shortcode('ref', '/post/2019-04-10-weather-data-part1')`) is not useful in and of itself because it only shows precipitation values recorded by weather stations. Ultimately, I want to be able to say that county $i$ for $i = 1, \ldots, n$ on day $t$ for $t = 1, \ldots, T$ had $x_{it}$ level of precipitation. This post will cover how to achieve this using `arcpy` python package from ArcGIS. 
+`prcp_data` we created in [Part I](`r blogdown::shortcode('ref', '/posts/2019-04-10-weather-data-part1')`) is not useful in and of itself because it only shows precipitation values recorded by weather stations. Ultimately, I want to be able to say that county $i$ for $i = 1, \ldots, n$ on day $t$ for $t = 1, \ldots, T$ had $x_{it}$ level of precipitation. This post will cover how to achieve this using `arcpy` python package from ArcGIS. 
 
 [`arcpy`](https://pro.arcgis.com/en/pro-app/arcpy/get-started/what-is-arcpy-.htm) only comes with ArcGIS Desktop, which is a paid software for processing and analyzing GIS data. Besides being a paid service, there are many problems with ArcGIS:
 

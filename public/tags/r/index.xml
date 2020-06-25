@@ -6,10 +6,19 @@
     <description>Recent content in R on Asako Mikami</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
-    <lastBuildDate>Wed, 10 Apr 2019 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 04 May 2019 00:00:00 +0000</lastBuildDate>
     
 	<atom:link href="https://asakomikami.com/tags/r/index.xml" rel="self" type="application/rss+xml" />
     
+    
+    <item>
+      <title>Collecting historical weather data, Part III</title>
+      <link>https://asakomikami.com/posts/weather-data-part3/</link>
+      <pubDate>Sat, 04 May 2019 00:00:00 +0000</pubDate>
+      
+      <guid>https://asakomikami.com/posts/weather-data-part3/</guid>
+      <description>1 Cleaning the data 2 Visualizing the data References   To recount, Part II interpolated the precipitation data we obtained in Part I in order to get county-level precipitation values. Part III (this post) will clean the data further in preparation for the visualization stage and then create a gif animation of chloreoploth maps plotting precipitation level in inches over the seven days leading up to the 2006 midterm election.</description>
+    </item>
     
     <item>
       <title>Collecting historical weather data, Part I</title>

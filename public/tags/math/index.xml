@@ -36,7 +36,7 @@
       
       <guid>https://asakomikami.com/posts/geometric-and-triangle-inequality/</guid>
       <description>Geometric inequality Triangle inequality   The last post, “Correlation as standardized covariance”, mentions geometric and triangle inequalities, i.e.
- geometric inequality: \(\left| ab \right| \leq \dfrac{a^2 + b^2}{2}\) for all \(a, b \in \mathbb{R}\) triangle inequality for expectations: \(\left| \E [X] \right| \leq \E [ \left| X \right|]\) for a discrete or continuous random variable \(X\).  They look deceptively simple and intuitive, but I was surprised by how frequently they can be used in proofs.</description>
+ geometric inequality: \(\left| ab \right| \leq \dfrac{a^2 + b^2}{2}\) for all \(a, b \in \mathbb{R}\) triangle inequality for expectations: \(\left| E [X] \right| \leq E [ \left| X \right|]\) for a discrete or continuous random variable \(X\).  They look deceptively simple and intuitive, but I was surprised by how frequently they can be used in proofs.</description>
     </item>
     
     <item>
@@ -46,7 +46,7 @@
       
       <guid>https://asakomikami.com/posts/correlation-is-just-standardized-covariance/</guid>
       <description>Sometimes, we re-learn a concept in a new way that opens our eyes and feel like we finally get it. This happened to me with correlation: the correlation of two random variables is just standardized covariance!
-n.b.: I learned the material in this article from taking Professor Daniel Weiner’s course, Mathematics of Statistics at BU. All the credit of this post goes to him while all mistakes are mine. 💁</description>
+I learned the material in this article from taking Professor Daniel Weiner’s course, Mathematics of Statistics at BU. All the credit of this post goes to him while all mistakes are mine. 💁  In this post, I want to show the math behind that statement and demonstrate how defining correlation this way makes it easier to understand the Cauchy-Schwartz Inequality.</description>
     </item>
     
   </channel>

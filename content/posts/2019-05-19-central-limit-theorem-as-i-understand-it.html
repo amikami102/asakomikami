@@ -41,7 +41,8 @@ output:
 <p><em>Let there be two independent random variables, <span class="math inline">\(X_1\)</span> and <span class="math inline">\(X_2\)</span>, where <span class="math inline">\(X_i \sim N(\mu_i, \sigma^2_i)\)</span> for <span class="math inline">\(i = 1, 2\)</span>. The distribution of the sum is also normal: <span class="math display">\[X_1 + X_2 \sim N(\mu_1 + \mu_2, \sigma^2_1 + \sigma_2^2).\]</span></em></p>
 </blockquote>
 <p>There are different ways to prove the statement, but I find the one using moment generating functions (mgf) to be the easiest.</p>
-<p><strong>Proof</strong>: Recall that for <span class="math inline">\(X \sim N(\mu, \sigma^2)\)</span>, the mgf is <span class="math inline">\(M_X(t) = \exp\big\{ t\mu + \dfrac{1}{2}\sigma^2 t^2\big\}\)</span>. We will use the property of mgf, which says that the mgf of independent sums of random variables is the product of their mgf’s.
+<p>{{% aside %}}
+<strong>Proof</strong>: Recall that for <span class="math inline">\(X \sim N(\mu, \sigma^2)\)</span>, the mgf is <span class="math inline">\(M_X(t) = \exp\big\{ t\mu + \dfrac{1}{2}\sigma^2 t^2\big\}\)</span>. We will use the property of mgf, which says that the mgf of independent sums of random variables is the product of their mgf’s.
 <span class="math display">\[
         \begin{align*}
         M_{X_1 + X_2}(t) &amp; = M_{X_1}(t)M_{X_2}(t) \quad \text{by said property of mgf} \\
@@ -50,7 +51,8 @@ output:
         &amp; = M_W(t) \qquad \forall t \in \mathbb{R}
         \end{align*}
 \]</span>
-where <span class="math inline">\(W \sim N(\mu_1 + \mu_2, \sigma^2_1 + \sigma^2_2)\)</span>. Thus, the sum of two independent normal r.v. is normally distributed. <span class="math inline">\(\heartsuit\)</span></p>
+where <span class="math inline">\(W \sim N(\mu_1 + \mu_2, \sigma^2_1 + \sigma^2_2)\)</span>. Thus, the sum of two independent normal r.v. is normally distributed. <span class="math inline">\(\heartsuit\)</span>
+{{% /aside %}}</p>
 <p>I specifically stated the sum of <em>two</em> independent random variables, but note that the result holds for a sum of any <span class="math inline">\(n \in \mathbb{N}\)</span> independent normal r.v.’s as</p>
 </div>
 <div id="the-baby-clt" class="section level2">
@@ -59,7 +61,8 @@ where <span class="math inline">\(W \sim N(\mu_1 + \mu_2, \sigma^2_1 + \sigma^2_
 <blockquote>
 <p><em>Let <span class="math inline">\(X_1, X_2, \ldots \overset{\rm{iid}}{\sim} N(\mu, \sigma^2) \; \forall n \in \mathbb{N}\)</span>. Let <span class="math inline">\(\bar{X}_n = \dfrac{1}{n}\sum_{i=1}^n X_i\)</span> be the sample mean of <span class="math inline">\(\{X_i\}_{i\leq n}\)</span>. Then standardizing <span class="math inline">\(\bar{X}_n\)</span> gives <span class="math display">\[\bar{X}^{\rm{st}}_n = \dfrac{\bar{X}_n - \mu}{\sigma\sqrt{n}} \sim N(0, 1)\]</span> for all <span class="math inline">\(n \in \mathbb{N}\)</span>.</em></p>
 </blockquote>
-<p><strong>Proof</strong>: Let’s manipulate <span class="math inline">\(\bar{X}_n^{\rm{st}}\)</span> and see where it leads to.</p>
+<p>{{% aside %}}
+<strong>Proof</strong>: Let’s manipulate <span class="math inline">\(\bar{X}_n^{\rm{st}}\)</span> and see where it leads to.</p>
 <p><span class="math display">\[
         \begin{align*}
         \bar{X}_n^{\rm{st}} &amp; = \dfrac{\bar{X}_n - \mu}{\sqrt{\sigma^2/n}} \\
@@ -79,7 +82,6 @@ Note that <span class="math inline">\(Z_i = \dfrac{X_i - \mu}{\sigma} \overset{\
         \end{align*}
 \]</span>
 We’re getting closer to the finish line: the next important part of the proof is to show that <span class="math inline">\(\dfrac{1}{\sqrt{n}}S\)</span> follows a normal distribution. I can show this using mgf uniqueness.</p>
-<p><em>n.b.</em>: It is not necessarily true that <span class="math inline">\(cX\)</span> for some constant <span class="math inline">\(c \in \mathbb{R}\)</span> follows the same distribution as <span class="math inline">\(X\)</span>.</p>
 <p><span class="math display">\[
         \begin{align*}
         M_{\frac{S}{\sqrt{n}}}(t) &amp; = E \bigg[\exp\bigg\{ \dfrac{S}{\sqrt{n}} t \bigg\} \bigg] \\
@@ -90,6 +92,7 @@ We’re getting closer to the finish line: the next important part of the proof 
         \end{align*}
 \]</span>
 Therefore, by mgf uniqueness, <span class="math inline">\(\bar{X}_n^{\rm{st}} = \dfrac{S}{\sqrt{n}} \sim N(0, 1)\)</span>. <span class="math inline">\(\heartsuit\)</span></p>
+<p>{{% /aside %}}</p>
 </div>
 <div id="the-adult-clt-v1.0" class="section level2">
 <h2><span class="header-section-number">1.3</span> The Adult CLT, v1.0</h2>
@@ -97,7 +100,8 @@ Therefore, by mgf uniqueness, <span class="math inline">\(\bar{X}_n^{\rm{st}} = 
 <blockquote>
 <p><em>Let <span class="math inline">\(X_1, X_2, \ldots \sim F_X\)</span> where <span class="math inline">\(E[X] = \mu\)</span> and <span class="math inline">\(0 &lt; \rm{Var}(X) = \sigma^2 &lt; \infty\)</span>. Let <span class="math inline">\(\bar{X}_n = \dfrac{1}{n}\sum_{i=1}^n X_i\)</span>. Then, <span class="math display">\[\bar{X}_n^{\rm{st}} = \dfrac{\bar{X}_n - \mu}{\sigma/\sqrt{n}} \xrightarrow{\mathcal{D}} N(0, 1).\]</span></em></p>
 </blockquote>
-<p><strong>Proof</strong>: The main tool for this proof is the mgf convergence theorem (aka Lévy continuity theorem). Suppose there exists <span class="math inline">\(\delta\)</span> such that <span class="math inline">\(\forall t \in (-\delta, \delta)\)</span>, <span class="math display">\[\lim_{n \to \infty} M_{X_n}(t) = M_X(t).\]</span> Then the mgf convergence theorem says that <span class="math inline">\(X_n \xrightarrow{\mathcal{D}} X\)</span>.</p>
+<p>{{% aside %}}
+<strong>Proof</strong>: The main tool for this proof is the mgf convergence theorem (aka Lévy continuity theorem). Suppose there exists <span class="math inline">\(\delta\)</span> such that <span class="math inline">\(\forall t \in (-\delta, \delta)\)</span>, <span class="math display">\[\lim_{n \to \infty} M_{X_n}(t) = M_X(t).\]</span> Then the mgf convergence theorem says that <span class="math inline">\(X_n \xrightarrow{\mathcal{D}} X\)</span>.</p>
 <p>:thought_bubble: Proving the mgf convergence is beyond my expertise as it involves real analysis. I hope I can get there some day though.</p>
 <p>The first half of the proof is the same as <a href="#baby">baby CLT</a>, i.e. we do the same algebraic manipulation to get <span class="math display">\[\bar{X}_n^{\rm{st}} = \dfrac{1}{\sqrt{n}} \sum_{i=1}^n Z_i\]</span> where <span class="math inline">\(Z_i = \dfrac{X_i - \mu}{\sigma} \sim N(0, 1)\)</span>. Now let’s look at the mgf of <span class="math inline">\(\bar{X}_n^{\rm{st}}\)</span>.
 <span class="math display">\[
@@ -112,7 +116,7 @@ Therefore, by mgf uniqueness, <span class="math inline">\(\bar{X}_n^{\rm{st}} = 
 \]</span></p>
 <p>The mgf convergence theorem tells us to take the last expression to infinity, but notice what happens to the last expression as <span class="math inline">\(n \rightarrow \infty\)</span>. Since <span class="math inline">\(\dfrac{t}{\sqrt{n}} \rightarrow 0\)</span>,
 <span class="math display">\[ \lim_{n \to \infty} g\bigg(\dfrac{t}{\sqrt{n}}\bigg)  = g(0) = a\]</span> for some constant <span class="math inline">\(a\)</span>. But <span class="math inline">\(a^n \rightarrow \infty\)</span> as <span class="math inline">\(n \rightarrow \infty\)</span>.</p>
-<p>Here, I will use Taylor series expansion on <span class="math inline">\(g\)</span>. Recall that by <a href="{{% ref "/post/2019-05-08-taylor-series" %}}">Taylor series expansion</a>, the Taylor series expansion of <span class="math inline">\(g(s)\)</span> at <span class="math inline">\(s=0\)</span> is
+<p>Here, I will use Taylor series expansion on <span class="math inline">\(g\)</span>. Recall that by <a href="{{% ref "/posts/2019-05-08-taylor-series" %}}">Taylor series expansion</a>, the Taylor series expansion of <span class="math inline">\(g(s)\)</span> at <span class="math inline">\(s=0\)</span> is
 <span class="math display">\[
         \begin{align*}
         g(s) &amp; = g^0(0) + g^\prime(0)(s) + \dfrac{g^{\prime\prime}(0)}{2!}(s^2) + \cdots \\
@@ -150,8 +154,9 @@ Note that this resembles a common limit: <span class="math inline">\(\underset{n
 \]</span>
 Therefore, the CLT can be recast as
 <span class="math display">\[\sqrt{n}\big( \bar{X}_n^{\rm{st}} - E[X] \big) \; \overset{\mathcal{D}}{\rightarrow} \; N\big(0, \rm{Var}(X) \big),\]</span>
-which says that when you average a sample of iid random variables, standardize it, take its difference from the population mean, and magnify the difference by <span class="math inline">\(\sqrt{n}\)</span>, you get a normal distribution with mean 0 and variance equal to the ppulation variance.</p>
-<p>:thought_balloon: This is my favorite way of writing the CLT because a.) no ugly fractions, and b.) it becomes easier to transition to concepts like reparametrization through the delta method and asymptotic variance. Pedagogically, I was surprised that a theorem I had written down more than once finally clicked with me when it was written differently for the first time.</p>
+which says that when you average a sample of iid random variables, standardize it, take its difference from the population mean, and magnify the difference by <span class="math inline">\(\sqrt{n}\)</span>, you get a normal distribution with mean 0 and variance equal to the population variance.
+{{% /aside %}}</p>
+<p>:thought_balloon: This is my favorite way of writing the CLT because a.) no ugly fractions, and b.) it becomes easier to transition to concepts like reparametrization delta method and asymptotic variance. Pedagogically, I was surprised that a theorem I had written down many times finally clicked with me when it was written differently.</p>
 </div>
 </div>
 <div id="the-central-limit-theorem-for-non-iid-samples" class="section level1">

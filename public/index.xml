@@ -37,7 +37,9 @@
       <pubDate>Sat, 18 Apr 2020 00:00:00 +0000</pubDate>
       
       <guid>https://asakomikami.com/posts/jmp-review-chelsea-carter/</guid>
-      <description>The article I’m reviewing in this blog post is by Chelsea E. Carter, “Forts and Frontier: The U.S. Army and the Spatial Distribution of Population.” One of the things that surprises me about other social science disciplines like economics and sociology is the range of social phenomena that they write about (I wasn’t expecting to read a paper about the American West!). Carter checks the robustness of her results with new empirical methods published in the last few years, so there’s a lot of methodological techniques to unpack in this paper.</description>
+      <description>The article I’m reviewing in this blog post is by Chelsea E. Carter, “Forts and Frontier: The U.S. Army and the Spatial Distribution of Population.” The topic is interesting and one I’ve never read about. Moreover, there’s a lot of methodological and computational tools used in this paper, and I was left with a lot of new readings to catch up on.
+Me flipping to the reference section
+ An excerpt from the abstract:</description>
     </item>
     
     <item>
@@ -46,7 +48,8 @@
       <pubDate>Fri, 10 Apr 2020 00:00:00 +0000</pubDate>
       
       <guid>https://asakomikami.com/posts/jmp-review-yi-cheng/</guid>
-      <description>This blog post is part of my “JMP by Women in Econ” series where I summarize and review some of the job market papers written by women PhD candidates in Economics. The papers are selected from Jennifer Doleac’s Twitter thread. DISCLAIMER: I am not reading this from the perspective of an economist, let alone of a job committee member. I just like reading cool articles that use observational data to tackle challenging research problems.</description>
+      <description>For my first post of the series, “JMP by Women in Economics,” I am reviewing Yi Cheng’s “The Unexpected Costs of Expertise: Evidence from Highly Specialized Physicians”(November 4, 2019). The abstract begins,
+ High U.S. spending on health care is commonly attributed to its intensity of specialized, high-tech medical care. A growing body of research focuses on physicians whose medical decisions shape treatment intensity, costs, and patient outcomes. Often overlooked in this research is the assignment of physician skills to patient conditions, which may strongly affect health outcomes and productivity.</description>
     </item>
     
     <item>
@@ -113,7 +116,7 @@ Here is the directory tree for Part III:
       
       <guid>https://asakomikami.com/posts/geometric-and-triangle-inequality/</guid>
       <description>Geometric inequality Triangle inequality   The last post, “Correlation as standardized covariance”, mentions geometric and triangle inequalities, i.e.
- geometric inequality: \(\left| ab \right| \leq \dfrac{a^2 + b^2}{2}\) for all \(a, b \in \mathbb{R}\) triangle inequality for expectations: \(\left| \E [X] \right| \leq \E [ \left| X \right|]\) for a discrete or continuous random variable \(X\).  They look deceptively simple and intuitive, but I was surprised by how frequently they can be used in proofs.</description>
+ geometric inequality: \(\left| ab \right| \leq \dfrac{a^2 + b^2}{2}\) for all \(a, b \in \mathbb{R}\) triangle inequality for expectations: \(\left| E [X] \right| \leq E [ \left| X \right|]\) for a discrete or continuous random variable \(X\).  They look deceptively simple and intuitive, but I was surprised by how frequently they can be used in proofs.</description>
     </item>
     
     <item>
@@ -123,7 +126,7 @@ Here is the directory tree for Part III:
       
       <guid>https://asakomikami.com/posts/correlation-is-just-standardized-covariance/</guid>
       <description>Sometimes, we re-learn a concept in a new way that opens our eyes and feel like we finally get it. This happened to me with correlation: the correlation of two random variables is just standardized covariance!
-n.b.: I learned the material in this article from taking Professor Daniel Weiner’s course, Mathematics of Statistics at BU. All the credit of this post goes to him while all mistakes are mine. 💁</description>
+I learned the material in this article from taking Professor Daniel Weiner’s course, Mathematics of Statistics at BU. All the credit of this post goes to him while all mistakes are mine. 💁  In this post, I want to show the math behind that statement and demonstrate how defining correlation this way makes it easier to understand the Cauchy-Schwartz Inequality.</description>
     </item>
     
     <item>
@@ -142,15 +145,6 @@ n.b.: I learned the material in this article from taking Professor Daniel Weiner
       
       <guid>https://asakomikami.com/posts/weather-data-part2/</guid>
       <description>1 Reproject shapefile 2 Perform Kriging interpolation 3 Reproject raster layer 4 Obtain average total rainfall for each county References   prcp_data we created in Part I is not useful in and of itself because it only shows precipitation values recorded by weather stations. Ultimately, I want to be able to say that county \(i\) for \(i = 1, \ldots, n\) on day \(t\) for \(t = 1, \ldots, T\) had \(x_{it}\) level of precipitation.</description>
-    </item>
-    
-    <item>
-      <title>Migrating to Hugo</title>
-      <link>https://asakomikami.com/posts/migrating-to-hugo/</link>
-      <pubDate>Tue, 16 Apr 2019 00:00:00 +0000</pubDate>
-      
-      <guid>https://asakomikami.com/posts/migrating-to-hugo/</guid>
-      <description>1 Installing ‘tuftesque’ theme 2 Setting up a navigation bar 2.1 nav element 2.1.1 .navbar-brand class  2.2 button element 2.3 .collapse.navbar-collapse class 2.4 Adding padding to the body  3 Adding syntax highlighting   I moved this blog from Jekyll to Hugo because I felt like I was missing out on blogdown. I spent days browsing for that right theme all over https://themes.gohugo.io/, but I finally made up my mind to use Nick Strayer’s tuftesque, which was one of Yihui Xie’s honorable mentions for impressive blogdown implementation.</description>
     </item>
     
     <item>

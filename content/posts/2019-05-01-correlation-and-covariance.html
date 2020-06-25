@@ -15,7 +15,9 @@ output:
 
 
 <p>Sometimes, we re-learn a concept in a new way that opens our eyes and feel like we finally <em>get</em> it. This happened to me with correlation: <em>the correlation of two random variables is just standardized covariance</em>!</p>
-<p><em>n.b.</em>: I learned the material in this article from taking Professor Daniel Weiner’s course, <em>Mathematics of Statistics</em> at BU. All the credit of this post goes to him while all mistakes are mine. 💁</p>
+<p>{{% aside %}}
+I learned the material in this article from taking Professor Daniel Weiner’s course, <em>Mathematics of Statistics</em> at BU. All the credit of this post goes to him while all mistakes are mine. 💁
+{{% /aside %}}</p>
 <p>In this post, I want to show the math behind that statement and demonstrate how defining correlation this way makes it easier to understand the Cauchy-Schwartz Inequality.</p>
 <div id="correlation-as-standardized-covariance" class="section level2">
 <h2>Correlation as Standardized Covariance</h2>
@@ -24,7 +26,8 @@ output:
 given that <span class="math inline">\(\Var(X)\)</span> and <span class="math inline">\(\Var(Y)\)</span> exist. This definition can be more usefully stated as follows:
 <span class="math display">\[ \rho(X,Y) = \Cov(X^{\rm{st}} Y^{\rm{st}})\]</span>
 where <span class="math inline">\(X^{\rm{st}}\)</span> and <span class="math inline">\(Y^{\rm{st}}\)</span> are rstandardized<span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span> srespectively I will show that the two definitions are equivalent.</p>
-<p><strong>Proof</strong>:
+<p>{{% aside %}}
+<strong>Proof</strong>:
 <span class="math display">\[
 \begin{align*}
         \rho(X, Y) &amp; = \Cov(X^{\rm{st}} Y^{\rm{st}}) \\
@@ -35,13 +38,15 @@ where <span class="math inline">\(X^{\rm{st}}\)</span> and <span class="math inl
                 &amp; = \dfrac{\Cov(X,Y)}{\sqrt{\Var(X) \Var(Y)}} \qquad \text{by definition of covariance} \qquad \heartsuit.
 \end{align*}
 \]</span>
-That’s why correlation has no units.</p>
+This is why correlation has no units.
+{{% /aside %}}</p>
 </div>
 <div id="cauchy-schwartz-inequality-in-three-forms" class="section level2">
 <h2>Cauchy-Schwartz Inequality in Three Forms</h2>
 <p><span class="citation">Ross (2014)</span> mentions Cauchy-Schwartz Inequality (CS Inequality) in one of the exercises. The thoerem is stated like this:
 <span class="math display">\[ \Big( \E[XY] \Big)^2 \leq \E[X^2]\E[Y^2].\]</span></p>
-<p><strong>Proof</strong>: We can prove this via the discriminant of quadratic formula. Let there be some constant <span class="math inline">\(t\)</span>. Then, for random variables <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>, it holds that
+<p>{{% aside %}}
+<strong>Proof</strong>: We can prove this via the discriminant of quadratic formula. Let there be some constant <span class="math inline">\(t\)</span>. Then, for random variables <span class="math inline">\(X\)</span> and <span class="math inline">\(Y\)</span>, it holds that
 <span class="math display">\[\begin{align*}
         \E[(X + tY)^2] &amp; = \E[X^2] + 2 \E[XY]t + \E[Y^2]t^2 \geq 0
         \end{align*}\]</span>
@@ -55,13 +60,15 @@ because <span class="math inline">\(\Var(X+tY) = \E[(X+ tY)^2] - \E[(X+tY)]^2 \g
         \big(\E[XY] \big)^2 &amp;\leq \E[X^2] \E[Y^2] \qquad \heartsuit.
         \end{align*}
         \]</span>
-That is one way of stating the CS Inequality. Another way of writing the CS Inequality is
+{{% /aside %}}</p>
+<p>That is one way of stating the CS Inequality. Another way of writing the CS Inequality is
 <span class="math display">\[ \Big( \Cov(X, Y) \Big)^2 \leq \Var(X)\Var(Y).\]</span>
 The proof of this form of CS Inequality follows the same steps as the first one except that the quadratic equation with respect to <span class="math inline">\(t\)</span> would be $ 0 (X + tY) = (X) + 2(X, tY) + (Y)t^2 = (X) + 2t(X, Y) + (Y) t^2$. We can see that the second form can be easily rewritten as the first form if we assume <span class="math inline">\(\E[X] = \E[Y] = 0\)</span>, but the proof for the first form demonstrates that we don’t need to assume <span class="math inline">\(\E[X] = \E[Y] = 0\)</span> to show the CS Inequality holds in that form.</p>
 <p>My favorite way of writing the CS Inequality, however, is with correlation:
 <span class="math display">\[ \left| \rho(X,Y) \right| \leq 1.\]</span>
 We can see that this is an alternate way of writing the second form of CS Inequality, but even if we did not know the proof to the second form, we can prove this statement using the fact that a correlation is a covariance of standardized r.v.’s.</p>
-<p><strong>Proof</strong>:
+<p><em>{{% aside %}}
+</em>Proof**:
 <span class="math display">\[
         \begin{align*}
         \left| \rho(X, Y) \right| &amp; = \left| \Cov(X^{\rm{st}}Y^{\rm{st}}) \right| \\
@@ -72,7 +79,8 @@ We can see that this is an alternate way of writing the second form of CS Inequa
         &amp; = \dfrac{1}{2}(1 + 1) = 1 \qquad \heartsuit.
         \end{align*}
         \]</span>
-Isn’t that a neat proof? :satisfied:</p>
+I{{% /aside %}}
+sn’t that a neat proof? :satisfied:</p>
 </div>
 <div id="references" class="section level2 unnumbered">
 <h2>References</h2>

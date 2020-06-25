@@ -45,8 +45,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;700;900&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600&display=swap" rel="stylesheet">
-    <link rel="shortcut icon" href="../../favicon.ico" type="image/x-icon" />
-    <link rel="apple-touch-icon" href="../../apple-touch-icon.png" />
+    <link rel="shortcut icon" href="favicon_io/favicon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="favicon_io/apple-touch-icon.png" />
   </head>
 
 
@@ -163,7 +163,8 @@ for all open intervals containin <span class="math inline">\(z_0\)</span>, then 
 <p><em>Let <span class="math inline">\(k \in \mathbb{N}_0\)</span>. Suppose <span class="math inline">\(f\)</span> has <span class="math inline">\(k+1\)</span> continuous derivatives on an open interval containing <span class="math inline">\(x_0\)</span>. Then for each <span class="math inline">\(z\)</span> in the interval, <span class="math display">\[ f(x) = \Big[ \sum_{n=0}^k \dfrac{f^{(k)}(x_0)}{k!}(x-x_0)^k \Big] + R_{k+1}(x)\]</span> where <span class="math inline">\(R_{k+1}(x) = \int_{x_0}^x \dfrac{f^{(k+1)}(t)}{k!}(x - t)^{k} \, dt.\)</span></em></p>
 </blockquote>
 <p>I had a hard time understanding how Taylor’s theorem is different from the definition of Taylor’s series, but what I understand to be the difference is that Taylor’s theorem gives the error term for when we use Taylor series to approximate <span class="math inline">\(f(x)\)</span>. In the following proof I will show that if we approximate a <span class="math inline">\(k+1\)</span> times differentiable function <span class="math inline">\(f\)</span> with Taylor series up to the <span class="math inline">\(k\)</span>th term, the approximation error is <span class="math inline">\(\int_{x_0}^x \dfrac{f^{(k+1)}(t)}{k!}(x-t)^k \, dt\)</span>.</p>
-<p><strong>Proof</strong>: I will fix <span class="math inline">\(x\)</span> and <span class="math inline">\(x_0\)</span>. By the fundamental theorem of calculus,
+<p><aside class="article-aside look-sheet-border">
+<strong>Proof</strong>: I will fix <span class="math inline">\(x\)</span> and <span class="math inline">\(x_0\)</span>. By the fundamental theorem of calculus,
 <span class="math display">\[ f(x) = f(x_0) + \int_{x_0}^x f^\prime(t) \, dt.\]</span>
 For integration by parts, I set <span class="math inline">\(u = f^\prime(t)\)</span> and <span class="math inline">\(dv = dt\)</span>.
 <span class="math display">\[
@@ -190,6 +191,8 @@ Then, I get
         &amp;\qquad + f^{(k)}(x_0)\dfrac{(x-x_0)^k}{k!} + \int_{x_0}^x f^{(k+1)}(t)\dfrac{(t-x)^k}{k!}\, dt  \qquad \heartsuit.
 \end{align*}
 \]</span></p>
+<p></aside>
+</p>
 </div>
 </div>
 <div id="application" class="section level1">
@@ -198,7 +201,8 @@ Then, I get
 <div id="moment-generating-property" class="section level2">
 <h2><span class="header-section-number">3.1</span> Moment Generating Property</h2>
 <p>Let <span class="math inline">\(m_k = E[X^k]\)</span> for <span class="math inline">\(k \in \mathbb{N_0}\)</span> be the <span class="math inline">\(k\)</span>th moment of random variable <span class="math inline">\(X\)</span>. Let <span class="math inline">\(M_X(t) = E[e^{tX}]\)</span> for all <span class="math inline">\(t \in \mathbb{R}\)</span> denote the moment generating function of <span class="math inline">\(X\)</span>. The moment generating property says that <span class="math inline">\(m_k = M_{X}^{(k)}(0)\)</span> if the moment generating function <span class="math inline">\(M_X(t)\)</span> is <strong>nice</strong> where a function <span class="math inline">\(g\)</span> is <strong>nice</strong> if <span class="math inline">\(g(t) = \sum_{k=0}^\infty \dfrac{g^{(k)}(0)}{k!}t^k\)</span> for all <span class="math inline">\(k \in \mathbb{N}_0\)</span>.</p>
-<p><strong>Proof</strong>: Assume that a random variable <span class="math inline">\(X\)</span> has a nice mgf <span class="math inline">\(M_X(t)\)</span>.
+<p><aside class="article-aside look-sheet-border">
+<strong>Proof</strong>: Assume that a random variable <span class="math inline">\(X\)</span> has a nice mgf <span class="math inline">\(M_X(t)\)</span>.
 <span class="math display">\[
 \begin{align*}
         M_X(t) &amp; = E[e^{tX}] \qquad \text{by def. of mgf} \\
@@ -224,7 +228,9 @@ By <a href="#taylor-series-uniqueness">Taylor series uniqueness</a>, the coeffic
         \dfrac{m_k}{k!} &amp;= \dfrac{M^{(k)}_X(0)}{k!} \\
         m_k &amp; = M_X^{(k)}(0) \qquad \heartsuit.
 \end{align*}
-\]</span></p>
+\]</span>
+</aside>
+</p>
 </div>
 <div id="mgf-of-poisson-distribution" class="section level2">
 <h2><span class="header-section-number">3.2</span> Mgf of Poisson Distribution</h2>

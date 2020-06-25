@@ -48,8 +48,8 @@
 <link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;700;900&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
 <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600&display=swap" rel="stylesheet">
-    <link rel="shortcut icon" href="../../favicon.ico" type="image/x-icon" />
-    <link rel="apple-touch-icon" href="../../apple-touch-icon.png" />
+    <link rel="shortcut icon" href="favicon_io/favicon.ico" type="image/x-icon" />
+    <link rel="apple-touch-icon" href="favicon_io/apple-touch-icon.png" />
   </head>
 
 
@@ -111,7 +111,10 @@ import sys
 import base64
 import requests
 import logging</code></pre>
-<p><em>n.b.</em>: I purchased the premier tier API subscription because the sandbox/basic tier does not give you access to tweets older than 7 days. Even with premier subscription, the number of requests allowed each month can vary from 100 to 2,500 depending on what you’re paying. If you are interested in gathering a large number of old tweets, I highly recommend testing your code on tweets you can still access with the free, sandbox subscription before upgrading your subscription and deploying your code with a premier account.</p>
+<p><aside class="article-aside look-sheet-border">
+<em>n.b.</em>: I purchased the premier tier API subscription because the sandbox/basic tier does not give you access to tweets older than 7 days. Even with premier subscription, the number of requests allowed each month can vary from 100 to 2,500 depending on what you’re paying. If you are interested in gathering a large number of old tweets, I highly recommend testing your code on tweets you can still access with the free, sandbox subscription before upgrading your subscription and deploying your code with a premier account.
+</aside>
+</p>
 <div id="open-a-twitter-developer-account" class="section level1">
 <h1><span class="header-section-number">1</span> Open a Twitter developer account</h1>
 <p>Before we begin, we need a Twitter account and [sign up for an individual developer account] (<a href="https://developer.twitter.com/en/apply-for-access.html" class="uri">https://developer.twitter.com/en/apply-for-access.html</a>). It may take some time for the application to be accepted depending on your purpose; in my case, I had to answer an email inquiry before my application was fully accepted. Once you have a developer account, execute the first two steps on the <a href="https://developer.twitter.com/en/account/get-started">“Get started” page</a>.</p>
@@ -167,7 +170,10 @@ access_token = auth_resp.json()[&#39;access_token&#39;]</code></pre>
 <div id="count-the-number-of-requests-to-make" class="section level1">
 <h1><span class="header-section-number">3</span> Count the number of requests to make</h1>
 <p>For my project, I needed to collect tweets posted by @PizzaToThePolls on 2018 Midterm Election Day. Let’s <a href="https://developer.twitter.com/en/docs/tweets/search/api-reference/premium-search.html">count</a> the number of tweets were posted every hour by @PizzaToThePolls on November 6th, 2018. Since I am accessing tweets that are older than 30-days, I am using the full-archive search endpoint. Initially I casted the net wide by setting <code>fromDate</code> to <code>201811060000</code> (6AM on November 6th). Upon inspection, I noticed that the account didn’t show much activity in the morning, so I pushed the timestamp to <code>201811061100</code>.</p>
-<p><strong>NB</strong>: The sandbox subscription does not include counts request in its package, so this portion is not applicable until you upgrade to premium. And even though the timeframe for both subscription tiers says “full history” like shown below, in actuality you cannot access tweets older than the last 7 days without upgrading to the premier tier.</p>
+<p><aside class="article-aside look-sheet-border">
+<strong>NB</strong>: The sandbox subscription does not include counts request in its package, so this portion is not applicable until you upgrade to premium. And even though the timeframe for both subscription tiers says “full history” like shown below, in actuality you cannot access tweets older than the last 7 days without upgrading to the premier tier.
+</aside>
+</p>
 <figure>
     <img src="../../post/2019-05-29-webscraping-twitter-part-i_files/twitter_dev-package-desc.png"
          alt="Be careful of the misleading package description."/> <figcaption>

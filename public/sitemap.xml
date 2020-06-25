@@ -103,6 +103,16 @@
   </url>
   
   <url>
+    <loc>https://asakomikami.com/tags/gis/</loc>
+    <lastmod>2019-05-04T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
+    <loc>https://asakomikami.com/tags/r/</loc>
+    <lastmod>2019-05-04T00:00:00+00:00</lastmod>
+  </url>
+  
+  <url>
     <loc>https://asakomikami.com/posts/geometric-and-triangle-inequality/</loc>
     <lastmod>2019-05-03T00:00:00+00:00</lastmod>
   </url>
@@ -128,37 +138,7 @@
   </url>
   
   <url>
-    <loc>https://asakomikami.com/tags/blogdown/</loc>
-    <lastmod>2019-04-16T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://asakomikami.com/tags/css/</loc>
-    <lastmod>2019-04-16T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://asakomikami.com/tags/html/</loc>
-    <lastmod>2019-04-16T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://asakomikami.com/tags/hugo-theme/</loc>
-    <lastmod>2019-04-16T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://asakomikami.com/posts/migrating-to-hugo/</loc>
-    <lastmod>2019-04-16T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
     <loc>https://asakomikami.com/posts/weather-data-part1/</loc>
-    <lastmod>2019-04-10T00:00:00+00:00</lastmod>
-  </url>
-  
-  <url>
-    <loc>https://asakomikami.com/tags/r/</loc>
     <lastmod>2019-04-10T00:00:00+00:00</lastmod>
   </url>
   
