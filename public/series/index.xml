@@ -2,40 +2,40 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Series on Asako Mikami</title>
-    <link>https://asakomikami.com/series/</link>
+    <link>/series/</link>
     <description>Recent content in Series on Asako Mikami</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sun, 21 Jun 2020 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://asakomikami.com/series/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="/series/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>JMP by Women in Economics</title>
-      <link>https://asakomikami.com/series/jmp-by-women-in-economics/</link>
+      <link>/series/jmp-by-women-in-economics/</link>
       <pubDate>Sun, 21 Jun 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://asakomikami.com/series/jmp-by-women-in-economics/</guid>
+      <guid>/series/jmp-by-women-in-economics/</guid>
       <description>This is a series of blog posts where I review job market papers written by women graduating from Economics PhD programs in 2020. The papers are selected from Jennifer Doleac’s Twitter thread.
 There are both theoretical and empirical papers, but since economics is not my field of expertise, I will almost always be reviewing an empirical paper where my knowledge of statistics and causal inference can help me comprehend the research design and interpret the results.</description>
     </item>
     
     <item>
       <title>Collecting and parsing tweets</title>
-      <link>https://asakomikami.com/series/collecting-and-parsing-tweets/</link>
+      <link>/series/collecting-and-parsing-tweets/</link>
       <pubDate>Sun, 01 Mar 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://asakomikami.com/series/collecting-and-parsing-tweets/</guid>
+      <guid>/series/collecting-and-parsing-tweets/</guid>
       <description></description>
     </item>
     
     <item>
       <title>Collecting historical weather data</title>
-      <link>https://asakomikami.com/series/collecting-historical-weather-data/</link>
+      <link>/series/collecting-historical-weather-data/</link>
       <pubDate>Sat, 04 May 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://asakomikami.com/series/collecting-historical-weather-data/</guid>
+      <guid>/series/collecting-historical-weather-data/</guid>
       <description></description>
     </item>
     

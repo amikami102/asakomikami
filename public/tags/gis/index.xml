@@ -2,30 +2,30 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>GIS on Asako Mikami</title>
-    <link>https://asakomikami.com/tags/gis/</link>
+    <link>/tags/gis/</link>
     <description>Recent content in GIS on Asako Mikami</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sat, 04 May 2019 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://asakomikami.com/tags/gis/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="/tags/gis/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>Collecting historical weather data, Part III</title>
-      <link>https://asakomikami.com/posts/weather-data-part3/</link>
+      <link>/posts/weather-data-part3/</link>
       <pubDate>Sat, 04 May 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://asakomikami.com/posts/weather-data-part3/</guid>
+      <guid>/posts/weather-data-part3/</guid>
       <description>1 Cleaning the data 2 Visualizing the data References   To recount, Part II interpolated the precipitation data we obtained in Part I in order to get county-level precipitation values. Part III (this post) will clean the data further in preparation for the visualization stage and then create a gif animation of chloreoploth maps plotting precipitation level in inches over the seven days leading up to the 2006 midterm election.</description>
     </item>
     
     <item>
       <title>Collecting historical weather data, Part II</title>
-      <link>https://asakomikami.com/posts/weather-data-part2/</link>
+      <link>/posts/weather-data-part2/</link>
       <pubDate>Thu, 18 Apr 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://asakomikami.com/posts/weather-data-part2/</guid>
+      <guid>/posts/weather-data-part2/</guid>
       <description>1 Reproject shapefile 2 Perform Kriging interpolation 3 Reproject raster layer 4 Obtain average total rainfall for each county References   prcp_data we created in Part I is not useful in and of itself because it only shows precipitation values recorded by weather stations. Ultimately, I want to be able to say that county \(i\) for \(i = 1, \ldots, n\) on day \(t\) for \(t = 1, \ldots, T\) had \(x_{it}\) level of precipitation.</description>
     </item>
     

@@ -2,84 +2,84 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Tags on Asako Mikami</title>
-    <link>https://asakomikami.com/tags/</link>
+    <link>/tags/</link>
     <description>Recent content in Tags on Asako Mikami</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>en-us</language>
     <lastBuildDate>Sun, 01 Mar 2020 00:00:00 +0000</lastBuildDate>
     
-	<atom:link href="https://asakomikami.com/tags/index.xml" rel="self" type="application/rss+xml" />
+	<atom:link href="/tags/index.xml" rel="self" type="application/rss+xml" />
     
     
     <item>
       <title>python</title>
-      <link>https://asakomikami.com/tags/python/</link>
+      <link>/tags/python/</link>
       <pubDate>Sun, 01 Mar 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://asakomikami.com/tags/python/</guid>
+      <guid>/tags/python/</guid>
       <description></description>
     </item>
     
     <item>
       <title>webscraping</title>
-      <link>https://asakomikami.com/tags/webscraping/</link>
+      <link>/tags/webscraping/</link>
       <pubDate>Sun, 01 Mar 2020 00:00:00 +0000</pubDate>
       
-      <guid>https://asakomikami.com/tags/webscraping/</guid>
+      <guid>/tags/webscraping/</guid>
       <description></description>
     </item>
     
     <item>
       <title>math</title>
-      <link>https://asakomikami.com/tags/math/</link>
+      <link>/tags/math/</link>
       <pubDate>Sun, 19 May 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://asakomikami.com/tags/math/</guid>
+      <guid>/tags/math/</guid>
       <description></description>
     </item>
     
     <item>
       <title>GIS</title>
-      <link>https://asakomikami.com/tags/gis/</link>
+      <link>/tags/gis/</link>
       <pubDate>Sat, 04 May 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://asakomikami.com/tags/gis/</guid>
+      <guid>/tags/gis/</guid>
       <description></description>
     </item>
     
     <item>
       <title>R</title>
-      <link>https://asakomikami.com/tags/r/</link>
+      <link>/tags/r/</link>
       <pubDate>Sat, 04 May 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://asakomikami.com/tags/r/</guid>
+      <guid>/tags/r/</guid>
       <description></description>
     </item>
     
     <item>
       <title>career</title>
-      <link>https://asakomikami.com/tags/career/</link>
+      <link>/tags/career/</link>
       <pubDate>Sat, 20 Apr 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://asakomikami.com/tags/career/</guid>
+      <guid>/tags/career/</guid>
       <description></description>
     </item>
     
     <item>
       <title>weather data</title>
-      <link>https://asakomikami.com/tags/weather-data/</link>
+      <link>/tags/weather-data/</link>
       <pubDate>Wed, 10 Apr 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://asakomikami.com/tags/weather-data/</guid>
+      <guid>/tags/weather-data/</guid>
       <description></description>
     </item>
     
     <item>
       <title>replicate warren</title>
-      <link>https://asakomikami.com/tags/replicate-warren/</link>
+      <link>/tags/replicate-warren/</link>
       <pubDate>Tue, 02 Apr 2019 00:00:00 +0000</pubDate>
       
-      <guid>https://asakomikami.com/tags/replicate-warren/</guid>
+      <guid>/tags/replicate-warren/</guid>
       <description></description>
     </item>
     
