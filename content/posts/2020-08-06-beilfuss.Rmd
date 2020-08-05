@@ -1,0 +1,118 @@
+---
+title: 'Svetlana Beilfuss, "Pharmaceutical Opioid Marketing and Physician Prescribing Behavior"'
+subtitle: "How the opioid epidemic is sustained by the pharmaceutical and insurance companies"
+date: '2020-08-06'
+slug: jmp-review-sveltanabeilfuss
+series: 
+        - JMP by women in economics
+meta: true
+math: true
+---
+
+We have a couple of papers on narconomics starting with Svetlana N. Beilfuss's ["Pharmaceutical Opioid Marketing and Physician Prescribing Behavior"](https://svetlanabeilfuss.com/research.html). Here is an excerpt of the abstract: 
+
+> Physicians' relationships with the pharmaceutical industry have recently come under public scrutiny, particularly in the context of opioid drug prescribing. This study examines the effect of doctor-industry marketing interactions on subsequent prescribing patterns of opioids ... Results indicate that both the number and the dollar-value of marketing visits increase physicians' patented opioid claims. Furthermore, direct-to-physician marketing of safer abuse-deterrent formulations of opioids is the primary driver of positive and persistent spillovers on the prescribing of less safe generic opioids ... 
+
+My background knowledge on the current opioid epidemic in the United States comes from Sam Quinones's book, *Dreamland: the True Tale of America's Opiate Epidemic*](https://www.worldcat.org/title/dreamland-the-true-tale-of-americas-opiate-epidemic/oclc/893857896). 
+
+![*Dreamland: the True Tale of America's Opioid Epidemic* by Sam Quinones](/posts/2020-08-06-beilfuss_files/quinones_bookcover.jpg)
+
+It's a work of investigative journalism that chronicles how rural America has been hollowed out first by black tar heroin, which the book explores by focusing on an unusual network of traffickers hailing from a remote village in Mexico called Xalisco, and then by opioid painkillers that were distributed through local clinics and unscrupulous pharmaceutical marketing backed up by scant medical evidence. 
+
+Beilfuss's research overlaps with the second part of Quinones's book. She asks how direct-to-physician pharmaceutical marketing influences the rate of opioid prescription. In particular, she explores the unintended effect of marketing abuse-deterrent formulations (ADF) of patented opioid drugs. Because ADF drugs are expensive and insurance companies adopt a first-fail policy where they demand medical diagnose of generic drug abuse before they approve of ADF prescription claims, there is a threat of spillover effect of increased generic opioid prescriptions. 
+
+Like Sloan's paper reviewed in the previous installment of this series, this paper draws important insight on the failings of current policies with valuable data and solid empirical analysis. I think it will be instructive for researchers on how panel data---multiple observations of units---can provide opportunities to identify causal effects that a single dimensional data cannot. 
+
+
+# Research question
+
+The research question of Beilfuss’s paper is, “What is the effect of manipulating direct-to-physician marketing of patented opioid drugs---in terms of the frequency of interactions, the kinds of interactions, and the value of payments made at these meetings---on patented and generic opioid claims?”
+
+I believe this paper is the first one in the series where the treatment cannot not discretely defined because Beilfuss removes physicians with zero opioid-related marketing interactions from the data. How do you define treatment and control groups when the treatment variable is measured on a continuous scale? 
+
+Rather than imagining a randomized controlled treatment experiment, it might be more helpful to consider the hypothetical in a potential outcomes framework rather than as a simulated randomized controlled treatment experiment. If physician $i$ has had $n_i$ many interactions with a pharmaceutical sales representative, what would be the outcome of a counterfactual case where she had more or less interactions than $n_i$? The treatment effect is then the marginal effect of increasing interaction frequency or dollar value of payments by one unit.[^continous]
+
+[^continuous]: Section 1 of Douglas Galagate (2016) "Causal inference with continuous treatment and outcome: alternative estimators for parametric dose-response functions with applications" [https://drum.lib.umd.edu/bitstream/handle/1903/18170/Galagate_umd_0117E_16898.pdf?sequence=1] has a comprehensive summary on how the potential outcomes framework for binary treatment can be adapted to continuous treatment variables. 
+
+It's clear that there will be a *selection bias* in which physicians pharmaceutical companies target their marketing efforts towards. They want to target the physicians that are most likely to yield the maximum payback, such as those where local residents are mostly elderly. Simply regressing the number of opioid claims on the frequency or dollar value of interactions would be naive. This bias can be largely contained if we can identify the kinds of sociodemographic factors that pharmaceutical marketing teams would gather to formulate their marketing strategy. 
+
+The other threat is *omitted variable bias*. For example, some physicians may be loyal to specific brands, or there may be local shocks occurring that affect the pharmaceutical marketing activity and prescription patterns of physicians operating in the area. Similar to the selection bias, omitted variable bias can be overcome if we could observe its sources and include them in the model as covariates.
+
+Finally, something Beilfuss never mentions is whether past outcomes affect current treatment levels. If a physician proved to be a prolific prescriber in a previous year, this might affect the frequency and the dollar value of marketing interactions for the next year. This would violate the exogeneity assumption (aka unconfoundedness assumption) that $\epsilon_i \perp T_i | X_i, \theta_i$.[^pastoutcome] 
+
+[^pastoutcome]: See [Imai and Kim (2019) “When should we use fixed effects regression models for causal inference with longitudinal data?”](https://doi.org/10.1111/ajps.12417) for details. 
+
+# Research design
+
+Beilfuss presents two strategies for identifying the marginal treatment effect. The first strategy takes advantage of the panel data structure and includes the physician-specific, time-invariant fixed effect and zipcode-by-year fixed effects in the model. The idea is that any unobservable source of omitted variable bias and selection bias would be captured by these fixed effects. 
+
+The second strategy employs an instrumental variable used by [an NBER study](https://faculty.wharton.upenn.edu/wp-content/uploads/2018/02/coi_submit_july2018.pdf) on a similar topic. According to a primary source written by an industry insider, pharmaceutical companies set aside marketing budgets for a geographical region based on aggregate market characteristics such as the number of doctors operating within a given zipcode. Once the budgets are allocated, sales representatives are sent in to target the most attractive physicians in the area. The number of marketing interactions experienced by nearby physicians is therefore correlated with physician $i$'s number of prescriptions without directly affecting $i$'s prescription patterns. 
+
+The rest of the blog post will focus on the first strategy of using fixed effects to capture unobservable omitted variable bias. One of the downsides of using fixed effects is that because it removes most of the variation in the data, the treatment effect estimate might be reduced to zero if its effect is small in size relative to the total effect of other factors. Luckily, it turns out that including physician-specific find effects does not affect the statistical significance of the treatment effect, so this piece of my concern is not consequential.
+
+My other piece of concern is that neither strategy addresses the potential endogeneity between past outcomes and current treatment levels. Since Beilfuss also investigates the persistence of the effect of marketing interactions, some of her model specifications includes lagged treatment variables. However, spillover could also come from past outcomes—e.g. the marketing teams use the previous year’s results for this year’s marketing strategy. If that were true, it would violate the exogeneity assumption of causal inference.[^imai]
+
+[^imai]: See Imai and Kim (2019) for detailed explanation with DAG’s and their proposal to use nonparametric matching as an alternative to the instrumental variable approach. 
+
+
+# Sample Data
+
+The sample data of this study comes from two databases maintained by the US Centers for Medicare and Medical Services: Medicare Part D Provider Utilization and Payment Data that keeps track of prescription claims reimbursed under Medicare Part D, and Open Payments database that collects records of payments and gifts made by pharmaceutical companies to doctors and hospitals in the United States. Open Payments was established as part of the Affordable Care Act in an effort to unveil the financial relationship between the industry and the healthcare providers. 
+
+{{% aside %}}
+One of my favorite things about doing this blog post series is learning about publicly accessible databases. Open Payments is not only a great transparency initiative but also a gift to researchers. My one gripe is that despite being managed by the same government agency, the prescriber ID’s are not shared across the databases, so the prescribers in the two databases had to be matched by name and zip codes.
+{{% /aside %}}
+
+Beilfuss’s main sample contains 48,276 physicians who appeared in both databases and, besides meeting other requirements, had at least one opioid-related marketing interaction between 2014 and 2017. The main sample physicians had on average 3.19 interactions per year related to patented opioids, receiving \$236.24 opioid-related payments per doctor, compared to the average of 0.30 interactions with \$22.34 per doctor in the full sample (Table 1). 
+
+
+# Effect of Marketing Interactions on Opioid Claims
+
+The main model is a linear regression that predicts the number of patented/generic opioid claims for each physician $i$ in zip code $z$ in year $t$ by the following equation:
+
+\begin{align*}
+\text{Claims}_{i,z,t} = \beta(\text{Interactions})_{i,z,t} + \delta X_{i,z,t} + \lambda_{z,t} +  \theta_i + u_{i,z,t}.
+\end{align*}
+
+The standard errors are clustered at zip code level. $\theta_i$ and $\lambda_{z,t}$ are meant to capture the unobservable physician fixed effects and zip code-by-year fixed effects respectively. $X$ is a matrix of observable covariates that determine how attractive to pharmaceutical marketing a physician is based on the demography of the patient population and his work setting. 
+
+One of the things Beilfuss does well in her paper is to present the necessary information to interpret the economic significance of her coefficient estimates. For example, take a look at column 4 of Table 4 which estimates the previous equation for patented opioid prescription claims.
+
+![Table from Beilfuss (2019)](/posts/2020-08-06-beilfuss_files/SBeilfuss_tab4.png)
+
+ $\hat{\beta} = 0.710$ means that for every marketing interaction, the prescription claims increase by 0.710 or by $0.710/17.99 * 100 %= 4.0%$. Since physicians in the main sample have 3.19 interactions per year on average, marketing is responsible for between $ 3.19 * (0.710 - 0.0628) / 17.99 * 100% = 11.5%$ and $3.19 * (0.710 +0.0628)/17.99 = 13.7% increase in patented opioid claims than if there were no interactions. Here, I would have liked to see the coefficient estimates for another covariate as a reference of comparison to understand how serious these numbers are.
+
+
+That the statistical significance remains stable across model specifications, even when each new model adds more terms that could wash away the variation in the data, lends support to the claim that marketing interactions have strong observable effects. 
+
+# Spillover effects
+
+One of the key policy questions Beilfuss investigates is whether ADF marketing unintentionally contributes to more prescriptions of generic opioid drugs, which are known to lead to misuse despite being cheaper and more accessible than ADF’s. Why would physicians who are informed about the safer alternative still prescribe the riskier drugs?
+
+> One explanation for positive generic spillovers is that doctors who want to prescribe ADF drugs as a result of direct-to-physician ADF marketing must first prescribe generic opioids because of ‘fail-first’ insurance policies … On the other hand, physicians may not face stringent insurance constraints when they are prescribing non-ADF drugs. It is also possible that physicians who are initially induced to prescribe more ADF drugs, as they learn about their safer properties from the sales representatives, end up switching their patients to generic as a result of patients’ unwillingness to deal with ADF drugs’ high cost and difficulty with access. 
+
+
+The following equation estimates the sizes of direct and spillover effects of ADF interactions: 
+
+\begin{align*}
+\text{Claims}_{i,z,t} &= \alpha_1(\text{ADF})_{i,z,t} + \alpha_2(\text{ADF})_{i,z, t-1} + \alpha_3(\text{ADF})_{i,z,t-2} \\
+& + \alpha_4(\text{Non-ADF})_{i,z,t} + \cdots \\
+& + \alpha_7(\text{Both})_{i,z,t} + \cdots \\
+& + \gamma C_{i,z,t} + \lambda_{z,t} + \theta_i + \nu_{i,z,t}.
+\end{align*}
+
+Figures 6, 8, and 10 visualize $\hat{\alpha}_1, \hat{\alpha}_2, \hat{\alpha}_3$ for ADF patented, non-ADF patented, and generic opioid claims. On the one hand, figures 6 and 8 bare good news: promoting ADF has persistent effect of increasing ADF prescriptions while discouraging non-ADF prescriptions. Nonetheless, figure 10 shows that it doesn't prevent doctors from prescribing generic opioids. Moreover, the scale of the y-axis indicate that this adverse effect is much larger than the positive effect of ADF marketing has on public health. 
+
+![Figure 6 from Beilfuss (2019)](/posts/2020-08-06-beilfuss_files/SBeilfuss_fig6.png)
+
+![Figure 8 from Beilfuss (2019)](/posts/2020-08-06-beilfuss_files/SBeilfuss_fig8.png)
+
+![Figure 10 from Beilfuss (2019)](/posts/2020-08-06-beilfuss_files/SBeilfuss_fig10.png)
+
+
+# Conclusion
+
+Beilfuss’s study shows that national policies and initiatives encouraging physicians to prescribe ADF’s instead of generic opioids is a cheap but fallible attempt to curb the current opioid epidemic. On the one hand, I don’t want to be too harsh on policy makers, for I imagine that they face a pressure to do something even if the effort only reaches the low hanging fruits. On the other hand, it leaves the bigger players in the market---namely, the pharamceutical companies and insurance companies---untouched. If anything, this paper shows that physicians who are informed and should know better than to prescribe the riskier drugs still do so due to other market constraints. 
+
+Aside from that somber note, I’m comforted by the availability of databases like Open Payments. Since the most time-consuming and expensive part of empirical research is collecting data at a national scale, it’s great when you can pass the buck to a reliable third party for free. It’s also the kind of database where the information collected doesn’t have much utility other than for the purpose of public disclosure and transparency. In the next paper I will be reviewing, the author collects a different kind of data where the information collected could be used for illegitimate purposes. 
+

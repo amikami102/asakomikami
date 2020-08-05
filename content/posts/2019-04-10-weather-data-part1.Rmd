@@ -380,4 +380,4 @@ Below, using *rainfall2006-11-01.shp*, I have produced a map of the precipitatio
 
 <hr>
 
-That completes the first task of collecting the data. :smile: Next in [Part II](`r blogdown::shortcode('ref', '/posts/2019-04-18-weather-data-part2')`), we'll be performing interpolation on these shapefiles to get precipitation level for each county. 
+That completes the first task of collecting the data. :smile: Next in [Part II]({{< ref "/posts/2019-04-18-weather-data-part2" >}}), we'll be performing interpolation on these shapefiles to get precipitation level for each county. 

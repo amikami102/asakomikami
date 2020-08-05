@@ -47,7 +47,7 @@ Here is the directory tree for Part III:
       <pubDate>Thu, 18 Apr 2019 00:00:00 +0000</pubDate>
       
       <guid>/posts/weather-data-part2/</guid>
-      <description>1 Reproject shapefile 2 Perform Kriging interpolation 3 Reproject raster layer 4 Obtain average total rainfall for each county References   prcp_data we created in Part I is not useful in and of itself because it only shows precipitation values recorded by weather stations. Ultimately, I want to be able to say that county \(i\) for \(i = 1, \ldots, n\) on day \(t\) for \(t = 1, \ldots, T\) had \(x_{it}\) level of precipitation.</description>
+      <description>1 Reproject shapefile 2 Perform Kriging interpolation 3 Reproject raster layer 4 Obtain average total rainfall for each county   prcp_data we created in [Part I]({{&amp;lt; ref “/posts/2019-04-10-weather-data-part1” &amp;gt;}}) is not useful in and of itself because it only shows precipitation values recorded by weather stations. Ultimately, I want to be able to say that county \(i\) for \(i = 1, \ldots, n\) on day \(t\) for \(t = 1, \ldots, T\) had \(x_{it}\) level of precipitation.</description>
     </item>
     
     <item>

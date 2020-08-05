@@ -101,12 +101,11 @@
 <ul>
 <li><a href="#cleaning-the-data"><span class="toc-section-number">1</span> Cleaning the data</a></li>
 <li><a href="#visualizing-the-data"><span class="toc-section-number">2</span> Visualizing the data</a></li>
-<li><a href="#references">References</a></li>
 </ul>
 </div>
 
-<p>To recount, <a href="../../posts/weather-data-part2/">Part II</a> interpolated the precipitation data we obtained in Part I in order to get county-level precipitation values. Part III (this post) will clean the data further in preparation for the visualization stage and then create a gif animation of chloreoploth maps plotting precipitation level in inches over the seven days leading up to the 2006 midterm election.</p>
-<p><em>n.b.</em>: I am back to using R as I did in <a href="../../posts/weather-data-part1/">Part I</a>. I could not and still cannot install <code>geopandas</code>, a python package for GIS data analysis and visualization, on my MacOS. What I glossed from reading the discussions <a href="https://stackoverflow.com/questions/34427788/how-to-successfully-install-pyproj-and-geopandas">here</a>, <a href="https://github.com/geopandas/geopandas/issues/237">here</a>, and <a href="https://www.youtube.com/watch?v=UA8Zp7tdmjs">here</a> is that <code>geopandas</code> depends on older version of existing packages and switching to older versions causes complications.</p>
+<p>To recount, [Part II]({{&lt; ref “/posts/2019-04-18-weather-data-part2” &gt;}}) interpolated the precipitation data we obtained in Part I in order to get county-level precipitation values. Part III (this post) will clean the data further in preparation for the visualization stage and then create a gif animation of chloreoploth maps plotting precipitation level in inches over the seven days leading up to the 2006 midterm election.</p>
+<p><em>n.b.</em>: I am back to using R as I did in [Part I]({{&lt; ref “/posts/2019-04-10-weather-data-part1” &gt;}}). I could not and still cannot install <code>geopandas</code>, a python package for GIS data analysis and visualization, on my MacOS. What I glossed from reading the discussions <a href="https://stackoverflow.com/questions/34427788/how-to-successfully-install-pyproj-and-geopandas">here</a>, <a href="https://github.com/geopandas/geopandas/issues/237">here</a>, and <a href="https://www.youtube.com/watch?v=UA8Zp7tdmjs">here</a> is that <code>geopandas</code> depends on older version of existing packages and switching to older versions causes complications.</p>
 <div id="cleaning-the-data" class="section level1">
 <h1><span class="header-section-number">1</span> Cleaning the data</h1>
 <p>There are three things I need to do to clean the data:</p>
@@ -119,7 +118,7 @@
 <pre><code>GEO_ID (string, unique id for each county)
 rainfall (numeric, average precipitation level)
 fips_code (factor, 5-digit FIPS code)</code></pre>
-<p>During <a href="../../posts/weather-data-part2/">the interpolation process</a>, some of the counties received negative values because <code>arcpy.UniversalKriging()</code> did not allow us to set a lower bound at 0. This is one reason why I wonder if universal Kriging may be too complex for precipitation data.</p>
+<p>During [the interpolation process]({{&lt; ref “/posts/2019-04-18-weather-data-part2” &gt;}}), some of the counties received negative values because <code>arcpy.UniversalKriging()</code> did not allow us to set a lower bound at 0. This is one reason why I wonder if universal Kriging may be too complex for precipitation data.</p>
 <p>I will be recoding any negative values to zero. According to the <a href="https://www1.ncdc.noaa.gov/pub/data/ghcn/daily/readme.txt">README documentation for GHCN Daily Ver 3.24</a>, the precipitation level is recorded in tenths of mm. I will be converting the unit to inches by dividing the values by 254.</p>
 <p>First, load the libraries.</p>
 <pre class="r"><code>library(rio)
@@ -147,7 +146,7 @@ counties10 &lt;- readOGR(zipname, &quot;gz_2010_us_050_00_500k&quot;)@data %&gt;
 3 0500000US01039 Covington    01    039
 4 0500000US01041  Crenshaw    01    041
 5 0500000US01045      Dale    01    045</code></pre>
-<p>I will be using <em>county-rainfall&lt;date&gt;.dbf</em> files produced in [Part II]((/posts/weather-data-part2/). Recall that these dbf files contain the statistics of precipitation data for each county, but I am only going to use the mean statistic. Here are the first several rows of <em>county-rainfall2006-11-01.dbf</em>.</p>
+<p>I will be using <em>county-rainfall&lt;date&gt;.dbf</em> files produced in [Part II](({{&lt; ref “/posts/2019-04-18-weather-data-part2” &gt;}}). Recall that these dbf files contain the statistics of precipitation data for each county, but I am only going to use the mean statistic. Here are the first several rows of <em>county-rainfall2006-11-01.dbf</em>.</p>
 <pre><code>&gt; head(import(&#39;county-rainfall2006-11-01.dbf&#39;))
           GEO_ID ZONE_CODE COUNT      AREA
 1 0500000US01029         1  1447 1.447e+09
@@ -264,9 +263,6 @@ magick::image_read(&quot;fig/rainfall2006.gif&quot;)</code></pre>
 <p>Upon inspection, it turns out that I am missing one county in Vermont and one county in Washington for all seven days. It’s possible that in 2006, these missing counties used to be part of an adjacent county but then branched off to become their own counties in 2010. I am not too concerned about this missing data because they are both remote parts of the United States.</p>
 <hr>
 <p>This completes the series on collecting historical weather data. There are so many tutorials on GIS data analysis and visualization, but this series, “Collecting historical weather data,” begins from retrieving raw data from the NOAA server and performing interpolation on it, which I thought were rarely covered. I even had to rely heavily on <span class="citation">Cooperman (2017)</span>’s supplementary material to the second part. I hope that this series will help others doing similar work.</p>
-</div>
-<div id="references" class="section level1 unnumbered">
-<h1>References</h1>
 <div id="refs" class="references">
 <div id="ref-cooperman">
 <p>Cooperman, Alicia Dailey. 2017. “Randomization Inference with Rainfall Data: Using Historical Weather Patterns for Variance Estimation.” <em>Political Analysis</em> 25 (3). <a href="https://doi-org.ezproxy.bu.edu/10.1017/pan.2017.17">https://doi-org.ezproxy.bu.edu/10.1017/pan.2017.17</a>.</p>

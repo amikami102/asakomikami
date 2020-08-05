@@ -21,11 +21,11 @@ output:
 knitr::opts_chunk$set(echo = TRUE, eval = FALSE)
 ```
 
-To recount, [Part II](`r blogdown::shortcode('ref', '/posts/2019-04-18-weather-data-part2')`) interpolated the precipitation data we obtained in Part I in order to get county-level precipitation values. Part III (this post) will clean the data further in preparation for the visualization stage and then create a gif animation of chloreoploth maps plotting precipitation level in inches over the seven days leading up to the 2006 midterm election. 
+To recount, [Part II]({{< ref "/posts/2019-04-18-weather-data-part2" >}}) interpolated the precipitation data we obtained in Part I in order to get county-level precipitation values. Part III (this post) will clean the data further in preparation for the visualization stage and then create a gif animation of chloreoploth maps plotting precipitation level in inches over the seven days leading up to the 2006 midterm election. 
 
 
 
-*n.b.*: I am back to using R as I did in [Part I](`r blogdown::shortcode('ref', '/posts/2019-04-10-weather-data-part1')`). I could not and still cannot install `geopandas`, a python package for GIS data analysis and visualization, on my MacOS. What I glossed from reading the discussions [here](https://stackoverflow.com/questions/34427788/how-to-successfully-install-pyproj-and-geopandas), [here](https://github.com/geopandas/geopandas/issues/237), and [here](https://www.youtube.com/watch?v=UA8Zp7tdmjs) is that `geopandas` depends on older version of existing packages and switching to older versions causes complications. 
+*n.b.*: I am back to using R as I did in [Part I]({{< ref "/posts/2019-04-10-weather-data-part1" >}}). I could not and still cannot install `geopandas`, a python package for GIS data analysis and visualization, on my MacOS. What I glossed from reading the discussions [here](https://stackoverflow.com/questions/34427788/how-to-successfully-install-pyproj-and-geopandas), [here](https://github.com/geopandas/geopandas/issues/237), and [here](https://www.youtube.com/watch?v=UA8Zp7tdmjs) is that `geopandas` depends on older version of existing packages and switching to older versions causes complications. 
 
 
 
@@ -44,7 +44,7 @@ rainfall (numeric, average precipitation level)
 fips_code (factor, 5-digit FIPS code)
 ```
 
-During [the interpolation process](`r blogdown::shortcode('ref', '/posts/2019-04-18-weather-data-part2')`), some of the counties received negative values because `arcpy.UniversalKriging()` did not allow us to set a lower bound at 0. This is one reason why I wonder if universal Kriging may be too complex for precipitation data. 
+During [the interpolation process]({{< ref "/posts/2019-04-18-weather-data-part2" >}}), some of the counties received negative values because `arcpy.UniversalKriging()` did not allow us to set a lower bound at 0. This is one reason why I wonder if universal Kriging may be too complex for precipitation data. 
 
 I will be recoding any negative values to zero. According to the [README documentation for GHCN Daily Ver 3.24](https://www1.ncdc.noaa.gov/pub/data/ghcn/daily/readme.txt), the precipitation level is recorded in tenths of mm. I will be converting the unit to inches by dividing the values by 254.
 
@@ -87,7 +87,7 @@ Here, `GEO_ID` is the unique identifier for each county; `STATE` and `COUNTY` gi
 5 0500000US01045      Dale    01    045
 ```
 
-I will be using *county-rainfall\<date\>.dbf* files produced in [Part II]((`r blogdown::shortcode('ref', "/posts/2019-04-18-weather-data-part2")`). Recall that these dbf files contain the statistics of precipitation data for each county, but I am only going to use the mean statistic. Here are the first several rows of *county-rainfall2006-11-01.dbf*. 
+I will be using *county-rainfall\<date\>.dbf* files produced in [Part II](({{< ref "/posts/2019-04-18-weather-data-part2" >}}). Recall that these dbf files contain the statistics of precipitation data for each county, but I am only going to use the mean statistic. Here are the first several rows of *county-rainfall2006-11-01.dbf*. 
 
 ```
 > head(import('county-rainfall2006-11-01.dbf'))
@@ -238,4 +238,4 @@ Upon inspection, it turns out that I am missing one county in Vermont and one co
 
 This completes the series on collecting historical weather data. There are so many tutorials on GIS data analysis and visualization, but this series, "Collecting historical weather data," begins from retrieving raw data from the NOAA server and performing interpolation on it, which I thought were rarely covered. I even had to rely heavily on @cooperman's supplementary material to the second part. I hope that this series will help others doing similar work. 
 
-# References
+

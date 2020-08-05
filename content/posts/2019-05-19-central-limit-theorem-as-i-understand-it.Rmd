@@ -115,7 +115,7 @@ $$
 The mgf convergence theorem tells us to take the last expression to infinity, but notice what happens to the last expression as $n \rightarrow \infty$. Since $\dfrac{t}{\sqrt{n}} \rightarrow 0$, 
 $$ \lim_{n \to \infty} g\bigg(\dfrac{t}{\sqrt{n}}\bigg)  = g(0) = a$$ for some constant $a$. But $a^n \rightarrow \infty$ as $n \rightarrow \infty$. 
 
-Here, I will use Taylor series expansion on $g$. Recall that by [Taylor series expansion](`r blogdown::shortcode('ref', '/posts/2019-05-08-taylor-series')`), the Taylor series expansion of $g(s)$ at $s=0$ is
+Here, I will use Taylor series expansion on $g$. Recall that by [Taylor series expansion]({{< ref "/posts/2019-05-08-taylor-series" >}}), the Taylor series expansion of $g(s)$ at $s=0$ is
 $$
         \begin{align*}
         g(s) & = g^0(0) + g^\prime(0)(s) + \dfrac{g^{\prime\prime}(0)}{2!}(s^2) + \cdots \\
@@ -141,6 +141,9 @@ $$
 
 Thus, for all $t \in \mathbb{R}$, $M_{\bar{X}_n^{\rm{st}}} \xrightarrow{\mathcal{D}} M_Z(t).$ By mgf convergence, we conclude that $$ \bar{X}_n^{\rm{st}} \underset{n \to \infty}{\rightarrow} Z \sim N(0, 1). \, \heartsuit$$
 
+
+{{% /aside %}}
+
 ## The Adult CLT, v2.0
 
 Even at this point I felt fuzzy about the CLT. Specifically, I wasn't sure how to use the theorem ... until I saw it recast in a different form.
@@ -153,10 +156,10 @@ $$
         \sqrt{n}\big(\bar{X}_n^{\rm{st}} - \mu \big) \;  &\overset{\mathcal{D}}{\rightarrow} \; N(0, \sigma^2) \quad \text{b/c $\rm{Var}(\sigma Z) = \sigma^2 (1) = \sigma^2$}
         \end{align*}
 $$
-Therefore, the CLT can be recast as 
+Therefore, the CLT can be rewritten as 
         $$\sqrt{n}\big( \bar{X}_n^{\rm{st}} - E[X] \big) \; \overset{\mathcal{D}}{\rightarrow} \; N\big(0, \rm{Var}(X) \big),$$
 which says that when you average a sample of iid random variables, standardize it, take its difference from the population mean, and magnify the difference by $\sqrt{n}$, you get a normal distribution with mean 0 and variance equal to the population variance.
-{{% /aside %}}
+
 
 
 

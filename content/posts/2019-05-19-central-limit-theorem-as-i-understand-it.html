@@ -116,7 +116,7 @@ Therefore, by mgf uniqueness, <span class="math inline">\(\bar{X}_n^{\rm{st}} = 
 \]</span></p>
 <p>The mgf convergence theorem tells us to take the last expression to infinity, but notice what happens to the last expression as <span class="math inline">\(n \rightarrow \infty\)</span>. Since <span class="math inline">\(\dfrac{t}{\sqrt{n}} \rightarrow 0\)</span>,
 <span class="math display">\[ \lim_{n \to \infty} g\bigg(\dfrac{t}{\sqrt{n}}\bigg)  = g(0) = a\]</span> for some constant <span class="math inline">\(a\)</span>. But <span class="math inline">\(a^n \rightarrow \infty\)</span> as <span class="math inline">\(n \rightarrow \infty\)</span>.</p>
-<p>Here, I will use Taylor series expansion on <span class="math inline">\(g\)</span>. Recall that by <a href="{{% ref "/posts/2019-05-08-taylor-series" %}}">Taylor series expansion</a>, the Taylor series expansion of <span class="math inline">\(g(s)\)</span> at <span class="math inline">\(s=0\)</span> is
+<p>Here, I will use Taylor series expansion on <span class="math inline">\(g\)</span>. Recall that by [Taylor series expansion]({{&lt; ref “/posts/2019-05-08-taylor-series” &gt;}}), the Taylor series expansion of <span class="math inline">\(g(s)\)</span> at <span class="math inline">\(s=0\)</span> is
 <span class="math display">\[
         \begin{align*}
         g(s) &amp; = g^0(0) + g^\prime(0)(s) + \dfrac{g^{\prime\prime}(0)}{2!}(s^2) + \cdots \\
@@ -140,6 +140,7 @@ Note that this resembles a common limit: <span class="math inline">\(\underset{n
         \end{align*}
 \]</span></p>
 <p>Thus, for all <span class="math inline">\(t \in \mathbb{R}\)</span>, <span class="math inline">\(M_{\bar{X}_n^{\rm{st}}} \xrightarrow{\mathcal{D}} M_Z(t).\)</span> By mgf convergence, we conclude that <span class="math display">\[ \bar{X}_n^{\rm{st}} \underset{n \to \infty}{\rightarrow} Z \sim N(0, 1). \, \heartsuit\]</span></p>
+<p>{{% /aside %}}</p>
 </div>
 <div id="the-adult-clt-v2.0" class="section level2">
 <h2><span class="header-section-number">1.4</span> The Adult CLT, v2.0</h2>
@@ -152,10 +153,9 @@ Note that this resembles a common limit: <span class="math inline">\(\underset{n
         \sqrt{n}\big(\bar{X}_n^{\rm{st}} - \mu \big) \;  &amp;\overset{\mathcal{D}}{\rightarrow} \; N(0, \sigma^2) \quad \text{b/c $\rm{Var}(\sigma Z) = \sigma^2 (1) = \sigma^2$}
         \end{align*}
 \]</span>
-Therefore, the CLT can be recast as
+Therefore, the CLT can be rewritten as
 <span class="math display">\[\sqrt{n}\big( \bar{X}_n^{\rm{st}} - E[X] \big) \; \overset{\mathcal{D}}{\rightarrow} \; N\big(0, \rm{Var}(X) \big),\]</span>
-which says that when you average a sample of iid random variables, standardize it, take its difference from the population mean, and magnify the difference by <span class="math inline">\(\sqrt{n}\)</span>, you get a normal distribution with mean 0 and variance equal to the population variance.
-{{% /aside %}}</p>
+which says that when you average a sample of iid random variables, standardize it, take its difference from the population mean, and magnify the difference by <span class="math inline">\(\sqrt{n}\)</span>, you get a normal distribution with mean 0 and variance equal to the population variance.</p>
 <p>:thought_balloon: This is my favorite way of writing the CLT because a.) no ugly fractions, and b.) it becomes easier to transition to concepts like reparametrization delta method and asymptotic variance. Pedagogically, I was surprised that a theorem I had written down many times finally clicked with me when it was written differently.</p>
 </div>
 </div>

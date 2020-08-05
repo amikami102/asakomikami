@@ -17,7 +17,7 @@
       <pubDate>Sat, 04 May 2019 00:00:00 +0000</pubDate>
       
       <guid>/posts/weather-data-part3/</guid>
-      <description>1 Cleaning the data 2 Visualizing the data References   To recount, Part II interpolated the precipitation data we obtained in Part I in order to get county-level precipitation values. Part III (this post) will clean the data further in preparation for the visualization stage and then create a gif animation of chloreoploth maps plotting precipitation level in inches over the seven days leading up to the 2006 midterm election.</description>
+      <description>1 Cleaning the data 2 Visualizing the data   To recount, [Part II]({{&amp;lt; ref “/posts/2019-04-18-weather-data-part2” &amp;gt;}}) interpolated the precipitation data we obtained in Part I in order to get county-level precipitation values. Part III (this post) will clean the data further in preparation for the visualization stage and then create a gif animation of chloreoploth maps plotting precipitation level in inches over the seven days leading up to the 2006 midterm election.</description>
     </item>
     
     <item>

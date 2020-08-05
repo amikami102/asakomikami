@@ -23,11 +23,10 @@ output:
 <li><a href="#step2"><span class="toc-section-number">2</span> Perform Kriging interpolation</a></li>
 <li><a href="#step3"><span class="toc-section-number">3</span> Reproject raster layer</a></li>
 <li><a href="#obtain-average-total-rainfall-for-each-county"><span class="toc-section-number">4</span> Obtain average total rainfall for each county</a></li>
-<li><a href="#references">References</a></li>
 </ul>
 </div>
 
-<p><code>prcp_data</code> we created in <a href="{{% ref "/posts/2019-04-10-weather-data-part1" %}}">Part I</a> is not useful in and of itself because it only shows precipitation values recorded by weather stations. Ultimately, I want to be able to say that county <span class="math inline">\(i\)</span> for <span class="math inline">\(i = 1, \ldots, n\)</span> on day <span class="math inline">\(t\)</span> for <span class="math inline">\(t = 1, \ldots, T\)</span> had <span class="math inline">\(x_{it}\)</span> level of precipitation. This post will cover how to achieve this using <code>arcpy</code> python package from ArcGIS.</p>
+<p><code>prcp_data</code> we created in [Part I]({{&lt; ref “/posts/2019-04-10-weather-data-part1” &gt;}}) is not useful in and of itself because it only shows precipitation values recorded by weather stations. Ultimately, I want to be able to say that county <span class="math inline">\(i\)</span> for <span class="math inline">\(i = 1, \ldots, n\)</span> on day <span class="math inline">\(t\)</span> for <span class="math inline">\(t = 1, \ldots, T\)</span> had <span class="math inline">\(x_{it}\)</span> level of precipitation. This post will cover how to achieve this using <code>arcpy</code> python package from ArcGIS.</p>
 <p><a href="https://pro.arcgis.com/en/pro-app/arcpy/get-started/what-is-arcpy-.htm"><code>arcpy</code></a> only comes with ArcGIS Desktop, which is a paid software for processing and analyzing GIS data. Besides being a paid service, there are many problems with ArcGIS:</p>
 <ul>
 <li>ArcGIS Desktop runs on Windows but not on MacOS.</li>
@@ -191,11 +190,8 @@ for file in krig_reproj_files:
 # remove temporary files
 remove_temp(step3_dir)</code></pre>
 <hr>
-<p>This completes the interpolation of precipitation data. In <a href="{{% ref "/posts/2019-05-04-weather-data-part3" %}}">Part III</a>, I will be cleaning this data further before producing a visualization.</p>
+<p>This completes the interpolation of precipitation data. In [Part III]({{&lt; ref “/posts/2019-05-04-weather-data-part3” &gt;}}), I will be cleaning this data further before producing a visualization.</p>
 <p><em>n.b.</em>: I am not trained in GIS data analysis, so I had to Google and research on my own to figure out what I was doing. If there are suggestions on how to improve this tutorial (e.g. more precise explanation, alternative procedure), I would love to read them in the disqus forum below. :point_down:</p>
-</div>
-<div id="references" class="section level1 unnumbered">
-<h1>References</h1>
 <div id="refs" class="references">
 <div id="ref-cooperman">
 <p>Cooperman, Alicia Dailey. 2017. “Randomization Inference with Rainfall Data: Using Historical Weather Patterns for Variance Estimation.” <em>Political Analysis</em> 25 (3). <a href="https://doi-org.ezproxy.bu.edu/10.1017/pan.2017.17">https://doi-org.ezproxy.bu.edu/10.1017/pan.2017.17</a>.</p>
