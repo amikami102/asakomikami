@@ -1,5 +1,5 @@
 {
-    "path" : "~/blog/layouts/series",
+    "path" : "~/blog/static/css",
     "sortOrder" : [
         {
             "ascending" : true,
